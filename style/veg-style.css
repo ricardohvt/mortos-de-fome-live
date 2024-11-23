@@ -6,6 +6,139 @@
     font-weight: 400;
     font-style: normal;
   }
+
+  /* Form de cadastro e login */
+.main-modal {
+  font-family: "Lato", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.main-form {
+  z-index: 2;
+  font-family: "Lato", serif;
+  font-weight: 100;
+  font-style: normal;
+  display: none;
+  position: fixed;
+  top: 110px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: rgba(207, 207, 207, 0.391);
+  height: auto;
+  width: 90%;
+  max-width: 380px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.27);
+  backdrop-filter: blur(15px);
+  text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
+  padding: 20px;
+}
+
+.main-form h1 {
+  font-family: "Lato", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+#loginPopup {
+  display: none;
+}
+
+.opt-f {
+  height: 35px;
+}
+
+.input,
+.btn-r {
+  margin-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  width: 280px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: rgba(207, 207, 207, 0.472);
+}
+
+.input-i {
+  margin-bottom: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  width: 35px;
+  padding: 5px 9px 5px 10px;
+  font-size: 16px;
+  background-color: rgb(255, 0, 0);
+  box-shadow: 0 0 10px 6px rgba(255, 0, 0, 0.295);
+  color: #fff;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#password, #confpswd, #email, #username {
+  box-shadow: 0 0 10px 6px rgba(207, 207, 207, 0.541);
+}
+
+li .login {
+  cursor: pointer;
+  text-decoration: none;
+  right: 20px;
+  position: absolute;
+  padding-top: 8px;
+}
+
+.usr-img {
+  width: 25px;
+  border-radius: 15px;
+  background-color: #fff;
+}
+
+li.nav-item-1 {
+  height: 25px;
+  top: 50%;
+}
+/* Conversor */
+aside {
+  display: none;
+  z-index: 2;
+  font-family: "Lato", serif;
+  font-weight: 100;
+  font-style: normal;
+  position: fixed;
+  top: 110px;
+  left: 11%;
+  transform: translateX(-50%);
+  background-color: rgba(207, 207, 207, 0.391);
+  height: auto;
+  width: 90%;
+  max-width: 380px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.27);
+  backdrop-filter: blur(15px);
+  text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
+  padding: 20px;
+}
+
+.btn-1 {
+  margin-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  width: auto;
+  padding: 8px;
+  font-size: 16px;
+  background-color: rgba(207, 207, 207, 0.472);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-1:hover {
+  background-color: rgba(207, 207, 207, 0.6);
+}
+
   .navbar {
     background-color: #228B22;
   }
