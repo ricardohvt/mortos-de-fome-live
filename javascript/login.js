@@ -5,19 +5,12 @@ const modalContainer = document.getElementById('modalContainer');
 const recipesdetailsContent = document.getElementById('recipes-details-Content');
 // Função para abrir o popup
 function inpcadastro() {
-  window.location.href = "cadastro-index.html";
+    window.location.href = "cadastro-index.html";
 }
 
-// Função para fechar o popup
-function fecharCadastro() {
-    document.getElementById('popup').style.display = 'none';
+function fecharLogin() {
+    window.location.href = "index.html";
 }
-
-// Máscara para o campo de telefone
-document.getElementById('tel').addEventListener('input', function (e) {
-    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-    e.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? '-' + x[3] : ''}`;
-});
 
 // Função de hashing
 async function digestMessage(message) {
@@ -28,41 +21,24 @@ async function digestMessage(message) {
     return hashHex;
 }
 
-// Função de cadastro
-async function cadastro() {
-    const password = document.getElementById("password").value;
-    const confPassword = document.getElementById("confpswd").value;
-    const email = document.getElementById("email").value;
-    const username = document.getElementById("username").value;
-    const telefone = document.getElementById("tel").value;
-    var a = document.getElementById('h1d');
-    if (password === confPassword) {
-        const hash = await digestMessage(password); 
-        localStorage.setItem("senhaHash", hash);
-        localStorage.setItem("telefone", telefone);
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("nome", username);
-        a.innerHTML = ("<p>Seu cadastro foi concluído!</p>");
+function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const storedEmail = localStorage.getItem("userEmail");
+    const storedHash = localStorage.getItem("senhaHash");
+
+    if (email === storedEmail) {
+        digestMessage(password).then(hash => {
+            if (hash === storedHash) {
+                document.getElementById('loginMsg').innerHTML = "<p>Login bem-sucedido!</p>";
+            } else {
+                document.getElementById('loginMsg').innerHTML = "<p>Senha incorreta!</p>";
+            }
+        });
     } else {
-        a.innerHTML = ("<p>As senhas não são iguais!</p>");
+        document.getElementById('loginMsg').innerHTML = "<p>Email não encontrado!</p>";
     }
 }
-
-// Função para abrir o popup de login
-function inpLogin() {
-  window.location.href = "login-index.html";
-}
-
-// Função para fechar o popup de login
-function fecharLogin() {
-    document.getElementById('loginPopup').style.display = 'none';
-}
-
-// Função de login
-function login() {
-    window.location.href = "login-index.html";
-}
-// conversor
 
 function mostrarconversor() {
     document.getElementById('conversor').style.display = 'block';
@@ -145,5 +121,3 @@ function convertUnits() {
   
     document.getElementById('result').textContent = result.toFixed(2);
   }
-
-  
