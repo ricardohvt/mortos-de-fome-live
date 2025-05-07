@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mortos de Fome - Login</title>
+  <title>Mortos de Fome - Cadastro</title>
   <link rel="stylesheet" href="style/login-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -31,7 +31,7 @@
 <body>
   <nav class="navbar navbar-expand-lg ">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img src="assets/logo.png"></a>
+      <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -51,7 +51,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="upload-post-index.html">Postar</a></li>
+              <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
             </ul>
           </li>
           <li class="nav-item-1">
@@ -103,17 +103,43 @@
     </div>
   </aside>
   <section class="main-modal">
-    <!-- Modal de Login -->
-    <div class="main-form" id="loginPopup">
-      <input type="button" value="X" id="close-login-btn" class="input-i" onclick="fecharLogin()">
-      <h1>Login</h1><br>
-      <input type="email" name="loginEmail" id="loginEmail" placeholder="Email" class="input"><br>
-      <input type="password" name="loginPassword" id="loginPassword" placeholder="Sua senha" class="input"><br>
-      <input type="button" value="Login" nome="submit" id="loginSubmit" onclick="login()" class="btn"><br>
-      <div id="loginMsg"></div>
-      <input type="button" value="Cadastrar-se" class="btn-r" onclick="inpcadastro()">
-    </div>
-
+    <form action="../controller/CadastroController.php" method="POST" class="main-form">
+      <div class="text">
+          <h1>Cadastro</h1>
+      </div>
+      <hr>
+      <label for="">
+          <p>Seu E-mail para cadastro:</p>
+          <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
+      </label>
+      <label for="">
+          <p>Seu nome de Usuário:</p>
+          <input required type="text" name="username" id="input-user" class="input-email input" placeholder="Nome de usuário"><br>
+      </label>
+      <label for="">
+          <p>Seu nome completo:</p>
+          <input required type="text" name="fullname" id="input-name" class="input-email input" placeholder="Nome completo"><br>
+      </label>
+      <label for="password">
+          <p>Sua senha:</p>
+          <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
+      </label>
+      <label for="password-conf">
+          <p>Confirmar sua senha:</p>
+          <input required type="password" name="confirm_password" id="input-password-confirm" class="input-password input" placeholder="Confirmar senha"><br>
+      </label>
+      <hr>
+      <?php
+      // session_start();
+          if (!empty($_SESSION['errcode_reg'])) {
+              echo $_SESSION['errcode_reg'];
+              unset($_SESSION['errcode_reg']);
+          }
+      ?>
+      <div class="button-main">
+        <button class="button-submit btn-r">Cadastrar</button>
+      </div>
+      </form>
   </section>
   <footer class="footer" data-aos="fade-up">
     <div class="footer-container">
@@ -139,7 +165,6 @@
           <hr class="footer-divider">
         </div>
   </footer>
-  <script src="javascript/login.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();

@@ -7,12 +7,19 @@
   font-style: normal;
 }
 
+body {
+  background-image: url('../assets/background.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 hr {
   visibility: hidden;
 }
 
 .navbar {
-  background-color: #3f3e3d;
+  background-color: #226bca;
   border-bottom: 1px solid black;
   padding: 0.5rem 1rem;
 }
@@ -20,7 +27,6 @@ hr {
 .nav-itens {
   list-style: none;
   display: flex;
-  
 }
 
 .nav-itens>li {
@@ -30,10 +36,6 @@ hr {
 .navbar-brand img {
   width: 120px;
   height: auto;
-}
-#navpal {
-  color: white;
-  text-decoration: none !important;
 }
 
 .search {
@@ -74,11 +76,6 @@ hr {
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  text-shadow: 
-    1px 1px 0 #000,   
-    -1px -1px 0 #000, 
-    1px -1px 0 #000,  
-    -1px 1px 0 #000;
 }
 
 .abertura-2 {
@@ -89,11 +86,6 @@ hr {
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  text-shadow: 
-  1px 1px 0 #000,   
-  -1px -1px 0 #000, 
-  1px -1px 0 #000,  
-  -1px 1px 0 #000;
 }
 
 /* Form de cadastro e login */
@@ -101,21 +93,22 @@ hr {
   font-family: "Lato", serif;
   font-weight: 100;
   font-style: normal;
-  padding: 100px;
-  width: 100dvw;
-  margin-bottom: 200px;
-  display: flex;
-  justify-content: center;
 }
 
 .main-form {
+  z-index: 2;
   font-family: "Lato", serif;
   font-weight: 100;
   font-style: normal;
-  display: block;
+  display: none;
+  position: fixed;
+  top: 110px;
+  right: 50%;
+  transform: translateX(50%);
   background-color: rgba(207, 207, 207, 0.391);
   height: auto;
-  width: 400px;
+  width: 90%;
+  max-width: 380px;
   justify-content: center;
   text-align: center;
   border-radius: 20px;
@@ -129,6 +122,10 @@ hr {
   font-family: "Lato", serif;
   font-weight: 500;
   font-style: normal;
+}
+
+#loginPopup {
+  display: none;
 }
 
 .opt-f {
@@ -338,7 +335,7 @@ aside {
   justify-content: center;
   position: relative;
   margin: 0;
-  color: orangered;
+  color: #226bca;
   right: 31rem;
 }
 
@@ -407,8 +404,8 @@ aside {
 /* Footer */
 .footer {
   padding: 2rem 1rem;
-  background-color: #3f3e3d;
-  color: #fff;
+  background-color: #ffffff;
+  color: #666873;
   margin-top: 2rem;
   border-top: 1px solid black;
 }
@@ -455,6 +452,7 @@ aside {
 }
 
 .footer-divider {
+  margin: 2rem 0;
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

@@ -7,19 +7,42 @@
   font-style: normal;
 }
 
+
+
+body {
+  background-image: url('../assets/background.webp');
+  background-position: top left; /* Posiciona a imagem no canto superior esquerdo */
+  background-repeat: repeat; /* Faz com que a imagem se repita horizontal e verticalmente */
+  background-size: auto; /* Usa o tamanho original da imagem, sem redimensionar */
+}
+
+.container-fluid {
+  padding: 10px 10px 10px 10px;
+}
+
+
 hr {
   visibility: hidden;
 }
 
 .navbar {
-  background-color: #226bca;
-  border-bottom: 1px solid black;
+  top: 0;
+  border-radius: 15px;
+  margin: 30px 30px 0px 20px;
+  background-color: #3f3e3db0;
   padding: 0.5rem 1rem;
+  position: sticky;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0,0,0,0.42) 80%;
+  z-index: 1000;
 }
+
 
 .nav-itens {
   list-style: none;
   display: flex;
+  
 }
 
 .nav-itens>li {
@@ -29,6 +52,10 @@ hr {
 .navbar-brand img {
   width: 120px;
   height: auto;
+}
+#navpal {
+  color: white;
+  text-decoration: none !important;
 }
 
 .search {
@@ -69,6 +96,11 @@ hr {
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  text-shadow: 
+    1px 1px 0 #000,   
+    -1px -1px 0 #000, 
+    1px -1px 0 #000,  
+    -1px 1px 0 #000;
 }
 
 .abertura-2 {
@@ -79,46 +111,49 @@ hr {
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  text-shadow: 
+  1px 1px 0 #000,   
+  -1px -1px 0 #000, 
+  1px -1px 0 #000,  
+  -1px 1px 0 #000;
 }
 
 /* Form de cadastro e login */
 .main-modal {
-  font-family: "Lato", serif;
+  min-height: 75dvh;
+  flex: 1;
+  font-family: "Itim", cursive;
   font-weight: 100;
   font-style: normal;
+  padding: 100px;
+  width: 100dvw;
+  display: flex;
+  justify-content: center;
 }
 
 .main-form {
-  z-index: 2;
-  font-family: "Lato", serif;
+  height: 400px;
+  font-family: "Itim", cursive;
   font-weight: 100;
   font-style: normal;
-  display: none;
-  position: fixed;
-  top: 110px;
-  right: 50%;
-  transform: translateX(50%);
-  background-color: rgba(207, 207, 207, 0.391);
-  height: auto;
-  width: 90%;
-  max-width: 380px;
+  display: block;
+  background-color: #f0f0f0;
+  width: 400px;
   justify-content: center;
   text-align: center;
   border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.27);
-  backdrop-filter: blur(15px);
+  border: 3px solid #3f3e3d;
   text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
   padding: 20px;
+  box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
+  -moz-box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
 }
 
 .main-form h1 {
-  font-family: "Lato", serif;
+  font-family: "Itim", cursive;
   font-weight: 500;
   font-style: normal;
-}
-
-#loginPopup {
-  display: none;
 }
 
 .opt-f {
@@ -278,7 +313,7 @@ li.nav-item-1 {
 aside {
   display: none;
   z-index: 2;
-  font-family: "Lato", serif;
+  font-family: "Itim", cursive;
   font-weight: 100;
   font-style: normal;
   position: fixed;
@@ -328,7 +363,7 @@ aside {
   justify-content: center;
   position: relative;
   margin: 0;
-  color: #226bca;
+  color: orangered;
   right: 31rem;
 }
 
@@ -382,7 +417,7 @@ aside {
 }
 
 .cartao-text {
-  color: #666;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
@@ -396,11 +431,15 @@ aside {
 
 /* Footer */
 .footer {
-  padding: 2rem 1rem;
-  background-color: #ffffff;
-  color: #666873;
-  margin-top: 2rem;
-  border-top: 1px solid black;
+  padding: 2rem 1rem 30px 30px;
+  border-radius: 15px;
+  margin: 30px 30px 30px 20px;
+  background-color: #3f3e3db0;
+  backdrop-filter: blur(16px) saturate(180%);
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0,0,0,0.42) 80%;
+  z-index: 1000;
 }
 
 .footer-container {
@@ -410,16 +449,18 @@ aside {
 }
 
 .footer-top {
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  padding: 20px;
   flex-wrap: wrap;
 }
 
 .footer-title {
   font-size: 1.8rem;
-  color: #666873;
+  color: #ffffff;
   font-weight: 500;
   margin-bottom: 1rem;
   margin: auto;
@@ -434,6 +475,15 @@ aside {
   list-style: none;
 }
 
+.tag-a-main {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
+.tag-a-main:hover {
+  text-decoration-color: #d8d8d8;
+}
+
 .footer-list-link {
   text-decoration: none;
   color: inherit;
@@ -441,11 +491,10 @@ aside {
 }
 
 .footer-list-link:hover {
-  color: #333;
+  color: #ffffff;
 }
 
 .footer-divider {
-  margin: 2rem 0;
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

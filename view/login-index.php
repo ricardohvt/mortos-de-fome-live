@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mortos de Fome - Cadastro</title>
+  <title>Mortos de Fome - Login</title>
   <link rel="stylesheet" href="style/login-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -103,19 +103,38 @@
     </div>
   </aside>
   <section class="main-modal">
-    <!-- Modal de Cadastro -->
-    <div class="main-form" id="popup">
-      <input type="button" value="X" id="close-btn" class="input-i" onclick="fecharCadastro()">
-      <h1>Cadastro</h1><br>
-      <input type="text" value="" placeholder="Nome de Usuário" id="username" class="input"><br>
-      <input type="email" name="email" id="email" placeholder="Email" class="input"><br>
-      <input type="tel" id="tel" name="telefone" placeholder="(XX) XXXXX-XXXX" maxlength="15" required class="input">
-      <input type="password" name="password" id="password" placeholder="Senha" class="input"><br>
-      <input type="password" name="confpswd" id="confpswd" placeholder="Confirmar senha" class="input"><br>
-      <input type="button" value="Cadastrar" nome="submit" id="submit" onclick="cadastro()" class="btn-r"><br>
-      <input type="button" value="Login" nome="submit" id="submit" onclick="inpLogin()" class="btn-r"><br>
-      <div id="h1d"></div>
-    </div>
+      <form action="../controller/AuthController.php" method="POST" class="main-form">
+          <div class="text">
+          <h1>Login</h1>
+          </div>
+          <hr>
+          <label for="">
+          <p>Seu E-mail:</p>
+          <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
+          </label>
+          <label for="password">
+          <p>Sua senha:</p>
+          <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
+          </label>
+          <hr>
+          <div class="login-check">
+          <?php
+              // session_start();
+
+              if (!empty($_SESSION['login_error'])) {
+                  echo "<div style='color: red;'>" . $_SESSION['login_error'] . "</div>";
+                  unset($_SESSION['login_error']);
+              }
+              if (!empty($_SESSION['errcode_reg'])) {
+                  echo $_SESSION['errcode_reg'];
+                  unset($_SESSION['errcode_reg']);
+              }
+          ?>
+          </div>
+          <div class="button-main">
+            <button class="button-submit btn-r">Login</button>
+          </div>
+        </form>
   </section>
   <footer class="footer" data-aos="fade-up">
     <div class="footer-container">
@@ -133,7 +152,7 @@
               <a href="#" class="footer-list-link">Afiliados</a>
             </li>
             <li>
-              <a href=""><span class="copyright">2024 Mortos de fome. Todos os direitos reservados.</span></a>
+              <a href="" class="tag-a-main">2024 Mortos de fome. Todos os direitos reservados</a>
             </li>
           </ul>
         </div>
@@ -141,7 +160,7 @@
           <hr class="footer-divider">
         </div>
   </footer>
-  <script src="javascript/cadastro.js"></script>
+  <script src="javascript/login.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
