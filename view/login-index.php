@@ -103,38 +103,38 @@
     </div>
   </aside>
   <section class="main-modal">
-      <form action="../controller/AuthController.php" method="POST" class="main-form">
-          <div class="text">
-          <h1>Login</h1>
-          </div>
-          <hr>
-          <label for="">
-          <p>Seu E-mail:</p>
-          <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
-          </label>
-          <label for="password">
-          <p>Sua senha:</p>
-          <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
-          </label>
-          <hr>
-          <div class="login-check">
-          <?php
-              // session_start();
+    <form action="../controller/AuthController.php" method="POST" class="main-form">
+      <div class="text">
+        <h1>Login</h1>
+      </div>
+      <hr>
+      <label for="">
+        <p>Seu E-mail:</p>
+        <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
+      </label>
+      <label for="password">
+        <p>Sua senha:</p>
+        <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
+      </label>
+      <hr>
+      <div class="login-check">
+        <?php
+        // session_start();
 
-              if (!empty($_SESSION['login_error'])) {
-                  echo "<div style='color: red;'>" . $_SESSION['login_error'] . "</div>";
-                  unset($_SESSION['login_error']);
-              }
-              if (!empty($_SESSION['errcode_reg'])) {
-                  echo $_SESSION['errcode_reg'];
-                  unset($_SESSION['errcode_reg']);
-              }
-          ?>
-          </div>
-          <div class="button-main">
-            <button class="button-submit btn-r">Login</button>
-          </div>
-        </form>
+        if (!empty($_SESSION['login_error'])) {
+          echo "<div style='color: red;'>" . $_SESSION['login_error'] . "</div>";
+          unset($_SESSION['login_error']);
+        }
+        if (!empty($_SESSION['errcode_reg'])) {
+          echo $_SESSION['errcode_reg'];
+          unset($_SESSION['errcode_reg']);
+        }
+        ?>
+      </div>
+      <div class="button-main">
+        <button class="button-submit btn-r">Login</button>
+      </div>
+    </form>
   </section>
   <footer class="footer" data-aos="fade-up">
     <div class="footer-container">

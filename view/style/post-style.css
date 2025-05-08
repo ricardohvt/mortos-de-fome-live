@@ -9,9 +9,9 @@
 
 body {
   background-image: url('../assets/background.webp');
-  background-size: cover; /* Ajusta a imagem para cobrir toda a tela */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Impede que a imagem se repita */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .navbar {

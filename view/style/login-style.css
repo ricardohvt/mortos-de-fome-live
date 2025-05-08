@@ -1,4 +1,4 @@
-
+@import url(conversor.css);
 @import url(navbar.css);
 @import url(footer.css);
 
@@ -23,18 +23,11 @@ body {
   background-position: top left; /* Posiciona a imagem no canto superior esquerdo */
   background-repeat: repeat; /* Faz com que a imagem se repita horizontal e verticalmente */
   background-size: auto; /* Usa o tamanho original da imagem, sem redimensionar */
-}
-
-.container-fluid {
+}.container-fluid {
   padding: 10px 10px 10px 10px;
-}
-
-
-hr {
+}hr {
   visibility: hidden;
-}
-
-/* Form de cadastro e login */
+}/* Form de cadastro e login */
 .main-modal {
   min-height: 400px;
   max-height: 1000px;
@@ -45,9 +38,7 @@ hr {
   padding: 100px;
   display: flex;
   justify-content: center;
-}
-
-.main-form {
+}.main-form {
   min-height: 400px;
   max-height: 800px;
   font-family: "Itim", cursive;
@@ -65,20 +56,13 @@ hr {
   box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
   -webkit-box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
   -moz-box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
-}
-
-.main-form h1 {
+}.main-form h1 {
   font-family: "Itim", cursive;
   font-weight: 500;
   font-style: normal;
-}
-
-.opt-f {
+}.opt-f {
   height: 35px;
-}
-
-.input,
-.btn-r {
+}.input, .btn-r {
   margin-bottom: 8px;
   border: 1px solid rgba(0, 0, 0, 0.27);
   border-radius: 7px;
@@ -86,9 +70,7 @@ hr {
   padding: 8px;
   font-size: 16px;
   background-color: rgba(207, 207, 207, 0.472);
-}
-
-.input-i {
+}.input-i {
   margin-bottom: 8px;
   border: 2px solid rgba(0, 0, 0, 0.27);
   border-radius: 7px;
@@ -101,61 +83,15 @@ hr {
   position: absolute;
   right: 10px;
   top: 10px;
-}
-
-#password, #confpswd, #email, #username {
+}#password, #confpswd, #email, #username {
   box-shadow: 0 0 10px 6px rgba(207, 207, 207, 0.541);
-}
-
-li .login {
+}li .login {
   cursor: pointer;
   text-decoration: none;
   right: 20px;
   position: absolute;
   padding-top: 8px;
 }
-
-
-/* Conversor */
-aside {
-  display: none;
-  z-index: 2;
-  font-family: "Itim", cursive;
-  font-weight: 100;
-  font-style: normal;
-  position: fixed;
-  top: 150px;
-  left: 11%;
-  transform: translateX(-50%);
-  background-color: rgba(207, 207, 207, 0.391);
-  height: auto;
-  width: 90%;
-  max-width: 380px;
-  justify-content: center;
-  text-align: center;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.27);
-  backdrop-filter: blur(15px);
-  text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
-  padding: 20px;
-}
-
-.btn-1 {
-  margin-bottom: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.27);
-  border-radius: 7px;
-  width: auto;
-  padding: 8px;
-  font-size: 16px;
-  background-color: rgba(207, 207, 207, 0.472);
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-1:hover {
-  background-color: rgba(207, 207, 207, 0.6);
-}
-
 /* Media Queries */
 @media (max-width: 768px) {
   .navbar-brand img {
