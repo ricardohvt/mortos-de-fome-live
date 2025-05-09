@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+@import url(imports/conversor.css);
+@import url(imports/navbar.css);
+@import url(imports/rules.css);
+@import url(imports/font-pack.css);
+@import url(imports/footer.css);
 
 body {
     display: flex;
@@ -8,23 +12,11 @@ body {
     width: 100vw;
     margin: 0;
     padding: 0;
-    background-image: url('../assets/background.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .text {
     text-align: center;
 }
-
-/* html {
-    font-size: 20px;
-    font-family: "Cormorant", serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: bold;
-} */
 
 .links {
     margin: 0;

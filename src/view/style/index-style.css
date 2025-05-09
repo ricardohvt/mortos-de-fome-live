@@ -1,21 +1,19 @@
-@import url(footer.css);
-@import url(navbar.css);
-@import url(conversor.css);
-
+@import url(imports/conversor.css);
+@import url(imports/navbar.css);
+@import url(imports/rules.css);
+@import url(imports/font-pack.css);
+@import url(imports/footer.css);
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Itim", cursive;
-  font-weight: 400;
-  font-style: normal;
 }
 
 body {
-  /* background-image: url('../assets/background.webp');
+  background-image: url('../assets/background.webp');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }
 
 hr {
@@ -86,45 +84,6 @@ hr {
 }
 
 /* Form de cadastro e login */
-.main-modal {
-  font-family: "Lato", serif;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.main-form {
-  z-index: 2;
-  font-family: "Lato", serif;
-  font-weight: 100;
-  font-style: normal;
-  display: none;
-  position: fixed;
-  top: 110px;
-  right: 50%;
-  transform: translateX(50%);
-  background-color: rgba(207, 207, 207, 0.391);
-  height: auto;
-  width: 90%;
-  max-width: 380px;
-  justify-content: center;
-  text-align: center;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.27);
-  backdrop-filter: blur(15px);
-  text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
-  padding: 20px;
-}
-
-.main-form h1 {
-  font-family: "Lato", serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-#loginPopup {
-  display: none;
-}
-
 .opt-f {
   height: 35px;
 }
@@ -154,35 +113,6 @@ hr {
   right: 10px;
   top: 10px;
 }
-
-#password,
-#confpswd,
-#email,
-#username {
-  box-shadow: 0 0 10px 6px rgba(207, 207, 207, 0.541);
-}
-
-li .login {
-  cursor: pointer;
-  text-decoration: none;
-  right: 20px;
-  position: absolute;
-  padding-top: 8px;
-}
-
-.usr-img {
-  width: 25px;
-  border-radius: 15px;
-  background-color: #fff;
-}
-
-li.nav-item-1 {
-  height: 25px;
-  top: 50%;
-}
-
-/* categorias */
-
 /* Cards */
 .categorias-main {
   display: flex;
@@ -295,16 +225,10 @@ li.nav-item-1 {
     flex-direction: column;
     text-align: center;
   }
-
-  aside {
-    left: 50%;
-  }
-
   #navbarSupportedContent {
     visibility: visible;
     display: flexbox;
   }
-
   .input,
   .btn-r {
     width: 100%;
@@ -319,10 +243,6 @@ li.nav-item-1 {
 
   .caro1 img {
     height: 200px;
-  }
-
-  aside {
-    left: 50%;
   }
 
   .cards {

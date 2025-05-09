@@ -1,0 +1,109 @@
+@import url(imports/conversor.css);
+@import url(imports/navbar.css);
+@import url(imports/rules.css);
+@import url(imports/font-pack.css);
+@import url(imports/footer.css);
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.logo-name-1 {
+  color: red;
+}
+.logo-name-2 {
+  color: gold;
+}
+
+.container-fluid {
+  padding: 10px 10px 10px 10px;
+}
+.opt-f {
+  height: 35px;
+}.input, .btn-r {
+  margin-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  width: 280px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: rgba(207, 207, 207, 0.472);
+}.input-i {
+  margin-bottom: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  width: 35px;
+  padding: 5px 9px 5px 10px;
+  font-size: 16px;
+  background-color: rgb(255, 0, 0);
+  box-shadow: 0 0 10px 6px rgba(255, 0, 0, 0.295);
+  color: #fff;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+/* Media Queries */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    width: 100px;
+  }
+
+  .caro1 {
+    height: 300px;
+  }
+
+  .caro1 img {
+    height: 300px;
+  }
+
+  .search {
+    margin: 0 1rem;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  aside {
+    left: 50%;
+  }
+
+  #navbarSupportedContent {
+    visibility: visible;
+    display: flexbox;
+  }
+
+  .input,
+  .btn-r {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .caro1 {
+    height: 200px;
+  }
+
+  .caro1 img {
+    height: 200px;
+  }
+
+  aside {
+    left: 50%;
+  }
+
+  .cards {
+    padding: 1rem;
+  }
+
+  .cartao {
+    margin-bottom: 1rem;
+  }
+
+  .footer-list {
+    gap: 1rem;
+  }
+}

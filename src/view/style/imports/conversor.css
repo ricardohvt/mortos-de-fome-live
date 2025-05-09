@@ -1,9 +1,6 @@
 aside {
     display: none;
     z-index: 2;
-    font-family: "Itim", cursive;
-    font-weight: 100;
-    font-style: normal;
     position: fixed;
     top: 150px;
     left: 0%;
@@ -40,8 +37,8 @@ aside {
 
 @media (max-width: 768px) {  
     aside {
-        margin: 0px;
-        left: 50%;
+        margin: 0px 0px 0px 0px;
+        
     }
 }
 

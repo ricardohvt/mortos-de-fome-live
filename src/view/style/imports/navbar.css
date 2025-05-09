@@ -141,3 +141,24 @@ li.nav-item-1 {
     -webkit-box-shadow: 7px 6px 27px -6px rgba(0, 0, 0, 0.64);
     -moz-box-shadow: 7px 6px 27px -6px rgba(0, 0, 0, 0.64);
 }
+
+
+li .login {
+    cursor: pointer;
+    text-decoration: none;
+    right: 20px;
+    top: 1.2rem;
+    position: absolute;
+  }
+  
+  .usr-img {
+    width: 25px;
+    border-radius: 15px;
+    background-color: #fff;
+  }
+  
+  li.nav-item-1 {
+    height: 25px;
+    top: 50%;
+  }
+  

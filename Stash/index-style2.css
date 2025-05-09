@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+@import url(footer.css);
+@import url(navbar.css);
+@import url(conversor.css);
+@import url(imports/rules.css);
+@import url(font-pack.css);
 
 body {
     display: flex;
