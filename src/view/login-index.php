@@ -117,6 +117,9 @@
         <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
       </label>
       <hr>
+      <div class="form-link">
+        <a href="cadastro-index.php">Cadastrar-se</a>
+      </div>
       <div class="login-check">
         <?php
         // session_start();
@@ -160,7 +163,7 @@
           <hr class="footer-divider">
         </div>
   </footer>
-  <script src="javascript/login.js"></script>
+  <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();

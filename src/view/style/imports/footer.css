@@ -1,14 +1,10 @@
 footer {
     padding: 2rem 1rem 30px 30px;
-    border-radius: 15px;
-    margin: 30px 30px 30px 20px;
-    background-color: rgb(255, 255, 255);
-    backdrop-filter: blur(8px) saturate(180%);
-    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.658);
+    backdrop-filter: blur(16px) saturate(180%);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0,0,0,0.42) 80%;
     z-index: 1000;
-    border: 3px solid #3f3e3d;
+    margin: 0;
   }
   
   .footer-container {
@@ -67,9 +63,10 @@ footer {
   span > a {
     text-decoration-color: #353535;
   }
-  a {
-      text-decoration-color: #353535;
-  }
+html > a {
+    text-decoration-color: black;
+    color: black;
+}
   span:hover {
     color: #353535;
     text-decoration-color: #353535;

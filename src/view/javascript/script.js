@@ -3,65 +3,6 @@ const searchButton = document.getElementById('searchButton');
 const recipeslist = document.getElementById('recipeslist');
 const modalContainer = document.getElementById('modalContainer');
 const recipesdetailsContent = document.getElementById('recipes-details-Content');
-// Função para abrir o popup
-function inpcadastro() {
-  window.location.href = "cadastro-index.html";
-}
-
-// Função para fechar o popup
-function fecharCadastro() {
-    document.getElementById('popup').style.display = 'none';
-}
-
-// Máscara para o campo de telefone
-document.getElementById('tel').addEventListener('input', function (e) {
-    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-    e.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? '-' + x[3] : ''}`;
-});
-
-// Função de hashing
-async function digestMessage(message) {
-    const msgUint8 = new TextEncoder().encode(message); 
-    const hashBuffer = await window.crypto.subtle.digest("SHA-512", msgUint8); 
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-    return hashHex;
-}
-
-// Função de cadastro
-async function cadastro() {
-    const password = document.getElementById("password").value;
-    const confPassword = document.getElementById("confpswd").value;
-    const email = document.getElementById("email").value;
-    const username = document.getElementById("username").value;
-    const telefone = document.getElementById("tel").value;
-    var a = document.getElementById('h1d');
-    if (password === confPassword) {
-        const hash = await digestMessage(password); 
-        localStorage.setItem("senhaHash", hash);
-        localStorage.setItem("telefone", telefone);
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("nome", username);
-        a.innerHTML = ("<p>Seu cadastro foi concluído!</p>");
-    } else {
-        a.innerHTML = ("<p>As senhas não são iguais!</p>");
-    }
-}
-
-// Função para abrir o popup de login
-function inpLogin() {
-  window.location.href = "login-index.html";
-}
-
-// Função para fechar o popup de login
-function fecharLogin() {
-    document.getElementById('loginPopup').style.display = 'none';
-}
-
-// Função de login
-function login() {
-    window.location.href = "login-index.html";
-}
 // conversor
 
 function mostrarconversor() {

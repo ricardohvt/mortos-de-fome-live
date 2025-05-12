@@ -108,36 +108,41 @@
           <h1>Cadastro</h1>
       </div>
       <hr>
-      <label for="">
-          <p>Seu E-mail para cadastro:</p>
-          <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
-      </label>
-      <label for="">
-          <p>Seu nome de Usuário:</p>
-          <input required type="text" name="username" id="input-user" class="input-email input" placeholder="Nome de usuário"><br>
-      </label>
-      <label for="">
-          <p>Seu nome completo:</p>
-          <input required type="text" name="fullname" id="input-name" class="input-email input" placeholder="Nome completo"><br>
-      </label>    
-      <label for="password">
-          <p>Sua senha:</p>
-          <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
-      </label>
-      <label for="password-conf">
-          <p>Confirmar sua senha:</p>
-          <input required type="password" name="confirm_password" id="input-password-confirm" class="input-password input" placeholder="Confirmar senha"><br>
-      </label>
-      <hr>
-      <?php
-      // session_start();
-          if (!empty($_SESSION['errcode_reg'])) {
-              echo $_SESSION['errcode_reg'];
-              unset($_SESSION['errcode_reg']);
-          }
-      ?>
-      <div class="button-main">
-        <button class="button-submit btn-r">Cadastrar</button>
+      <div class="content">
+
+        <label for="">
+            <p>Seu E-mail para cadastro:</p>
+            <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
+        </label>
+        <label for="">
+            <p>Seu nome de Usuário:</p>
+            <input required type="text" name="username" id="input-user" class="input-email input" placeholder="Nome de usuário"><br>
+        </label>
+        <label for="">
+            <p>Seu nome completo:</p>
+            <input required type="text" name="fullname" id="input-name" class="input-email input" placeholder="Nome completo"><br>
+        </label>    
+        <label for="password">
+            <p>Sua senha:</p>
+            <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
+        </label>
+        <label for="password-conf">
+            <p>Confirmar sua senha:</p>
+            <input required type="password" name="confirm_password" id="input-password-confirm" class="input-password input" placeholder="Confirmar senha"><br>
+        </label>
+        <div class="form-link">
+          <a href="login-index.php">Logar</a> 
+        </div>
+        <?php
+        // session_start();
+            if (!empty($_SESSION['errcode_reg'])) {
+                echo $_SESSION['errcode_reg'];
+                unset($_SESSION['errcode_reg']);
+            }
+        ?>
+        <div class="button-main">
+          <button class="button-submit btn-r">Cadastrar</button>
+        </div>
       </div>
       </form>
   </section>

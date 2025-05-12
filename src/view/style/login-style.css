@@ -12,6 +12,7 @@
   font-style: normal;
 }
 
+
 .logo-name-1 {
   color: red;
 }
@@ -47,7 +48,7 @@ hr {
   font-weight: 100;
   font-style: normal;
   display: block;
-  background-color: #f0f0f0;
+  background-color: #d9e6df;
   width: 400px;
   justify-content: center;
   text-align: center;
@@ -72,7 +73,7 @@ hr {
 
 .input,
 .btn-r {
-  margin-bottom: 8px;
+  margin: 8px 0 8px 0;
   border: 1px solid rgba(0, 0, 0, 0.27);
   border-radius: 7px;
   width: 280px;
@@ -107,8 +108,9 @@ li .login {
   position: absolute;
   padding-top: 8px;
 }
-
-
+.form-link {
+  margin: 10px;
+}
 /* Conversor */
 aside {
   display: none;
