@@ -162,4 +162,9 @@ li .login {
     height: 25px;
     top: 50%;
   }
-  
+
+@media (max-width: 670px) {
+    .icons-main-centered {
+    display: none;
+    }
+}

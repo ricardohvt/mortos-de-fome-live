@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg ">
+  <nav class="navbar navbar-expand-lg" >
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a> -->
       <h2><span class="logo-name-1">Mortos</span> de <span class="logo-name-2">Fome</span></h2>
@@ -63,7 +63,7 @@
       </div>
     </div>
   </nav>
-  <aside id="conversor">
+  <aside id="conversor" data-aos="fade-up">
     <div class="conversor">
       <label for="quantity">Quantidade:</label><br>
       <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input"><br>
@@ -102,7 +102,7 @@
       <div id="result"></div>
     </div>
   </aside>
-  <section class="main-modal">
+  <section class="main-modal" data-aos="fade-up">
     <form action="../controller/CadastroController.php" method="POST" class="main-form">
       <div class="text">
           <h1>Cadastro</h1>
@@ -165,10 +165,9 @@
           <hr class="footer-divider">
         </div>
   </footer>
+  <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+  <script>AOS.init();</script>
 </body>
 
 </html>

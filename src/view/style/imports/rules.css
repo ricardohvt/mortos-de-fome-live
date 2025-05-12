@@ -2,8 +2,8 @@
     scroll-behavior: smooth;
 }
 body {
-    background-image: url('../assets/background1.webp');
+    background-image: url('../../assets/background1.webp');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
 }
