@@ -30,15 +30,14 @@ hr {
 
 /* Form de cadastro e login */
 .main-modal {
-  min-height: 400px;
-  max-height: 1000px;
+  height: 70vh;
   flex: 1;
   font-family: "Itim", cursive;
   font-weight: 100;
   font-style: normal;
-  padding: 100px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .main-form {
@@ -152,7 +151,7 @@ aside {
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .navbar-brand img {
     width: 100px;
   }
@@ -215,7 +214,6 @@ aside {
     gap: 1rem;
   }
 }
-/* Media Queries */
 @media (max-width: 768px) {
   .navbar-brand img {
     width: 100px;
@@ -278,4 +276,4 @@ aside {
   .footer-list {
     gap: 1rem;
   }
-}
+} */

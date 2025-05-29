@@ -107,7 +107,6 @@
       <div class="text">
         <h1>Login</h1>
       </div>
-      <hr>
       <label for="">
         <p>Seu E-mail:</p>
         <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
@@ -116,7 +115,6 @@
         <p>Sua senha:</p>
         <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
       </label>
-      <hr>
       <div class="form-link">
         <a href="cadastro-index.php">Cadastrar-se</a>
       </div>
