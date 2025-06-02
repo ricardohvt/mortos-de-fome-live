@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mortos de Fome</title>
+  <title>Mortos de Fome - Vegetariano</title>
+  <link rel="stylesheet" href="style/veg-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,18 +14,15 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="
+https://fonts.googleapis.com">
+  <link rel="preconnect" href="
+https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    href="
+https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-    rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="style/index-style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
 
@@ -158,96 +156,93 @@
       </button>
     </div>
   </div><!--carrossel-end-->
-  <section>
-    <hr>
-    <div class="cards-main">
+  <div class="cards-main">
       <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
       <div class="cards">
-        <div class="cartao" data-aos="fade-up">
-          <a href="post-bowl-index.html">
-            <img src="assets/bowl.jpg" alt="Receita Vegana" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Bowl Vegano Nutritivo</h3>
-              <p class="cartao-text">Um delicioso bowl repleto de vegetais frescos.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                <span><i class="fa-regular fa-heart"></i> 234</span>
-              </div>
-            </div>
-          </a>
+    <div class="cartao" data-aos="fade-up">
+      <a href="">
+        <img src="assets/salgado1.jpg" alt="Receita Vegana" class="cartao-img">
+        <div class="cartao-content">
+          <h3 class="cartao-title">Hamburger de grão-de-bico</h3>
+          <p class="cartao-text">delicioso hamburguer com carne de grão de bico,queijo vegano e pão integral</p>
+          <div class="cartao-footer">
+            <span><i class="fa-regular fa-clock"></i> 30 minutos</span>
+            <span><i class="fa-regular fa-heart"></i> 700</span>
+          </div>
         </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Pasta al Pomodoro</h3>
-              <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                <span><i class="fa-regular fa-heart"></i> 189</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Cheesecake de Frutas</h3>
-              <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 45 min</span>
-                <span><i class="fa-regular fa-heart"></i> 312</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Salmão Grelhado</h3>
-              <p class="cartao-text">Salmão grelhado com legumes assados e molho de ervas.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 35 min</span>
-                <span><i class="fa-regular fa-heart"></i> 276</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Café da Manhã Fit</h3>
-              <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 20 min</span>
-                <span><i class="fa-regular fa-heart"></i> 198</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Brownie Vegano</h3>
-              <p class="cartao-text">Brownie vegano gostoso</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                <span><i class="fa-regular fa-heart"></i> 245</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
+      </a>
     </div>
+    <div class="cartao" data-aos="fade-up">
+      <a href="">
+        <img src="assets/salgado2.jpg" alt="Massa Italiana" class="cartao-img">
+        <div class="cartao-content">
+          <h3 class="cartao-title">Sufle de legumes e queijo</h3>
+          <p class="cartao-text">maravilhosa opção de sufle feita com legumes e queijos para vegetarianos</p>
+          <div class="cartao-footer">
+            <span><i class="fa-regular fa-clock"></i> 1 hora</span>
+            <span><i class="fa-regular fa-heart"></i> 900</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cartao" data-aos="fade-up">
+      <a href="">
+        <img src="assets/salagdo3.jpg" alt="Sobremesa" class="cartao-img">
+        <div class="cartao-content">
+          <h3 class="cartao-title">Couve flor gratinada</h3>
+          <p class="cartao-text">couve flor gratinada com queijo,otima pedida para almoço e jantar saudavel </p>
+          <div class="cartao-footer">
+            <span><i class="fa-regular fa-clock"></i> 50 minutos</span>
+            <span><i class="fa-regular fa-heart"></i> 699</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cartao" data-aos="fade-up">
+      <a href="">
+        <img src="assets/salgado4.jpg" alt="Prato Saudável" class="cartao-img">
+        <div class="cartao-content">
+          <h3 class="cartao-title">Espertinho de carne de soja</h3>
+          <p class="cartao-text">espetinho de carne de soja para churrascos veganos e saudaveis</p>
+          <div class="cartao-footer">
+            <span><i class="fa-regular fa-clock"></i> 2 horas</span>
+            <span><i class="fa-regular fa-heart"></i> 1016</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cartao" data-aos="fade-up">
+      <a href="">
+        <img src="assets/salagado5.jpg" alt="Café da Manhã" class="cartao-img">
+        <div class="cartao-content">
+          <h3 class="cartao-title">Rocambole folheado de Berinjela</h3>
+          <p class="cartao-text">maravilhoso rocambole folheado a berinjela para suas refeiçoes</p>
+          <div class="cartao-footer">
+            <span><i class="fa-regular fa-clock"></i> 40 minutos</span>
+            <span><i class="fa-regular fa-heart"></i> 998</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cartao" data-aos="fade-up">
+      <a href="">
+        <img src="assets/salgado6.jpg" alt="Sobremesa Especial" class="cartao-img">
+        <div class="cartao-content">
+          <h3 class="cartao-title">Croquete de lentilha</h3>
+          <p class="cartao-text">salgadinho de lentinha para os lanches veganos em suas festas</p>
+          <div class="cartao-footer">
+            <span><i class="fa-regular fa-clock"></i> 40 minutos</span>
+            <span><i class="fa-regular fa-heart"></i> 845</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  </div>
   </section>
   <footer class="footer" data-aos="fade-up">
     <div class="footer-container">
@@ -273,7 +268,6 @@
           <hr class="footer-divider">
         </div>
   </footer>
-
   <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
