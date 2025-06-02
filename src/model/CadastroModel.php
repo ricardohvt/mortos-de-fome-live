@@ -7,7 +7,7 @@ function register($email, $fullname, $username, $password, $confirmpassword) {
     $instance = $conn->getInstance();
 
     if ($password !== $confirmpassword) {
-        header('Location: ../view/cadastro.php');
+        header('Location: ../view/cadastro-index.php');
         exit;
     }
 

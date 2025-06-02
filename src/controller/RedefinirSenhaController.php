@@ -15,7 +15,7 @@ if ($_POST) {
     $redefinir = new RedefinirSenha();
     if ($redefinir->atualizarSenha($_SESSION['emailrec']['userID'], $novaSenha)) {
         $_SESSION['redefinir_senha_success'] = "Senha redefinida com sucesso!";
-        header('Location: ../view/login.php');
+        header('Location: ../view/login-index.php');
         exit;
     } else {
         $_SESSION['redefinir_senha_error'] = "Erro ao redefinir a senha!";

@@ -10,7 +10,7 @@ if($_POST){
     
     if($password !== $confirmpassword){
         $_SESSION['errcode_reg'] = "As senhas não combinam!";
-        header('Location: ../view/cadastro.php');
+        header('Location: ../view/cadastro-index.php');
         exit;
     }else {
         
@@ -18,11 +18,11 @@ if($_POST){
         
         if($result){
             $_SESSION['errcode_reg'] = "Cadastro realizado!";
-            header('Location: ../view/login.php');
+            header('Location: ../view/login-index.php');
             exit;
         }else {
             $_SESSION['errcode_reg'] = "Não foi possível realizar o cadastro";
-            header('Location: ../view/cadastro.php');
+            header('Location: ../view/cadastro-index.php');
             exit;
         }
     }

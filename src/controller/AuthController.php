@@ -1,7 +1,4 @@
 <?php
-
-// Jean, tem algo escondido pra vc no dashboard!
-
 session_start();
 require '../model/AuthModel.php';
 
@@ -18,7 +15,7 @@ if ($_POST) {
         exit;
     } else {
         $_SESSION['login_error'] = "Email ou senha estão errados!";
-        header("Location: ../view/login.php");
+        header("Location: ../view/login-index.php");
         exit;
     }
 }
