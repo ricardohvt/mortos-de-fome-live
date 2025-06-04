@@ -6,30 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mortos de Fome - Cadastro</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-  integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style/login-style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="style/login-style.css">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg" >
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
       <!-- <h2><span class="logo-name-1">Mortos</span> de <span class="logo-name-2">Fome</span></h2> -->
@@ -60,6 +60,23 @@
           </li>
         </ul>
 
+      </div>
+      <div class="icons-main-centered">
+        <div class="plant-container">
+          <a href="vegetariano-index.html"><img src="assets/image 3.png" height="30px"></a>
+        </div>
+        <div class="zero-lactose-container">
+          <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
+        </div>
+        <div class="zero-gluten-container">
+          <a href="zero-gluten.php"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
+        </div>
+        <div class="zero-sugar-container">
+          <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
+        </div>
+        <div class="fit-container">
+          <a href="fitness-index.html"><img src="assets/fit.svg" height="30px" width="30px"></a>
+        </div>
       </div>
     </div>
   </nav>
@@ -105,46 +122,46 @@
   <section class="main-modal" data-aos="fade-up">
     <form action="../controller/CadastroController.php" method="POST" class="main-form">
       <div class="text">
-          <h1>Cadastro</h1>
+        <h1>Cadastro</h1>
       </div>
       <hr>
       <div class="content">
 
         <label for="">
-            <p>Seu E-mail para cadastro:</p>
-            <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
+          <p>Seu E-mail para cadastro:</p>
+          <input required type="email" name="email" id="input-email" class="input-email input" placeholder="E-mail"><br>
         </label>
         <label for="">
-            <p>Seu nome de Usuário:</p>
-            <input required type="text" name="username" id="input-user" class="input-email input" placeholder="Nome de usuário"><br>
+          <p>Seu nome de Usuário:</p>
+          <input required type="text" name="username" id="input-user" class="input-email input" placeholder="Nome de usuário"><br>
         </label>
         <label for="">
-            <p>Seu nome completo:</p>
-            <input required type="text" name="fullname" id="input-name" class="input-email input" placeholder="Nome completo"><br>
-        </label>    
+          <p>Seu nome completo:</p>
+          <input required type="text" name="fullname" id="input-name" class="input-email input" placeholder="Nome completo"><br>
+        </label>
         <label for="password">
-            <p>Sua senha:</p>
-            <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
+          <p>Sua senha:</p>
+          <input required type="password" name="password" id="input-password" class="input-password input" placeholder="Senha"><br>
         </label>
         <label for="password-conf">
-            <p>Confirmar sua senha:</p>
-            <input required type="password" name="confirm_password" id="input-password-confirm" class="input-password input" placeholder="Confirmar senha"><br>
+          <p>Confirmar sua senha:</p>
+          <input required type="password" name="confirm_password" id="input-password-confirm" class="input-password input" placeholder="Confirmar senha"><br>
         </label>
         <div class="form-link">
-          <a href="login-index.php">Logar</a> 
+          <a href="login-index.php">Logar</a>
         </div>
         <?php
         // session_start();
-            if (!empty($_SESSION['errcode_reg'])) {
-                echo $_SESSION['errcode_reg'];
-                unset($_SESSION['errcode_reg']);
-            }
+        if (!empty($_SESSION['errcode_reg'])) {
+          echo $_SESSION['errcode_reg'];
+          unset($_SESSION['errcode_reg']);
+        }
         ?>
         <div class="button-main">
           <button class="button-submit btn-r">Cadastrar</button>
         </div>
       </div>
-      </form>
+    </form>
   </section>
   <footer class="footer" data-aos="fade-up">
     <div class="footer-container">
@@ -172,7 +189,9 @@
   </footer>
   <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init();</script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 
 </html>

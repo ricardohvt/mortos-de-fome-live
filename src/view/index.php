@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,14 +27,14 @@
   <link rel="stylesheet" href="style/index-style.css">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
- 
+
 <body>
   <nav class="navbar navbar-expand-lg position-relative">
     <div class="container-fluid position-relative">
       <a class="navbar-brand" href="index.php">
         <img src="assets/logo.png">
       </a>
- 
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -58,20 +58,18 @@
           </li>
         </ul>
       </div>
- 
-      <!-- Centralizado na NAVBAR -->
       <div class="icons-main-centered">
         <div class="plant-container">
           <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
         </div>
         <div class="zero-lactose-container">
-          <a href="#"><img src="assets/zero-lactose.svg" height="30px"></a>
+          <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
         </div>
         <div class="zero-gluten-container">
-          <a href="#"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
+          <a href="zero-gluten.php"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
         </div>
         <div class="zero-sugar-container">
-          <a href="#"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
+          <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
         </div>
         <div class="fit-container">
           <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
@@ -83,7 +81,7 @@
     <div class="conversor">
       <label for="quantity">Quantidade:</label><br>
       <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input"><br>
- 
+
       <label for="unit_from">De:</label>
       <select name="unit_from" id="unit_from" class="input">
         <!-- Unidades de Peso -->
@@ -112,7 +110,7 @@
         <option value="colher_de_sopa">Colheres de sopa (colher_de_sopa)</option>
         <option value="xicara">Xícaras (xicara)</option>
       </select>
- 
+
       <button onclick="convertUnits()" class="btn-1">Converter</button>
       <button onclick="fecharconversor()" class="btn-1">Fechar</button>
       <div id="result"></div>
@@ -173,7 +171,7 @@
             </div>
           </a>
         </div>
- 
+
         <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
@@ -187,7 +185,7 @@
             </div>
           </a>
         </div>
- 
+
         <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
@@ -201,8 +199,8 @@
             </div>
           </a>
         </div>
- 
-                <div class="cartao" data-aos="fade-up">
+
+        <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
             <div class="cartao-content">
@@ -215,8 +213,8 @@
             </div>
           </a>
         </div>
- 
- 
+
+
         <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/panceca.jpg" alt="Café da Manhã" class="cartao-img">
@@ -230,7 +228,7 @@
             </div>
           </a>
         </div>
- 
+
         <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/brownie2.jpg" alt="Sobremesa Especial" class="cartao-img">
@@ -271,15 +269,12 @@
           <hr class="footer-divider">
         </div>
   </footer>
- 
+
   <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
   </script>
 </body>
- 
-</html>
- 
 
- 
+</html>

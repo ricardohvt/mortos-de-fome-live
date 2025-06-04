@@ -22,7 +22,7 @@ https://fonts.gstatic.com" crossorigin>
     href="
 https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
 
@@ -60,19 +60,18 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
         </ul>
       </div>
 
-      <!-- Centralizado na NAVBAR -->
       <div class="icons-main-centered">
         <div class="plant-container">
           <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
         </div>
         <div class="zero-lactose-container">
-          <a href="#"><img src="assets/zero-lactose.svg" height="30px"></a>
+          <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
         </div>
         <div class="zero-gluten-container">
-          <a href="#"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
+          <a href="zero-gluten.php"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
         </div>
         <div class="zero-sugar-container">
-          <a href="#"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
+          <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
         </div>
         <div class="fit-container">
           <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
@@ -157,91 +156,91 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
     </div>
   </div><!--carrossel-end-->
   <div class="cards-main">
-      <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
-      <div class="cards">
-    <div class="cartao" data-aos="fade-up">
-      <a href="">
-        <img src="assets/salgado1.jpg" alt="Receita Vegana" class="cartao-img">
-        <div class="cartao-content">
-          <h3 class="cartao-title">Hamburger de grão-de-bico</h3>
-          <p class="cartao-text">delicioso hamburguer com carne de grão de bico,queijo vegano e pão integral</p>
-          <div class="cartao-footer">
-            <span><i class="fa-regular fa-clock"></i> 30 minutos</span>
-            <span><i class="fa-regular fa-heart"></i> 700</span>
+    <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
+    <div class="cards">
+      <div class="cartao" data-aos="fade-up">
+        <a href="">
+          <img src="assets/salgado1.jpg" alt="Receita Vegana" class="cartao-img">
+          <div class="cartao-content">
+            <h3 class="cartao-title">Hamburger de grão-de-bico</h3>
+            <p class="cartao-text">delicioso hamburguer com carne de grão de bico,queijo vegano e pão integral</p>
+            <div class="cartao-footer">
+              <span><i class="fa-regular fa-clock"></i> 30 minutos</span>
+              <span><i class="fa-regular fa-heart"></i> 700</span>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
-    <div class="cartao" data-aos="fade-up">
-      <a href="">
-        <img src="assets/salgado2.jpg" alt="Massa Italiana" class="cartao-img">
-        <div class="cartao-content">
-          <h3 class="cartao-title">Sufle de legumes e queijo</h3>
-          <p class="cartao-text">maravilhosa opção de sufle feita com legumes e queijos para vegetarianos</p>
-          <div class="cartao-footer">
-            <span><i class="fa-regular fa-clock"></i> 1 hora</span>
-            <span><i class="fa-regular fa-heart"></i> 900</span>
+        </a>
+      </div>
+      <div class="cartao" data-aos="fade-up">
+        <a href="">
+          <img src="assets/salgado2.jpg" alt="Massa Italiana" class="cartao-img">
+          <div class="cartao-content">
+            <h3 class="cartao-title">Sufle de legumes e queijo</h3>
+            <p class="cartao-text">maravilhosa opção de sufle feita com legumes e queijos para vegetarianos</p>
+            <div class="cartao-footer">
+              <span><i class="fa-regular fa-clock"></i> 1 hora</span>
+              <span><i class="fa-regular fa-heart"></i> 900</span>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
 
-    <div class="cartao" data-aos="fade-up">
-      <a href="">
-        <img src="assets/salagdo3.jpg" alt="Sobremesa" class="cartao-img">
-        <div class="cartao-content">
-          <h3 class="cartao-title">Couve flor gratinada</h3>
-          <p class="cartao-text">couve flor gratinada com queijo,otima pedida para almoço e jantar saudavel </p>
-          <div class="cartao-footer">
-            <span><i class="fa-regular fa-clock"></i> 50 minutos</span>
-            <span><i class="fa-regular fa-heart"></i> 699</span>
+      <div class="cartao" data-aos="fade-up">
+        <a href="">
+          <img src="assets/salagdo3.jpg" alt="Sobremesa" class="cartao-img">
+          <div class="cartao-content">
+            <h3 class="cartao-title">Couve flor gratinada</h3>
+            <p class="cartao-text">couve flor gratinada com queijo,otima pedida para almoço e jantar saudavel </p>
+            <div class="cartao-footer">
+              <span><i class="fa-regular fa-clock"></i> 50 minutos</span>
+              <span><i class="fa-regular fa-heart"></i> 699</span>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
 
-    <div class="cartao" data-aos="fade-up">
-      <a href="">
-        <img src="assets/salgado4.jpg" alt="Prato Saudável" class="cartao-img">
-        <div class="cartao-content">
-          <h3 class="cartao-title">Espertinho de carne de soja</h3>
-          <p class="cartao-text">espetinho de carne de soja para churrascos veganos e saudaveis</p>
-          <div class="cartao-footer">
-            <span><i class="fa-regular fa-clock"></i> 2 horas</span>
-            <span><i class="fa-regular fa-heart"></i> 1016</span>
+      <div class="cartao" data-aos="fade-up">
+        <a href="">
+          <img src="assets/salgado4.jpg" alt="Prato Saudável" class="cartao-img">
+          <div class="cartao-content">
+            <h3 class="cartao-title">Espertinho de carne de soja</h3>
+            <p class="cartao-text">espetinho de carne de soja para churrascos veganos e saudaveis</p>
+            <div class="cartao-footer">
+              <span><i class="fa-regular fa-clock"></i> 2 horas</span>
+              <span><i class="fa-regular fa-heart"></i> 1016</span>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
 
-    <div class="cartao" data-aos="fade-up">
-      <a href="">
-        <img src="assets/salagado5.jpg" alt="Café da Manhã" class="cartao-img">
-        <div class="cartao-content">
-          <h3 class="cartao-title">Rocambole folheado de Berinjela</h3>
-          <p class="cartao-text">maravilhoso rocambole folheado a berinjela para suas refeiçoes</p>
-          <div class="cartao-footer">
-            <span><i class="fa-regular fa-clock"></i> 40 minutos</span>
-            <span><i class="fa-regular fa-heart"></i> 998</span>
+      <div class="cartao" data-aos="fade-up">
+        <a href="">
+          <img src="assets/salagado5.jpg" alt="Café da Manhã" class="cartao-img">
+          <div class="cartao-content">
+            <h3 class="cartao-title">Rocambole folheado de Berinjela</h3>
+            <p class="cartao-text">maravilhoso rocambole folheado a berinjela para suas refeiçoes</p>
+            <div class="cartao-footer">
+              <span><i class="fa-regular fa-clock"></i> 40 minutos</span>
+              <span><i class="fa-regular fa-heart"></i> 998</span>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
 
-    <div class="cartao" data-aos="fade-up">
-      <a href="">
-        <img src="assets/salgado6.jpg" alt="Sobremesa Especial" class="cartao-img">
-        <div class="cartao-content">
-          <h3 class="cartao-title">Croquete de lentilha</h3>
-          <p class="cartao-text">salgadinho de lentinha para os lanches veganos em suas festas</p>
-          <div class="cartao-footer">
-            <span><i class="fa-regular fa-clock"></i> 40 minutos</span>
-            <span><i class="fa-regular fa-heart"></i> 845</span>
+      <div class="cartao" data-aos="fade-up">
+        <a href="">
+          <img src="assets/salgado6.jpg" alt="Sobremesa Especial" class="cartao-img">
+          <div class="cartao-content">
+            <h3 class="cartao-title">Croquete de lentilha</h3>
+            <p class="cartao-text">salgadinho de lentinha para os lanches veganos em suas festas</p>
+            <div class="cartao-footer">
+              <span><i class="fa-regular fa-clock"></i> 40 minutos</span>
+              <span><i class="fa-regular fa-heart"></i> 845</span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
-  </div>
   </div>
   </section>
   <footer class="footer" data-aos="fade-up">

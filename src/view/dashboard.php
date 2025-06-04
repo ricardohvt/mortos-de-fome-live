@@ -14,7 +14,7 @@ $emails = buscarEmails($conexao);
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $emailSelecionado = buscarEmailPorId($conexao, $id);
-    
+
     // Marcar como lido se encontrado
     if ($emailSelecionado) {
         $idSelecionado = isset($emailSelecionado['id']) ? $emailSelecionado['id'] : null;
@@ -25,6 +25,7 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +35,8 @@ if (isset($_GET['id'])) {
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
             overflow-x: hidden;
         }
@@ -101,17 +103,20 @@ if (isset($_GET['id'])) {
                 height: auto;
             }
 
-            .email-list, .email-detail {
+            .email-list,
+            .email-detail {
                 height: auto;
                 max-height: 100vh;
             }
         }
+
         .h4:hover {
             cursor: pointer;
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="bg-primary text-white p-3">
@@ -187,7 +192,7 @@ Equipe de Atendimento"); ?></span>
 
 Seu novo código de acesso é:
 
-🔐 Código de Acesso: ".  htmlspecialchars($emailSelecionado['code']) . "
+🔐 Código de Acesso: " .  htmlspecialchars($emailSelecionado['code']) . "
 
 Por motivos de segurança, recomendamos que você mantenha este código em local seguro. Em caso de dúvidas ou dificuldades, nossa equipe está pronta para ajudar.
 
@@ -231,6 +236,10 @@ Equipe de Atendimento")); ?></p>
         }
     </script>
     <!-- Bootstrap 5 JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>                                                                                                                                                                                                                                     <script>console.log("Saudades de vc Jean ♥")</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        console.log("Saudades de vc Jean ♥")
+    </script>
 </body>
+
 </html>

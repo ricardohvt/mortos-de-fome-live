@@ -43,6 +43,23 @@
           </li>
         </ul>
       </div>
+      <div class="icons-main-centered">
+        <div class="plant-container">
+          <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
+        </div>
+        <div class="zero-lactose-container">
+          <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
+        </div>
+        <div class="zero-gluten-container">
+          <a href="zero-gluten.php"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
+        </div>
+        <div class="zero-sugar-container">
+          <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
+        </div>
+        <div class="fit-container">
+          <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
+        </div>
+      </div>
     </div>
   </nav>
 
