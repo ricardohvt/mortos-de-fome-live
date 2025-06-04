@@ -6,6 +6,7 @@ footer {
     z-index: 1000;
     margin: 0;
     bottom: 0px;
+    border-top: #353535 1px solid;
   }
   
   .footer-container {

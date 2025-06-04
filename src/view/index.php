@@ -48,9 +48,6 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Receitas</a></li>
               <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
               <li><a class="dropdown-item" href="upload-post-index.html">Postar</a></li>
             </ul>
           </li>
@@ -125,7 +122,7 @@
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Busque uma receita ou ingredientes"
         aria-label="Search">
-      <button class="btn btn-outline-success decosearch" type="submit" id="input-search"><i
+      <button class="btn btn-outline-danger decosearch" type="submit" id="input-search"><i
           class="fa-solid fa-magnifying-glass"></i></button>
     </form>
   </div>
@@ -176,13 +173,13 @@
             </div>
           </a>
         </div>
-
+ 
         <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
             <div class="cartao-content">
-              <h3 class="cartao-title">Pasta al Pomodoro</h3>
-              <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
+              <h3 class="cartao-title">Pasta al Pomodoro sem gluten</h3>
+              <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco sem gluten.</p>
               <div class="cartao-footer">
                 <span><i class="fa-regular fa-clock"></i> 30 min</span>
                 <span><i class="fa-regular fa-heart"></i> 189</span>
@@ -190,21 +187,7 @@
             </div>
           </a>
         </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Cheesecake de Frutas</h3>
-              <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 45 min</span>
-                <span><i class="fa-regular fa-heart"></i> 312</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
+ 
         <div class="cartao" data-aos="fade-up">
           <a href="">
             <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
@@ -218,13 +201,28 @@
             </div>
           </a>
         </div>
-
+ 
+                <div class="cartao" data-aos="fade-up">
+          <a href="">
+            <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
+            <div class="cartao-content">
+              <h3 class="cartao-title">Cheesecake de Frutas</h3>
+              <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
+              <div class="cartao-footer">
+                <span><i class="fa-regular fa-clock"></i> 45 min</span>
+                <span><i class="fa-regular fa-heart"></i> 312</span>
+              </div>
+            </div>
+          </a>
+        </div>
+ 
+ 
         <div class="cartao" data-aos="fade-up">
           <a href="">
-            <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
+            <img src="assets/panceca.jpg" alt="Café da Manhã" class="cartao-img">
             <div class="cartao-content">
-              <h3 class="cartao-title">Café da Manhã Fit</h3>
-              <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico.</p>
+              <h3 class="cartao-title">Panqueca de morango sem leite</h3>
+              <p class="cartao-text">Panquecas de morango com frutas frescas e mel orgânico.</p>
               <div class="cartao-footer">
                 <span><i class="fa-regular fa-clock"></i> 20 min</span>
                 <span><i class="fa-regular fa-heart"></i> 198</span>
@@ -232,13 +230,13 @@
             </div>
           </a>
         </div>
-
+ 
         <div class="cartao" data-aos="fade-up">
           <a href="">
-            <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
+            <img src="assets/brownie2.jpg" alt="Sobremesa Especial" class="cartao-img">
             <div class="cartao-content">
-              <h3 class="cartao-title">Brownie Vegano</h3>
-              <p class="cartao-text">Brownie vegano delicioso feito com leite vegetal</p>
+              <h3 class="cartao-title">Brownie de morango sem açucar</h3>
+              <p class="cartao-text">Brownie de morango delicioso feito com leite e morango sem açucar</p>
               <div class="cartao-footer">
                 <span><i class="fa-regular fa-clock"></i> 40 min</span>
                 <span><i class="fa-regular fa-heart"></i> 245</span>
@@ -273,12 +271,15 @@
           <hr class="footer-divider">
         </div>
   </footer>
-
+ 
   <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
   </script>
 </body>
-
+ 
 </html>
+ 
+
+ 

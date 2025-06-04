@@ -1,11 +1,10 @@
-<!DOCTYPE php>
-<php lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
+ 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mortos de Fome - Fitness</title>
-  <link rel="stylesheet" href="style/fitness-style.css">
+  <title>Mortos de Fome</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -25,40 +24,43 @@
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="style/index-style.css">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
-
 <body>
-  <nav class="navbar navbar-expand-lg ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
-
+  <nav class="navbar navbar-expand-lg position-relative">
+    <div class="container-fluid position-relative">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/logo.png">
+      </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
           <li class="nav-item">
-            <a class="nav-link" href="#">Em alta</a>
+            <a id="navpal" class="nav-link" href="#">Em alta</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a id="navpal" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Menu
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Receitas</a></li>
-              <li><a class="dropdown-item" href="#"></a></li>
               <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
+              <li><a class="dropdown-item" href="upload-post-index.html">Postar</a></li>
             </ul>
           </li>
           <li class="nav-item-1">
-            <a class="login" onclick="inpLogin()"><img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px"
-                width="25px"></a>
+            <a class="login" onclick="inpLogin()">
+              <img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px" width="25px">
+            </a>
           </li>
         </ul>
-  <!-- Centralizado na NAVBAR -->
+      </div>
+ 
+      <!-- Centralizado na NAVBAR -->
       <div class="icons-main-centered">
         <div class="plant-container">
           <a href="vegetariano-index.html"><img src="assets/image 3.png" height="30px"></a>
@@ -82,7 +84,7 @@
     <div class="conversor">
       <label for="quantity">Quantidade:</label><br>
       <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input"><br>
-
+ 
       <label for="unit_from">De:</label>
       <select name="unit_from" id="unit_from" class="input">
         <!-- Unidades de Peso -->
@@ -111,7 +113,7 @@
         <option value="colher_de_sopa">Colheres de sopa (colher_de_sopa)</option>
         <option value="xicara">Xícaras (xicara)</option>
       </select>
-
+ 
       <button onclick="convertUnits()" class="btn-1">Converter</button>
       <button onclick="fecharconversor()" class="btn-1">Fechar</button>
       <div id="result"></div>
@@ -121,26 +123,23 @@
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Busque uma receita ou ingredientes"
         aria-label="Search">
-      <button class="btn btn-outline-primary custom-color decosearch" type="submit" id="input-search">
-    <i class="fa-solid fa-magnifying-glass"></i>
-</button>
-
+      <button class="btn btn-outline-secondary decosearch" type="submit" id="input-search"><i
+          class="fa-solid fa-magnifying-glass"></i></button>
     </form>
   </div>
-  </section>
-   <div><!--carrossel-->
+  <div><!--carrossel-->
     <div id="carouselExampleFade" class="carousel slide carousel-fade">
       <div class="carousel-inner">
         <div class="carousel-item active caro1">
-          <img src="assets/brownie.jpg" class="d-block w-100">
+          <img src="assets/background.webp" class="d-block w-100">
           <h1 class="abertura">Bem vindo ao Mortos de Fome</h1>
           <h2 class="abertura-2">
             Aproveite nossas receitas!
           </h2>
         </div>
         <div class="carousel-item caro1">
-          <img src="assets/cheesecake.jpg" class="d-block w-100">
-          <h1 class="abertura">Cheesecake com frutas!</h1>
+          <img src="assets/veganos.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas Veganas & Vegetarianas</h1>
         </div>
         <div class="carousel-item caro1">
           <img src="assets/sorvete.jpg" class="d-block w-100">
@@ -160,86 +159,87 @@
   <section>
     <hr>
     <div class="cards-main">
-      <h1 class="rec-title" data-aos="fade-up">Receitas Fit</h1>
+      <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
       <div class="cards">
         <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/quinoa.jpg" alt="Bowl de Quinoa" class="cartao-img">
+          <a href="post-bowl-index.html">
+            <img src="assets/bowl.jpg" alt="Receita Vegana" class="cartao-img">
             <div class="cartao-content">
-              <h3 class="cartao-title">Bowl de Quinoa com Vegetais Assados</h3>
-              <p class="cartao-text">Quinoa nutritiva com vegetais assados e molho tahine.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                <span><i class="fa-regular fa-heart"></i> 250</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/frango.jpg" alt="Frango Fit" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Frango Grelhado com Purê de Batata-doce</h3>
-              <p class="cartao-text">Frango grelhado com purê de batata-doce e legumes.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                <span><i class="fa-regular fa-heart"></i> 320</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/overnight.webp" alt="Overnight Oats" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Overnight Oats com <br> Frutas</h3>
-              <p class="cartao-text">Aveia hidratada com iogurte e frutas frescas,gostoso,doce e bom pro colesterol.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 10 min</span>
-                <span><i class="fa-regular fa-heart"></i> 400</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/salada.jpg" alt="Salada Fit" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Salada Colorida com Proteína</h3>
-              <p class="cartao-text">Mix de folhas verdes, grão-de-bico e frango desfiado.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 15 min</span>
-                <span><i class="fa-regular fa-heart"></i> 150</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/smoothie.jpg" alt="Smoothie Verde" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Smoothie Verde Energético</h3>
-              <p class="cartao-text">Bebida refrescante com espinafre, maçã e gengibre.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 5 min</span>
-                <span><i class="fa-regular fa-heart"></i> 300</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/muffin.jpg" alt="Muffin de Banana" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Muffin de Banana Integral</h3>
-              <p class="cartao-text">Muffins saudáveis feitos com banana, aveia e mel.</p>
+              <h3 class="cartao-title">Bowl Vegano Nutritivo</h3>
+              <p class="cartao-text">Um delicioso bowl repleto de vegetais frescos,boa salada em qualquer ocasião</p>
               <div class="cartao-footer">
                 <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                <span><i class="fa-regular fa-heart"></i> 275</span>
+                <span><i class="fa-regular fa-heart"></i> 234</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="cartao" data-aos="fade-up">
+          <a href="">
+            <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
+            <div class="cartao-content">
+              <h3 class="cartao-title">Pasta al Pomodoro</h3>
+              <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
+              <div class="cartao-footer">
+                <span><i class="fa-regular fa-clock"></i> 30 min</span>
+                <span><i class="fa-regular fa-heart"></i> 189</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="cartao" data-aos="fade-up">
+          <a href="">
+            <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
+            <div class="cartao-content">
+              <h3 class="cartao-title">Cheesecake de Frutas</h3>
+              <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
+              <div class="cartao-footer">
+                <span><i class="fa-regular fa-clock"></i> 45 min</span>
+                <span><i class="fa-regular fa-heart"></i> 312</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="cartao" data-aos="fade-up">
+          <a href="">
+            <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
+            <div class="cartao-content">
+              <h3 class="cartao-title">Salmão Grelhado</h3>
+              <p class="cartao-text">Salmão grelhado com legumes assados e molho de ervas.</p>
+              <div class="cartao-footer">
+                <span><i class="fa-regular fa-clock"></i> 35 min</span>
+                <span><i class="fa-regular fa-heart"></i> 276</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="cartao" data-aos="fade-up">
+          <a href="">
+            <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
+            <div class="cartao-content">
+              <h3 class="cartao-title">Café da Manhã Fit</h3>
+              <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico.</p>
+              <div class="cartao-footer">
+                <span><i class="fa-regular fa-clock"></i> 20 min</span>
+                <span><i class="fa-regular fa-heart"></i> 198</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="cartao" data-aos="fade-up">
+          <a href="">
+            <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
+            <div class="cartao-content">
+              <h3 class="cartao-title">Brownie Vegano</h3>
+              <p class="cartao-text">Brownie vegano delicioso feito com leite vegetal</p>
+              <div class="cartao-footer">
+                <span><i class="fa-regular fa-clock"></i> 40 min</span>
+                <span><i class="fa-regular fa-heart"></i> 245</span>
               </div>
             </div>
           </a>
@@ -271,6 +271,7 @@
           <hr class="footer-divider">
         </div>
   </footer>
+
   <script src="javascript/script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
@@ -278,4 +279,4 @@
   </script>
 </body>
 
-</php>
+</html>
