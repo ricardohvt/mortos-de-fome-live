@@ -1,5 +1,5 @@
-<!DOCTYPE php>
-<php lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -275,4 +275,4 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
   </script>
 </body>
 
-</php>
+</html>

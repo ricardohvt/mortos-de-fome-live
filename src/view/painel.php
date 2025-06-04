@@ -1,5 +1,5 @@
-<!DOCTYPE php>
-<php lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -69,4 +69,4 @@
 </aside>
 </body>
 
-</php>
+</html>

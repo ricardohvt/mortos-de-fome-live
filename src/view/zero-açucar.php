@@ -30,7 +30,7 @@
 <body>
   <nav class="navbar navbar-expand-lg position-relative">
     <div class="container-fluid position-relative">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="assets/logo.png">
       </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -63,7 +63,7 @@
       <!-- Centralizado na NAVBAR -->
       <div class="icons-main-centered">
         <div class="plant-container">
-          <a href="vegetariano-index.html"><img src="assets/image 3.png" height="30px"></a>
+          <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
         </div>
         <div class="zero-lactose-container">
           <a href="#"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -75,7 +75,7 @@
           <a href="#"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
         </div>
         <div class="fit-container">
-          <a href="fitness-index.html"><img src="assets/fit.svg" height="30px" width="30px"></a>
+          <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
       <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
       <div class="cards">
         <div class="cartao" data-aos="fade-up">
-          <a href="post-bowl-index.html">
+          <a href="post-bowl-index.php">
             <img src="assets/bowl.jpg" alt="Receita Vegana" class="cartao-img">
             <div class="cartao-content">
               <h3 class="cartao-title">Bowl Vegano Nutritivo</h3>
