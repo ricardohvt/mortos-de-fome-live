@@ -58,10 +58,10 @@
                 width="25px"></a>
           </li>
         </ul>
-  <!-- Centralizado na NAVBAR -->
+<!-- Centralizado na NAVBAR -->
       <div class="icons-main-centered">
         <div class="plant-container">
-          <a href="vegetariano-index.html"><img src="assets/image 3.png" height="30px"></a>
+          <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
         </div>
         <div class="zero-lactose-container">
           <a href="#"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -73,7 +73,7 @@
           <a href="#"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
         </div>
         <div class="fit-container">
-          <a href="fitness-index.html"><img src="assets/fit.svg" height="30px" width="30px"></a>
+          <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
         </div>
       </div>
     </div>
@@ -126,23 +126,22 @@
     </form>
   </div>
   </section>
-   <div><!--carrossel-->
+  <div><!--carrossel-->
     <div id="carouselExampleFade" class="carousel slide carousel-fade">
       <div class="carousel-inner">
         <div class="carousel-item active caro1">
-          <img src="assets/brownie.jpg" class="d-block w-100">
+          <img src="assets/comidas-tipicas-franca-1024x683..jpg" class="d-block w-100">
           <h1 class="abertura">Bem vindo ao Mortos de Fome</h1>
           <h2 class="abertura-2">
             Aproveite nossas receitas!
           </h2>
         </div>
         <div class="carousel-item caro1">
-          <img src="assets/cheesecake.jpg" class="d-block w-100">
-          <h1 class="abertura">Cheesecake com frutas!</h1>
+          <img src="assets/depositphotos_625069898-stock-photo-meat-dishes-plates-various-meat.jpg"
+            class="d-block w-100">
         </div>
         <div class="carousel-item caro1">
-          <img src="assets/sorvete.jpg" class="d-block w-100">
-          <h1 class="abertura">Sorvete com calda e morangos caseiro</h1>
+          <img src="assets/veg.jpg" class="d-block w-100">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -155,6 +154,25 @@
       </button>
     </div>
   </div><!--carrossel-end-->
+  <hr>
+  <h1 class="categorias-main">Categorias</h1>
+  <hr>
+  <div class="icons-main">
+    <div class="plant-container">
+      <a href="vegetariano-index.php"><img src="assets/image 3.png" alt="Vegetariano" class="plant" height="30px"></a>
+    </div>
+    <div class="zero-lactose-container">
+      <a href=""><img src="assets/zero-lactose.svg" alt="Zero lactose" class="zero-lactose-img" height="30px"></a>
+    </div>
+    <div class="zero-gluten-container">
+      <a href=""><img src="assets/zero-gluten.svg" alt="Zero gluten" class="zero-gluten-img" height="30px"
+          width="30px"></a>
+    </div>
+    <div class="zero-sugar-container">
+      <a href=""><img src="assets/zero-sugar.svg" alt="Zero açucar" class="zero-sugar-img" height="30px"
+          width="30px"></a>
+    </div>
+  </div>
   <section>
     <hr>
     <div class="cards-main">
@@ -192,8 +210,8 @@
           <a href="">
             <img src="assets/overnight.webp" alt="Overnight Oats" class="cartao-img">
             <div class="cartao-content">
-              <h3 class="cartao-title">Overnight Oats com <br> Frutas</h3>
-              <p class="cartao-text">Aveia hidratada com iogurte e frutas frescas,gostoso,doce e bom pro colesterol.</p>
+              <h3 class="cartao-title">Overnight Oats com Frutas</h3>
+              <p class="cartao-text">Aveia hidratada com iogurte e frutas frescas.</p>
               <div class="cartao-footer">
                 <span><i class="fa-regular fa-clock"></i> 10 min</span>
                 <span><i class="fa-regular fa-heart"></i> 400</span>

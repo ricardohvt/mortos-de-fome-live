@@ -31,8 +31,8 @@
 <body>
   <nav class="navbar navbar-expand-lg" >
     <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a> -->
-      <h2><span class="logo-name-1">Mortos</span> de <span class="logo-name-2">Fome</span></h2>
+      <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
+      <!-- <h2><span class="logo-name-1">Mortos</span> de <span class="logo-name-2">Fome</span></h2> -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 

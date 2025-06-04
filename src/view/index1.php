@@ -31,7 +31,7 @@
 <body>
   <nav class="navbar navbar-expand-lg position-relative">
     <div class="container-fluid position-relative">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index1.php">
         <img src="assets/logo.png">
       </a>
  
@@ -145,9 +145,13 @@
         </div>
         <div class="carousel-item caro1">
           <img src="assets/sorvete.jpg" class="d-block w-100">
-          <h1 class="abertura">Sorvete com calda e morangos caseiro</h1>
+          <h1 class="abertura">Receitas Sem Glúten</h1>
         </div>
-      </div>
+        <div class="carousel-item caro1"> 
+          <img src="assets/veganos.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas Veganas & Vegetarianas</h1>
+        </div>
+      
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>

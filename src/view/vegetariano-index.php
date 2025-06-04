@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE php>
+<php lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -29,7 +29,7 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
 <body>
   <nav class="navbar navbar-expand-lg position-relative">
     <div class="container-fluid position-relative">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="assets/logo.png">
       </a>
 
@@ -49,7 +49,7 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="upload-post-index.html">Postar</a></li>
+              <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
             </ul>
           </li>
           <li class="nav-item-1">
@@ -63,7 +63,7 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
       <!-- Centralizado na NAVBAR -->
       <div class="icons-main-centered">
         <div class="plant-container">
-          <a href="vegetariano-index.html"><img src="assets/image 3.png" height="30px"></a>
+          <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
         </div>
         <div class="zero-lactose-container">
           <a href="#"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -75,7 +75,7 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
           <a href="#"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
         </div>
         <div class="fit-container">
-          <a href="fitness-index.html"><img src="assets/fit.svg" height="30px" width="30px"></a>
+          <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
         </div>
       </div>
     </div>
@@ -275,4 +275,4 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
   </script>
 </body>
 
-</html>
+</php>
