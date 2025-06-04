@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE php>
+<php lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -31,7 +31,7 @@
 <body>
   <nav class="navbar navbar-expand-lg ">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img src="assets/logo.png"></a>
+      <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -51,7 +51,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="upload-post-index.html">Postar</a></li>
+              <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
             </ul>
           </li>
           <li class="nav-item-1">
@@ -168,4 +168,4 @@
   </script>
 </body>
 
-</html>
+</php>

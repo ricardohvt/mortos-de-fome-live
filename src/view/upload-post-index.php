@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE php>
+<php lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 <body>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img src="assets/logo.png" alt="Logo"> </a>
+      <a class="navbar-brand" href="index.php"><img src="assets/logo.png" alt="Logo"> </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -132,4 +132,4 @@
   <script src="javascript/script.js"></script>
 </body>
 
-</html>
+</php>
