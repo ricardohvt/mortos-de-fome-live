@@ -63,7 +63,7 @@
 
             <div class="icons-main-centered">
                 <div class="plant-container">
-                    <a href="vegetariano-index.html"><img src="assets/image 3.png" height="30px"></a>
+                    <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
                 </div>
                 <div class="zero-lactose-container">
                     <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -75,7 +75,7 @@
                     <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
                 </div>
                 <div class="fit-container">
-                    <a href="fitness-index.html"><img src="assets/fit.svg" height="30px" width="30px"></a>
+                    <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
                 </div>
             </div>
         </div>
