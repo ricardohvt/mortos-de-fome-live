@@ -46,11 +46,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Receitas</a></li>
-              <li><a class="dropdown-item" href="#"></a></li>
               <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
               <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
             </ul>
           </li>
@@ -124,7 +120,6 @@
       <div class="text">
         <h1>Cadastro</h1>
       </div>
-      <hr>
       <div class="content">
 
         <label for="">

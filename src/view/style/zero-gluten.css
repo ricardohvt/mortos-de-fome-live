@@ -1,6 +1,6 @@
 @import url(imports/conversor.css);
 @import url(imports/navbar.css);
-/* @import url(imports/rules.css); */
+@import url(imports/rules.css); 
 @import url(imports/font-pack.css);
 @import url(imports/footer.css);
 * {

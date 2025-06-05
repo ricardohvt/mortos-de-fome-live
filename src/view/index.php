@@ -60,7 +60,7 @@
       </div>
       <div class="icons-main-centered">
         <div class="plant-container">
-          <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
+          <a href="vegetariano-vegano.php"><img src="assets/image 3.png" height="30px"></a>
         </div>
         <div class="zero-lactose-container">
           <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -72,7 +72,7 @@
           <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
         </div>
         <div class="fit-container">
-          <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
+          <a href="fitness.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
         </div>
       </div>
     </div>
@@ -135,12 +135,12 @@
           </h2>
         </div>
         <div class="carousel-item caro1">
-          <img src="assets/veganos.jpg" class="d-block w-100">
-          <h1 class="abertura">Receitas Veganas & Vegetarianas</h1>
+          <img src="assets/tortademaca.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas vegetarianas e sem glútem</h1>
         </div>
         <div class="carousel-item caro1">
-          <img src="assets/sorvete.jpg" class="d-block w-100">
-          <h1 class="abertura">Sorvete com calda e morangos caseiro</h1>
+          <img src="assets/comidafitness.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas apetitosas e saúdaveis</h1>
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -154,7 +154,6 @@
     </div>
   </div><!--carrossel-end-->
   <section>
-    <hr>
     <div class="cards-main">
       <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
       <div class="cards">

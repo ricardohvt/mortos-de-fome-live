@@ -47,9 +47,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Receitas</a></li>
                             <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item" href="upload-post-index.html">Postar</a></li>
                         </ul>
                     </li>
@@ -63,7 +60,7 @@
 
             <div class="icons-main-centered">
                 <div class="plant-container">
-                    <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
+                    <a href="vegetariano-vegano.php"><img src="assets/image 3.png" height="30px"></a>
                 </div>
                 <div class="zero-lactose-container">
                     <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -75,7 +72,7 @@
                     <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
                 </div>
                 <div class="fit-container">
-                    <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
+                    <a href="fitness.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
                 </div>
             </div>
         </div>
@@ -128,45 +125,44 @@
         </form>
     </div>
     <div><!--carrossel-->
-        <div id="carouselExampleFade" class="carousel slide carousel-fade">
-            <div class="carousel-inner">
-                <div class="carousel-item active caro1">
-                    <img src="assets/background.webp" class="d-block w-100">
-                    <h1 class="abertura">Bem vindo ao Mortos de Fome</h1>
-                    <h2 class="abertura-2">
-                        Aproveite nossas receitas!
-                    </h2>
-                </div>
-                <div class="carousel-item caro1">
-                    <img src="assets/veganos.jpg" class="d-block w-100">
-                    <h1 class="abertura">Receitas Veganas & Vegetarianas</h1>
-                </div>
-                <div class="carousel-item caro1">
-                    <img src="assets/sorvete.jpg" class="d-block w-100">
-                    <h1 class="abertura">Sorvete com calda e morangos caseiro</h1>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Próximo</span>
-            </button>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade">
+      <div class="carousel-inner">
+        <div class="carousel-item active caro1">
+          <img src="assets/background.webp" class="d-block w-100">
+          <h1 class="abertura">Bem vindo ao Mortos de Fome</h1>
+          <h2 class="abertura-2">
+            Aproveite nossas receitas!
+          </h2>
         </div>
-    </div><!--carrossel-end-->
+        <div class="carousel-item caro1">
+          <img src="assets/tortademaca.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas vegetarianas e sem glúten</h1>
+        </div>
+        <div class="carousel-item caro1">
+          <img src="assets/comidafitness.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas apetitosas e saúdaveis</h1>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+      </button>
+    </div>
+  </div><!--carrossel-end-->
     <section>
-        <hr>
         <div class="cards-main">
             <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
             <div class="cards">
                 <div class="cartao" data-aos="fade-up">
                     <a href="post-bowl-index.php">
-                        <img src="assets/bowl.jpg" alt="Receita Vegana" class="cartao-img">
+                        <img src="assets/bolodechocolate.jpg" alt="Receita 0 açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Bowl Vegano Nutritivo</h3>
-                            <p class="cartao-text">Um delicioso bowl repleto de vegetais frescos,boa salada em qualquer ocasião</p>
+                            <h3 class="cartao-title">Bolo de chocolate sem açucar</h3>
+                            <p class="cartao-text">maravilhoso bolo de chocolate sem açucar para diabéticos e intolerantes</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 25 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 234</span>
@@ -174,13 +170,12 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
+                        <img src="assets/alpomodoro.jpg" alt="panqueca 0 açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Pasta al Pomodoro</h3>
-                            <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
+                            <h3 class="cartao-title">panqueca sem açucar</h3>
+                            <p class="cartao-text">Panqueca </p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 30 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 189</span>
@@ -193,8 +188,8 @@
                     <a href="">
                         <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Cheesecake de Frutas</h3>
-                            <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
+                            <h3 class="cartao-title"></h3>
+                            <p class="cartao-text"></p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 45 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 312</span>
@@ -207,8 +202,8 @@
                     <a href="">
                         <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Salmão Grelhado</h3>
-                            <p class="cartao-text">Salmão grelhado com legumes assados e molho de ervas.</p>
+                            <h3 class="cartao-title"></h3>
+                            <p class="cartao-text"></p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 35 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 276</span>
@@ -219,10 +214,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
+                        <img src="assets/panqueca.png" alt="Café da Manhã sem açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Café da Manhã Fit</h3>
-                            <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico.</p>
+                            <h3 class="cartao-title">panqueca zero açucar</h3>
+                            <p class="cartao-text">Panqueca com xarope natural e bananas,feita para seus cafés e lanches mais saudáveis</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 20 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 198</span>
@@ -235,8 +230,8 @@
                     <a href="">
                         <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Brownie Vegano</h3>
-                            <p class="cartao-text">Brownie vegano delicioso feito com leite vegetal</p>
+                            <h3 class="cartao-title"></h3>
+                            <p class="cartao-text"></p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 40 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 245</span>

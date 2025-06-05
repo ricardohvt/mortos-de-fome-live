@@ -1,6 +1,6 @@
 @import url(imports/conversor.css);
 @import url(imports/navbar.css);
-/* @import url(imports/rules.css); */
+@import url(imports/rules.css);
 @import url(imports/font-pack.css);
 @import url(imports/footer.css);
 * {
@@ -8,7 +8,7 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+ 
 hr {
   visibility: hidden;
 }
@@ -146,14 +146,6 @@ hr {
   border-radius: 12px;
   overflow: hidden;
   transition: 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.cartao:hover {
-  transform: translateY(-5px);
-  transform: scale(1.1);
-  box-shadow: 7px 6px 27px -6px rgba(0, 0, 0, 0.64);
-  -webkit-box-shadow: 7px 6px 27px -6px rgba(0, 0, 0, 0.64);
-  -moz-box-shadow: 7px 6px 27px -6px rgba(0, 0, 0, 0.64);
 }
 
 .cartao-img {

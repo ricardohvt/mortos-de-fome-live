@@ -47,9 +47,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Receitas</a></li>
                             <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
                         </ul>
                     </li>
@@ -63,7 +60,7 @@
 
             <div class="icons-main-centered">
                 <div class="plant-container">
-                    <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
+                    <a href="vegetariano-vegano.php"><img src="assets/image 3.png" height="30px"></a>
                 </div>
                 <div class="zero-lactose-container">
                     <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
@@ -75,7 +72,7 @@
                     <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
                 </div>
                 <div class="fit-container">
-                    <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
+                    <a href="fitness.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
                 </div>
             </div>
         </div>
@@ -128,45 +125,44 @@
         </form>
     </div>
     <div><!--carrossel-->
-        <div id="carouselExampleFade" class="carousel slide carousel-fade">
-            <div class="carousel-inner">
-                <div class="carousel-item active caro1">
-                    <img src="assets/background.webp" class="d-block w-100">
-                    <h1 class="abertura">Bem vindo ao Mortos de Fome</h1>
-                    <h2 class="abertura-2">
-                        Aproveite nossas receitas!
-                    </h2>
-                </div>
-                <div class="carousel-item caro1">
-                    <img src="assets/veganos.jpg" class="d-block w-100">
-                    <h1 class="abertura">Receitas Veganas & Vegetarianas</h1>
-                </div>
-                <div class="carousel-item caro1">
-                    <img src="assets/sorvete.jpg" class="d-block w-100">
-                    <h1 class="abertura">Sorvete com calda e morangos caseiro</h1>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Próximo</span>
-            </button>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade">
+      <div class="carousel-inner">
+        <div class="carousel-item active caro1">
+          <img src="assets/background.webp" class="d-block w-100">
+          <h1 class="abertura">Bem vindo ao Mortos de Fome</h1>
+          <h2 class="abertura-2">
+            Aproveite nossas receitas!
+          </h2>
         </div>
-    </div><!--carrossel-end-->
+        <div class="carousel-item caro1">
+          <img src="assets/tortademaca.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas vegetarianas e sem glútem</h1>
+        </div>
+        <div class="carousel-item caro1">
+          <img src="assets/comidafitness.jpg" class="d-block w-100">
+          <h1 class="abertura">Receitas apetitosas e saúdaveis</h1>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+      </button>
+    </div>
+  </div><!--carrossel-end-->
     <section>
-        <hr>
         <div class="cards-main">
             <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
             <div class="cards">
                 <div class="cartao" data-aos="fade-up">
                     <a href="post-bowl-index.php">
-                        <img src="assets/bowl.jpg" alt="Receita Vegana" class="cartao-img">
+                        <img src="assets/musse.jpg" alt="Receita 0 leite" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Bowl Vegano Nutritivo</h3>
-                            <p class="cartao-text">Um delicioso bowl repleto de vegetais frescos,boa salada em qualquer ocasião</p>
+                            <h3 class="cartao-title">musse de marcujá sem lactose</h3>
+                            <p class="cartao-text">Um refrescante musse de maracujá com leite de coco para intolerantes a lactose</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 25 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 234</span>
@@ -174,7 +170,6 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
                         <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">

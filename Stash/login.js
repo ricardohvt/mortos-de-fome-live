@@ -3,7 +3,6 @@ const searchButton = document.getElementById('searchButton');
 const recipeslist = document.getElementById('recipeslist');
 const modalContainer = document.getElementById('modalContainer');
 const recipesdetailsContent = document.getElementById('recipes-details-Content');
-// Função para abrir o popup
 function inpcadastro() {
     window.location.href = "cadastro-index.html";
 }
@@ -12,7 +11,6 @@ function fecharLogin() {
     window.location.href = "index.html";
 }
 
-// Função de hashing
 async function digestMessage(message) {
     const msgUint8 = new TextEncoder().encode(message); 
     const hashBuffer = await window.crypto.subtle.digest("SHA-512", msgUint8); 
