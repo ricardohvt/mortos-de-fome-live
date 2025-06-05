@@ -159,7 +159,7 @@
                 <div class="cards">
                     <div class="cartao" data-aos="fade-up">
                         <a href="post-bowl-index.php">
-                            <img src="pizza.jpg" alt="Pizza sem glúten" class="cartao-img">
+                            <img src="assets/pizza.jpg" alt="Pizza sem glúten" class="cartao-img">
                             <div class="cartao-content">
                                 <h3 class="cartao-title">Pizza sem gluten</h3>
                                 <p class="cartao-text">Pizza feita com farinha de arroz,otima pedida para comer bem sem se descuidar</p>
