@@ -83,10 +83,11 @@
             </span>
           </label>
           <select class="form-select" id="recipeCategory">
-            <option value="vegetariano"><span class="sel-vegan">Vegetariano</span></option>
+            <option value="vegetariano">Vegetariano</option>
             <option value="vegano">Vegano</option>
-            <option value="sem_lactose">Sem Lactose</option>
-            <option value="carnivoro">Carnívoro</option>
+            <option value="sem_lactose">0 Lactose</option>
+            <option value="sem_glúten">0 glúten</option>
+            <option value="sem_glúten">0 açucar</option>
           </select>
         </div>
         <div class="mb-3">
