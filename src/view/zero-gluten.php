@@ -161,8 +161,8 @@
                         <a href="post-bowl-index.php">
                             <img src="assets/pizza.jpg" alt="Pizza sem glúten" class="cartao-img">
                             <div class="cartao-content">
-                                <h3 class="cartao-title">Pizza sem gluten</h3>
-                                <p class="cartao-text">Pizza feita com farinha de arroz,otima pedida para comer bem sem se descuidar</p>
+                                <h3 class="cartao-title">Pizza portuguesa sem glúten</h3>
+                                <p class="cartao-text">Pizza feita com farinha de arroz, otima pedida para comer bem sem se descuidar.</p>
                                 <div class="cartao-footer">
                                     <span><i class="fa-regular fa-clock"></i> 25 min</span>
                                     <span><i class="fa-regular fa-heart"></i> 234</span>
@@ -172,9 +172,9 @@
                     </div>
                     <div class="cartao" data-aos="fade-up">
                         <a href="">
-                            <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
+                            <img src="assets/hamburguerdefrango.jpg" alt="Hamburguer zero glúten" class="cartao-img">
                             <div class="cartao-content">
-                                <h3 class="cartao-title">Pasta al Pomodoro</h3>
+                                <h3 class="cartao-title">Hamburguer de frango e bacon sem glúten</h3>
                                 <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
                                 <div class="cartao-footer">
                                     <span><i class="fa-regular fa-clock"></i> 30 min</span>
@@ -186,10 +186,10 @@
 
                     <div class="cartao" data-aos="fade-up">
                         <a href="">
-                            <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
+                            <img src="assets/tortadefrango.jpeg" alt="Torta de frango sem glúten" class="cartao-img">
                             <div class="cartao-content">
-                                <h3 class="cartao-title">Cheesecake de Frutas</h3>
-                                <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
+                                <h3 class="cartao-title">Torta de frango sem glúten</h3>
+                                <p class="cartao-text">Torta de frango com farinha de arroz, perfeita para se deliciar mesmo sendo intolerante.</p>
                                 <div class="cartao-footer">
                                     <span><i class="fa-regular fa-clock"></i> 45 min</span>
                                     <span><i class="fa-regular fa-heart"></i> 312</span>
@@ -200,10 +200,10 @@
 
                     <div class="cartao" data-aos="fade-up">
                         <a href="">
-                            <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
+                            <img src="assets/tortafria.webp" alt="Torta fria sem glúten" class="cartao-img">
                             <div class="cartao-content">
-                                <h3 class="cartao-title">Salmão Grelhado</h3>
-                                <p class="cartao-text">Salmão grelhado com legumes assados e molho de ervas.</p>
+                                <h3 class="cartao-title">Torta fria sem glúten</h3>
+                                <p class="cartao-text">Torta fria feita de pão sem glúten, ótima pedida para lanches e jantares.</p>
                                 <div class="cartao-footer">
                                     <span><i class="fa-regular fa-clock"></i> 35 min</span>
                                     <span><i class="fa-regular fa-heart"></i> 276</span>
@@ -216,8 +216,8 @@
                         <a href="">
                             <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
                             <div class="cartao-content">
-                                <h3 class="cartao-title">Café da Manhã Fit</h3>
-                                <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico.</p>
+                                <h3 class="cartao-title">Panqueca sem glúten</h3>
+                                <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico, para ser saudável e comer bem.</p>
                                 <div class="cartao-footer">
                                     <span><i class="fa-regular fa-clock"></i> 20 min</span>
                                     <span><i class="fa-regular fa-heart"></i> 198</span>
@@ -228,10 +228,10 @@
 
                     <div class="cartao" data-aos="fade-up">
                         <a href="">
-                            <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
+                            <img src="assets/coxinhadefrango.webp" alt="Sobremesa Especial" class="cartao-img">
                             <div class="cartao-content">
-                                <h3 class="cartao-title">Brownie Vegano</h3>
-                                <p class="cartao-text">Brownie vegano delicioso feito com leite vegetal</p>
+                                <h3 class="cartao-title">Coxinha de frango com catupiry sem glúten</h3>
+                                <p class="cartao-text">Coxinha de frango com catupiry feita com massa de mandioca.</p>
                                 <div class="cartao-footer">
                                     <span><i class="fa-regular fa-clock"></i> 40 min</span>
                                     <span><i class="fa-regular fa-heart"></i> 245</span>

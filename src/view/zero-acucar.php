@@ -162,7 +162,7 @@
                         <img src="assets/bolodechocolate.jpg" alt="Receita 0 açucar" class="cartao-img">
                         <div class="cartao-content">
                             <h3 class="cartao-title">Bolo de chocolate sem açucar</h3>
-                            <p class="cartao-text">maravilhoso bolo de chocolate sem açucar para diabéticos e intolerantes</p>
+                            <p class="cartao-text">Maravilhoso bolo de chocolate sem açucar para diabéticos e intolerantes.</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 25 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 234</span>
@@ -172,10 +172,10 @@
                 </div>
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/alpomodoro.jpg" alt="panqueca 0 açucar" class="cartao-img">
+                        <img src="assets/sorvete.jpg" alt="sorvete 0 açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">panqueca sem açucar</h3>
-                            <p class="cartao-text">Panqueca </p>
+                            <h3 class="cartao-title">Sorvete de morango sem açucar</h3>
+                            <p class="cartao-text">Sorvete de morango sem açucar para sobremesas de diabéticos e intolerantes.</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 30 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 189</span>
@@ -186,10 +186,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
+                        <img src="assets/Tortinhadelimão.jpg" alt="Sobremesa" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title"></h3>
-                            <p class="cartao-text"></p>
+                            <h3 class="cartao-title">Tortinha de limão sem açucar</h3>
+                            <p class="cartao-text">Maravilhosa torta de limão sem açucar para diabéticos.</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 45 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 312</span>
@@ -200,10 +200,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
+                        <img src="assets/cookie.webp" alt="Cookie 0 açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title"></h3>
-                            <p class="cartao-text"></p>
+                            <h3 class="cartao-title">Cookie de chocolate sem açucar</h3>
+                            <p class="cartao-text">Cookie de chocolate feito com achocolatado sem açucar, perfeito para receitas saúdaveis e gostosas</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 35 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 276</span>
@@ -214,10 +214,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/panqueca.png" alt="Café da Manhã sem açucar" class="cartao-img">
+                        <img src="assets/cupcakedechocolate.jpg" alt="Cupcake sem açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">panqueca zero açucar</h3>
-                            <p class="cartao-text">Panqueca com xarope natural e bananas,feita para seus cafés e lanches mais saudáveis</p>
+                            <h3 class="cartao-title">Cupcake de chocolate sem açucar</h3>
+                            <p class="cartao-text">Cupcake de chocolate feito com chocolate sem açucar, otimo para seus lanches e sobremesas</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 20 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 198</span>
@@ -228,10 +228,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
+                        <img src="assets/pudim.avif" alt="Pudim 0 açucar" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title"></h3>
-                            <p class="cartao-text"></p>
+                            <h3 class="cartao-title">Pudim de leite sem açucar </h3>
+                            <p class="cartao-text">Delicioso pudim sem açucar para diabético e intolerantes</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 40 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 245</span>

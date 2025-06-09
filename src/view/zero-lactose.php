@@ -159,9 +159,9 @@
             <div class="cards">
                 <div class="cartao" data-aos="fade-up">
                     <a href="post-bowl-index.php">
-                        <img src="assets/musse.jpg" alt="Receita 0 leite" class="cartao-img">
+                        <img src="assets/musse.jpg" alt="musse 0 leite" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">musse de marcujá sem lactose</h3>
+                            <h3 class="cartao-title">Musse de maracujá sem leite</h3>
                             <p class="cartao-text">Um refrescante musse de maracujá com leite de coco para intolerantes a lactose</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 25 min</span>
@@ -172,10 +172,10 @@
                 </div>
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
+                        <img src="assets/sorvetinho.webp" alt="sorvete 0 lactose" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Pasta al Pomodoro</h3>
-                            <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
+                            <h3 class="cartao-title">Sorvete de abacaxi sem leite</h3>
+                            <p class="cartao-text">Deliciosos sorvete sem lactose para adoçar suas refeições</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 30 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 189</span>
@@ -186,10 +186,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
+                        <img src="assets/brigadeirinho.jpg" alt="Brigadeiro 0 lactose" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Cheesecake de Frutas</h3>
-                            <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
+                            <h3 class="cartao-title">Brigadeiro sem leite</h3>
+                            <p class="cartao-text">Delicioso brigadeiro feito com leite de coco.</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 45 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 312</span>
@@ -200,10 +200,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
+                        <img src="assets/uai.jpg" alt="pão de queijo zero alctose" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Salmão Grelhado</h3>
-                            <p class="cartao-text">Salmão grelhado com legumes assados e molho de ervas.</p>
+                            <h3 class="cartao-title">Pão de queijo com queijo zero lactose</h3>
+                            <p class="cartao-text">Maravilhosos pão de queijo feito com queijo tratado para eliminar a lactase.</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 35 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 276</span>
@@ -214,10 +214,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
+                        <img src="assets/requeijao.webp" alt="Requeijão 0 lactose" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Café da Manhã Fit</h3>
-                            <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico.</p>
+                            <h3 class="cartao-title">Requijão zero lactose</h3>
+                            <p class="cartao-text">Incrível requeijão sem lactose para incrementar suas receitas</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 20 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 198</span>
@@ -228,10 +228,10 @@
 
                 <div class="cartao" data-aos="fade-up">
                     <a href="">
-                        <img src="assets/brownie.jpg" alt="Sobremesa Especial" class="cartao-img">
+                        <img src="assets/bolinhadequeijo.jpg" alt="Bolinha de queijo 0 lactose" class="cartao-img">
                         <div class="cartao-content">
-                            <h3 class="cartao-title">Brownie Vegano</h3>
-                            <p class="cartao-text">Brownie vegano delicioso feito com leite vegetal</p>
+                            <h3 class="cartao-title">Bolinha de queijo zero lactose</h3>
+                            <p class="cartao-text">Bolinha de queijo feita com queijo tratado para eliminar a lactase</p>
                             <div class="cartao-footer">
                                 <span><i class="fa-regular fa-clock"></i> 40 min</span>
                                 <span><i class="fa-regular fa-heart"></i> 245</span>
