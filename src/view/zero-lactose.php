@@ -32,7 +32,14 @@
     <nav class="navbar navbar-expand-lg position-relative">
         <div class="container-fluid position-relative">
             <a class="navbar-brand" href="index.php">
-                <img src="assets/logo.png">
+                <img src="assets/logo.png"
+                alt="Logo"> </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://localhost/mortos-de-fome-joao/mortos-de-fome-live-develop-pedro%20(1)/mortos-de-fome-live-develop-pedro/src/view/index.php"><i class="fa-solid fa-house"></i></a>
+          </li>
+          <li class="nav-item">
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -78,44 +85,50 @@
         </div>
     </nav>
     <aside id="conversor">
-        <div class="conversor">
-            <label for="quantity">Quantidade:</label><br>
-            <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input"><br>
-
-            <label for="unit_from">De:</label>
-            <select name="unit_from" id="unit_from" class="input">
-                <!-- Unidades de Peso -->
-                <option value="g">Gramas (g)</option>
-                <option value="kg">Quilogramas (kg)</option>
-                <option value="lb">Libras (lb)</option>
-                <option value="oz">Onças (oz)</option>
-                <!-- Unidades de Volume -->
-                <option value="ml">Mililitros (ml)</option>
-                <option value="l">Litros (l)</option>
-                <option value="colher_de_cha">Colheres de chá (colher_de_cha)</option>
-                <option value="colher_de_sopa">Colheres de sopa (colher_de_sopa)</option>
-                <option value="xicara">Xícaras (xicara)</option>
-            </select><br>
-            <label for="unit_to">Para:</label>
-            <select name="unit_to" id="unit_to" class="input">
-                <!-- Unidades de Peso -->
-                <option value="g">Gramas (g)</option>
-                <option value="kg">Quilogramas (kg)</option>
-                <option value="lb">Libras (lb)</option>
-                <option value="oz">Onças (oz)</option>
-                <!-- Unidades de Volume -->
-                <option value="ml">Mililitros (ml)</option>
-                <option value="l">Litros (l)</option>
-                <option value="colher_de_cha">Colheres de chá (colher_de_cha)</option>
-                <option value="colher_de_sopa">Colheres de sopa (colher_de_sopa)</option>
-                <option value="xicara">Xícaras (xicara)</option>
-            </select>
-
-            <button onclick="convertUnits()" class="btn-1">Converter</button>
-            <button onclick="fecharconversor()" class="btn-1">Fechar</button>
-            <div id="result"></div>
-        </div>
-    </aside>
+  <div class="conversor-content">
+    <div class="form-group">
+      <label for="quantity">Quantidade:</label>
+      <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input">
+    </div>
+ 
+    <div class="form-group">
+      <label for="unit_from">De:</label>
+      <select name="unit_from" id="unit_from" class="input">
+        <option value="g">Gramas (g)</option>
+        <option value="kg">Quilogramas (kg)</option>
+        <option value="lb">Libras (lb)</option>
+        <option value="oz">Onças (oz)</option>
+        <option value="ml">Mililitros (ml)</option>
+        <option value="l">Litros (l)</option>
+        <option value="colher_de_cha">Colheres de chá</option>
+        <option value="colher_de_sopa">Colheres de sopa</option>
+        <option value="xicara">Xícaras</option>
+      </select>
+    </div>
+ 
+    <div class="form-group">
+      <label for="unit_to">Para:</label>
+      <select name="unit_to" id="unit_to" class="input">
+        <option value="g">Gramas (g)</option>
+        <option value="kg">Quilogramas (kg)</option>
+        <option value="lb">Libras (lb)</option>
+        <option value="oz">Onças (oz)</option>
+        <option value="ml">Mililitros (ml)</option>
+        <option value="l">Litros (l)</option>
+        <option value="colher_de_cha">Colheres de chá</option>
+        <option value="colher_de_sopa">Colheres de sopa</option>
+        <option value="xicara">Xícaras</option>
+      </select>
+    </div>
+ 
+    <div class="btn-container">
+      <button onclick="convertUnits()" class="btn-1">Converter</button>
+      <button onclick="fecharconversor()" class="btn-1">Fechar</button>
+    </div>
+ 
+    <div id="result"></div>
+  </div>
+</aside>
     <div class="search">
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Busque uma receita ou ingredientes"

@@ -196,9 +196,11 @@ aside {
 }
 
 .post-recipe form {
+
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
+  border: 1px solid black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -241,11 +243,11 @@ aside {
 }
 
 option[value="vegetariano"] {
-  color: rgba(6, 203, 6, 0.83);
+  color: rgba(0, 0, 0, 0.83);
 }
 
 select[value="vegetariano"]:checked {
-  color: rgba(6, 203, 6, 0.83);
+  color: rgba(0, 0, 0, 0.83);
 }
 
 /* Footer */

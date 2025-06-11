@@ -75,45 +75,51 @@
       </div>
     </div>
   </nav>
-  <aside id="conversor">
-    <div class="conversor">
-      <label for="quantity">Quantidade:</label><br>
-      <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input"><br>
-
+ <aside id="conversor">
+  <div class="conversor-content">
+    <div class="form-group">
+      <label for="quantity">Quantidade:</label>
+      <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input">
+    </div>
+ 
+    <div class="form-group">
       <label for="unit_from">De:</label>
       <select name="unit_from" id="unit_from" class="input">
-        <!-- Unidades de Peso -->
         <option value="g">Gramas (g)</option>
         <option value="kg">Quilogramas (kg)</option>
         <option value="lb">Libras (lb)</option>
         <option value="oz">Onças (oz)</option>
-        <!-- Unidades de Volume -->
         <option value="ml">Mililitros (ml)</option>
         <option value="l">Litros (l)</option>
-        <option value="colher_de_cha">Colheres de chá (colher_de_cha)</option>
-        <option value="colher_de_sopa">Colheres de sopa (colher_de_sopa)</option>
-        <option value="xicara">Xícaras (xicara)</option>
-      </select><br>
+        <option value="colher_de_cha">Colheres de chá</option>
+        <option value="colher_de_sopa">Colheres de sopa</option>
+        <option value="xicara">Xícaras</option>
+      </select>
+    </div>
+ 
+    <div class="form-group">
       <label for="unit_to">Para:</label>
       <select name="unit_to" id="unit_to" class="input">
-        <!-- Unidades de Peso -->
         <option value="g">Gramas (g)</option>
         <option value="kg">Quilogramas (kg)</option>
         <option value="lb">Libras (lb)</option>
         <option value="oz">Onças (oz)</option>
-        <!-- Unidades de Volume -->
         <option value="ml">Mililitros (ml)</option>
         <option value="l">Litros (l)</option>
-        <option value="colher_de_cha">Colheres de chá (colher_de_cha)</option>
-        <option value="colher_de_sopa">Colheres de sopa (colher_de_sopa)</option>
-        <option value="xicara">Xícaras (xicara)</option>
+        <option value="colher_de_cha">Colheres de chá</option>
+        <option value="colher_de_sopa">Colheres de sopa</option>
+        <option value="xicara">Xícaras</option>
       </select>
-
+    </div>
+ 
+    <div class="btn-container">
       <button onclick="convertUnits()" class="btn-1">Converter</button>
       <button onclick="fecharconversor()" class="btn-1">Fechar</button>
-      <div id="result"></div>
     </div>
-  </aside>
+ 
+    <div id="result"></div>
+  </div>
+</aside>
   <div class="post-main">
     <div class="content">
       <h1>Bowl Vegano Nutritivo</h1>

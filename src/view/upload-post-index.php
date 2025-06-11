@@ -18,51 +18,106 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.php"><img src="assets/logo.png" alt="Logo"> </a>
+    <nav class="navbar navbar-expand-lg position-relative">
+        <div class="container-fluid position-relative">
+            <a class="navbar-brand" href="index.php">
+                <img src="assets/logo.png"
+                alt="Logo"> </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-house"></i></a>
+            <a class="nav-link active" aria-current="page" href="index.php"><i class="fa-solid fa-house"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Em alta</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Menu
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Receitas</a></li>
-            </ul>
-          </li>
-          <li class="nav-item-1">
-            <a class="login" onclick="inpLogin()"><img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px"
-                width="25px"></a>
-          </li>
-        </ul>
-      </div>
-      <div class="icons-main-centered">
-        <div class="plant-container">
-          <a href="vegetariano-index.php"><img src="assets/image 3.png" height="30px"></a>
-        </div>
-        <div class="zero-lactose-container">
-          <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
-        </div>
-        <div class="zero-gluten-container">
-          <a href="zero-gluten.php"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
-        </div>
-        <div class="zero-sugar-container">
-          <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
-        </div>
-        <div class="fit-container">
-          <a href="fitness-index.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
-        </div>
-      </div>
-    </div>
-  </nav>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a id="navpal" class="nav-link" href="#">Em alta</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navpal" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Menu
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Receitas</a></li>
+                            <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
+                            <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-1">
+                        <a class="login" onclick="inpLogin()">
+                            <img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px" width="25px">
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
+            <div class="icons-main-centered">
+                <div class="plant-container">
+                    <a href="vegetariano-vegano.php"><img src="assets/image 3.png" height="30px"></a>
+                </div>
+                <div class="zero-lactose-container">
+                    <a href="zero-lactose.php"><img src="assets/zero-lactose.svg" height="30px"></a>
+                </div>
+                <div class="zero-gluten-container">
+                    <a href="zero-gluten.php"><img src="assets/zero-gluten.svg" height="30px" width="30px"></a>
+                </div>
+                <div class="zero-sugar-container">
+                    <a href="zero-acucar.php"><img src="assets/zero-sugar.svg" height="30px" width="30px"></a>
+                </div>
+                <div class="fit-container">
+                    <a href="fitness.php"><img src="assets/fit.svg" height="30px" width="30px"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <aside id="conversor">
+  <div class="conversor-content">
+    <div class="form-group">
+      <label for="quantity">Quantidade:</label>
+      <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input">
+    </div>
+ 
+    <div class="form-group">
+      <label for="unit_from">De:</label>
+      <select name="unit_from" id="unit_from" class="input">
+        <option value="g">Gramas (g)</option>
+        <option value="kg">Quilogramas (kg)</option>
+        <option value="lb">Libras (lb)</option>
+        <option value="oz">Onças (oz)</option>
+        <option value="ml">Mililitros (ml)</option>
+        <option value="l">Litros (l)</option>
+        <option value="colher_de_cha">Colheres de chá</option>
+        <option value="colher_de_sopa">Colheres de sopa</option>
+        <option value="xicara">Xícaras</option>
+      </select>
+    </div>
+ 
+    <div class="form-group">
+      <label for="unit_to">Para:</label>
+      <select name="unit_to" id="unit_to" class="input">
+        <option value="g">Gramas (g)</option>
+        <option value="kg">Quilogramas (kg)</option>
+        <option value="lb">Libras (lb)</option>
+        <option value="oz">Onças (oz)</option>
+        <option value="ml">Mililitros (ml)</option>
+        <option value="l">Litros (l)</option>
+        <option value="colher_de_cha">Colheres de chá</option>
+        <option value="colher_de_sopa">Colheres de sopa</option>
+        <option value="xicara">Xícaras</option>
+      </select>
+    </div>
+ 
+    <div class="btn-container">
+      <button onclick="convertUnits()" class="btn-1">Converter</button>
+      <button onclick="fecharconversor()" class="btn-1">Fechar</button>
+    </div>
+ 
+    <div id="result"></div>
+  </div>
+</aside>
   <!-- Formulário para postar receita -->
   <section class="post-recipe">
     <div class="container">
@@ -83,11 +138,10 @@
             </span>
           </label>
           <select class="form-select" id="recipeCategory">
-            <option value="vegetarianoo">Vegetariano</option>  
+            <option value="vegetariano"><span class="sel-vegan">Vegetariano</span></option>
             <option value="vegano">Vegano</option>
-            <option value="sem_lactose">0 Lactose</option>
-            <option value="sem_glúten">0 glúten</option>
-            <option value="sem_glúten">0 açucar</option>
+            <option value="sem_lactose">Sem Lactose</option>
+            <option value="carnivoro">Carnívoro</option>
           </select>
         </div>
         <div class="mb-3">

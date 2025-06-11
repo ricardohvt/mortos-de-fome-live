@@ -6,7 +6,6 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/admin-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
       integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,46 +26,42 @@
       rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" href="assets/marsal.png" type="image/png">
+    <link rel="stylesheet" href="style/painel-style.css">
   </head>
   <title>Mortos de Fome - Painel</title>
 </head>
-<nav class="navbar navbar-expand-lg ">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <li class="nav-item">
-          <a id="navpal" class="nav-link" href="#">Em alta</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a id="navpal" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Menu
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Receitas</a></li>
-            <li><a class="dropdown-item" href="#"></a></li>
-            <li><a class="dropdown-item" onclick="mostrarconversor()">Conversor de medidas</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="upload-post-index.php">Postar</a></li>
-          </ul>
-        </li>
-        <li class="nav-item-1">
-          <a class="login" onclick="inpLogin()"><img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px"
-              width="25px"></a>
-        </li>
-      </ul>
-
+<article class="page-main">
+  <div class="Seila">
+    <section class="nav-aside">
+      <div class="side side-dashboard">
+        <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
+      </div>
+      <div class="side side-dashboard">
+        <a href="#">Home</a>
+      </div>
+      <div class="side side-dashboard">
+        <a href="#">Dashboard</a>
+      </div>
+      <div class="side side-dashboard">
+        <a href="#">Postar</a>
+      </div>
+      <div class="side side-dashboard">
+        <a href="#">Usuários</a>
+      </div>
+    </section>
+  </div>
+  <div class="content-adm">
+    <div class="welcome">
+      <?php echo "<h3>Seja bem vindo (/* colocar username */) a o</h3>"; ?>
+      <p>Painel de Admin!</p>
     </div>
   </div>
-</nav>
-<aside>
-
-</aside>
+</article>
+<script src="javascript/script.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </body>
 
 </html>
