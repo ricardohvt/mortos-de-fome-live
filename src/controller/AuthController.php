@@ -16,6 +16,8 @@ if ($_POST) {
     } else {
         $_SESSION['login_error'] = "Email ou senha estão errados!";
         header("Location: ../view/login-index.php");
+        var_dump($_SESSION['login_error']);
+        echo $_SESSION['login_error'];
         exit;
     }
 }

@@ -2,7 +2,7 @@
 
 require '../service/conexao.php';
 
-function register($email, $fullname, $username, $password, $confirmpassword) {
+function register($email, $fullname, $username, $password, $confirmpassword, $isAdmin = null) {
     $conn = new usePDO();
     $instance = $conn->getInstance();
 
@@ -11,7 +11,7 @@ function register($email, $fullname, $username, $password, $confirmpassword) {
         exit;
     }
 
-    $code = mt_rand(100000, 999999); // uso do mt_rand por ser mais seguro que rand
+    $code = mt_rand(100000, 999999);
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO pessoa (full_name) VALUES (?)";
@@ -20,9 +20,15 @@ function register($email, $fullname, $username, $password, $confirmpassword) {
 
     $idPessoa = $instance->lastInsertId();
 
-    $sql = "INSERT INTO user (username, email, password_main, pessoaID) VALUES (?, ?, ?, ?)";
-    $stmt = $instance->prepare($sql);
-    $stmt->execute([$username, $email, $hashed_password, $idPessoa]);
+    if (isset($isAdmin)) {
+        $sql = "INSERT INTO user (username, email, password_main, pessoaID, isAdmin) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $instance->prepare($sql);
+        $stmt->execute([$username, $email, $hashed_password, $idPessoa, $isAdmin]);
+    } else {
+        $sql = "INSERT INTO user (username, email, password_main, pessoaID) VALUES (?, ?, ?, ?)";
+        $stmt = $instance->prepare($sql);
+        $stmt->execute([$username, $email, $hashed_password, $idPessoa]);
+    }
 
     $userID = $instance->lastInsertId();
 

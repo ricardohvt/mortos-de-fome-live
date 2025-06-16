@@ -23,6 +23,9 @@
   padding: 10px 10px 10px 10px;
 }
 
+p{ 
+  margin: 0px 0px 0px 0px;
+}
 
 hr {
   visibility: hidden;
@@ -47,7 +50,7 @@ hr {
   font-weight: 100;
   font-style: normal;
   display: block;
-  background-color: #d9e6df;
+  background-color: #fcfcfc;
   width: 400px;
   justify-content: center;
   text-align: center;

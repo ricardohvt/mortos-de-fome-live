@@ -60,6 +60,14 @@
                     <li class="nav-item-1">
                         <a class="login" onclick="inpLogin()">
                             <img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px" width="25px">
+                                    <?php
+            session_start();
+            if (isset($_SESSION['user'])) {
+                echo '<img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px" width="25px">' ."Você está logado, " . ($_SESSION['user']['username']) . "!";
+            } else {
+                echo "Login";
+            }
+        ?>
                         </a>
                     </li>
                 </ul>
