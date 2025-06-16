@@ -52,8 +52,7 @@
   </div>
   <div class="content-adm">
     <div class="welcome">
-      <?php echo "<h3>Seja bem vindo (/* colocar username */) a o</h3>"; ?>
-      <p>Painel de Admin!</p>
+      <?php echo "<h3>Seja bem vindo (/* colocar username */) a o <br>Painel de Admin!</h3>"; ?>
     </div>
   </div>
 </article>
