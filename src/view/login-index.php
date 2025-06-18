@@ -32,59 +32,62 @@ session_start();
 </head>
 
 <body>
-<section class="main-modal">
-  <section class="modal-content">
+  <section class="main-modal">
+    <section class="modal-content">
 
-    <div class="form-box">
-      <div class="container-fluid position-relative">
-        <a class="navbar-brand" href="index.php">
-          <img src="assets/logo.svg" alt="Logo">
-        </a>
+      <div class="form-box">
+        <div class="container-fluid position-relative">
+          <a class="navbar-brand" href="index.php">
+            <img src="assets/logo.svg" alt="Logo">
+          </a>
+        </div>
+        <div class="container-fluid position-relative container-2">
+        </div>
       </div>
-    </div>
-    
-    <form action="../controller/AuthController.php" method="POST" class="main-form">
-      <div class="content">
-        <div class="text">
-          <h1>Login</h1>
+
+
+      <form action="../controller/AuthController.php" method="POST" class="main-form">
+        <div class="content">
+          <div class="text">
+            <h1>Login</h1>
+          </div>
+          <label for="input-email">
+            <p>Seu E-mail:</p>
+            <input required type="email" name="email" id="input-email" class="input" placeholder="E-mail">
+          </label>
+
+          <label for="input-password">
+            <p>Sua senha:</p>
+            <input required type="password" name="password" id="input-password" class="input" placeholder="Senha">
+          </label>
+
+          <div class="form-link">
+            <a href="cadastro-index.php">Cadastrar-se</a>
+          </div>
+
+          <?php
+          if (!empty($_SESSION['login_error'])) {
+            echo "<p class='error-msg'>" . $_SESSION['login_error'] . "</p>";
+            unset($_SESSION['login_error']);
+          }
+          if (!empty($_SESSION['errcode_reg'])) {
+            echo "<p class='error-msg'>" . $_SESSION['errcode_reg'] . "</p>";
+            unset($_SESSION['errcode_reg']);
+          }
+          ?>
+
+          <div class="button-main">
+            <button type="submit" class="button-submit btn-r">Login</button>
+          </div>
+
         </div>
-        <label for="input-email">
-          <p>Seu E-mail:</p>
-          <input required type="email" name="email" id="input-email" class="input" placeholder="E-mail">
-        </label>
-  
-        <label for="input-password">
-          <p>Sua senha:</p>
-          <input required type="password" name="password" id="input-password" class="input" placeholder="Senha">
-        </label>
-  
-        <div class="form-link">
-          <a href="cadastro-index.php">Cadastrar-se</a>
-        </div>
-  
-        <?php
-        if (!empty($_SESSION['login_error'])) {
-          echo "<p class='error-msg'>" . $_SESSION['login_error'] . "</p>";
-          unset($_SESSION['login_error']);
-        }
-        if (!empty($_SESSION['errcode_reg'])) {
-          echo "<p class='error-msg'>" . $_SESSION['errcode_reg'] . "</p>";
-          unset($_SESSION['errcode_reg']);
-        }
-        ?>
-  
-        <div class="button-main">
-          <button type="submit" class="button-submit btn-r">Login</button>
-        </div>
-  
-      </div>
-    </form>
-  </section>
-  <script src="javascript/script.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+      </form>
+    </section>
+    <script src="javascript/script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 </body>
 
 </html>

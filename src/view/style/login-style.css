@@ -5,7 +5,7 @@
 @import url(imports/footer.css);
 body {
   height: 100vh;
-    background-image: url('../assets/background-main.webp');
+  background-image: url('../assets/background-main.webp');
   background-size: cover; 
   background-repeat: no-repeat;
   background-position: center;  
@@ -29,7 +29,27 @@ body {
   color: gold;
 }
 .container-fluid {
+  background-color: #fcfcfc;
+  height: 120px;
+  width: 240px;
   padding: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-radius: 15px;
+}
+
+.container-2 {
+  margin-top: 10px;
+  background-image: url('../assets/background-main.webp');
+  background-color: #fcfcfc;
+  height: 60%;
+  width: 240px;
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-radius: 15px;
 }
 
 p{ 
@@ -43,8 +63,12 @@ hr {
 .form-box {
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   align-content: center;
-  margin-left: 8%;
+  border-radius: 10px;
+  border: 1px solid black;
+  width: 300px;
 }
 .main-modal {
   font-family: "Itim", cursive;
@@ -54,6 +78,9 @@ hr {
   justify-content: center;
   align-items: center;  
   height: 100vh;
+}
+
+.navbar-brand {
 }
 
 .navbar-brand img {
