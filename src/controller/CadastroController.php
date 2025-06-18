@@ -8,7 +8,6 @@ if ($_POST) {
     $fullname = trim($_POST['fullname']);
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirm_password'];
-    $isAdminVar = isset($_POST['isAdmin']) ? 1 : null;
 
     if ($password !== $confirmpassword) {
         $_SESSION['errcode_reg'] = "As senhas não combinam!";
@@ -16,7 +15,7 @@ if ($_POST) {
         exit;
     }
 
-    $result = register($email, $fullname, $username, $password, $confirmpassword, $isAdminVar);
+    $result = register($email, $fullname, $username, $password, $confirmpassword,);
 
     if ($result) {
         $_SESSION['errcode_reg'] = "Cadastro realizado com sucesso!";

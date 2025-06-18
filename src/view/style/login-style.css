@@ -3,6 +3,15 @@
 @import url(imports/rules.css);
 @import url(imports/font-pack.css);
 @import url(imports/footer.css);
+body {
+  height: 100vh;
+    background-image: url('../assets/background-main.webp');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;  
+  width: 100vw;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -31,36 +40,53 @@ hr {
   visibility: hidden;
 }
 
-/* Form de cadastro e login */
+.form-box {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-left: 8%;
+}
 .main-modal {
-  height: 70vh;
-  flex: 1;
+  font-family: "Itim", cursive;
+  font-weight: 100;
+  font-style: normal;
+  display: grid;
+  justify-content: center;
+  align-items: center;  
+  height: 100vh;
+}
+
+.navbar-brand img {
+  height: 100px;
+  width: auto;
+}
+
+.modal-content{
+  flex-direction: row;
   font-family: "Itim", cursive;
   font-weight: 100;
   font-style: normal;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.main-form {
-  min-height: 400px;
-  max-height: 800px;
-  font-family: "Itim", cursive;
-  font-weight: 100;
-  font-style: normal;
-  display: block;
   background-color: #fcfcfc;
-  width: 400px;
-  justify-content: center;
-  text-align: center;
   border-radius: 20px;
-  border: 3px solid #3f3e3d;
   text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
   padding: 20px;
   box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
   -webkit-box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
   -moz-box-shadow: 5px 14px 43px -1px rgba(0,0,0,0.5);
+}
+
+.main-form {
+  font-family: "Itim", cursive;
+  font-weight: 100;
+  font-style: normal;
+  display: flex;
+  background-color: #fcfcfc;
+  width: 400px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 .main-form h1 {
@@ -114,7 +140,7 @@ li .login {
   margin: 10px;
 }
 /* Conversor */
-aside {
+/* aside {
   display: none;
   z-index: 2;
   font-family: "Itim", cursive;
@@ -135,7 +161,7 @@ aside {
   backdrop-filter: blur(15px);
   text-shadow: 9px 6px 6px rgba(0, 0, 0, 0.36);
   padding: 20px;
-}
+} */
 
 .btn-1 {
   margin-bottom: 8px;

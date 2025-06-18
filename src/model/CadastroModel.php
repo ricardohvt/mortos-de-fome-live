@@ -2,7 +2,8 @@
 
 require '../service/conexao.php';
 
-function register($email, $fullname, $username, $password, $confirmpassword, $isAdmin = null) {
+function register($email, $fullname, $username, $password, $confirmpassword)
+{
     $conn = new usePDO();
     $instance = $conn->getInstance();
 
@@ -19,16 +20,9 @@ function register($email, $fullname, $username, $password, $confirmpassword, $is
     $stmt->execute([$fullname]);
 
     $idPessoa = $instance->lastInsertId();
-
-    if (isset($isAdmin)) {
-        $sql = "INSERT INTO user (username, email, password_main, pessoaID, isAdmin) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $instance->prepare($sql);
-        $stmt->execute([$username, $email, $hashed_password, $idPessoa, $isAdmin]);
-    } else {
-        $sql = "INSERT INTO user (username, email, password_main, pessoaID) VALUES (?, ?, ?, ?)";
-        $stmt = $instance->prepare($sql);
-        $stmt->execute([$username, $email, $hashed_password, $idPessoa]);
-    }
+    $sql = "INSERT INTO user (username, email, password_main, pessoaID) VALUES (?, ?, ?, ?)";
+    $stmt = $instance->prepare($sql);
+    $stmt->execute([$username, $email, $hashed_password, $idPessoa]);
 
     $userID = $instance->lastInsertId();
 
