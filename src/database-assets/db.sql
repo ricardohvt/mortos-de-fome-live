@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/05/2025 às 13:02
+-- Tempo de geração: 23/06/2025 às 12:40
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -36,6 +36,14 @@ CREATE TABLE `code` (
   `userID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `code`
+--
+
+INSERT INTO `code` (`codeID`, `username`, `code`, `email`, `lido`, `userID`) VALUES
+(1, 'a', '602109', 'a@a.com', 0, 4),
+(2, 'b', '896809', 'b@b.com', 0, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +54,14 @@ CREATE TABLE `pessoa` (
   `pessoaID` int(11) NOT NULL,
   `full_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `pessoa`
+--
+
+INSERT INTO `pessoa` (`pessoaID`, `full_name`) VALUES
+(4, 'a'),
+(5, 'ba');
 
 -- --------------------------------------------------------
 
@@ -58,8 +74,17 @@ CREATE TABLE `user` (
   `username` varchar(120) NOT NULL,
   `email` varchar(130) NOT NULL,
   `password_main` varchar(60) NOT NULL,
-  `pessoaID` int(11) NOT NULL
+  `pessoaID` int(11) NOT NULL,
+  `isAdmin` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `user`
+--
+
+INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `pessoaID`, `isAdmin`) VALUES
+(4, 'a', 'a@a.com', '$2y$10$8qfeBju6NWxUlyjRFNNLIurpqKrKGhPmqLwzV8HVfv73nOR9.Zk.G', 4, 1),
+(5, 'b', 'b@b.com', '$2y$10$RZbLgSaWHIUUvN4FDZ7wyOmHhJ3SQhLjLje7v00fkmrhcqw23Ngby', 5, 0);
 
 --
 -- Índices para tabelas despejadas
@@ -93,19 +118,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `code`
 --
 ALTER TABLE `code`
-  MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `pessoaID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pessoaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para tabelas despejadas

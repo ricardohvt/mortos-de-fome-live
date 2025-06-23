@@ -63,6 +63,7 @@ session_start();
 
           <div class="form-link">
             <a href="cadastro-index.php">Cadastrar-se</a>
+            <a href="rec-usuario.php">Recuperação de Senha</a>
           </div>
 
           <?php

@@ -73,6 +73,7 @@
           </label>
           <div class="form-link">
             <a href="login-index.php">Logar</a>
+            <a href="rec-usuario.php">Recuperação de Senha</a>
           </div>
 
           <?php
