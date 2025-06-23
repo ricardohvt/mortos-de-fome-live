@@ -41,9 +41,6 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a id="navpal" class="nav-link" href="#">Em alta</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a id="navpal" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -56,9 +53,23 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
                         </ul>
                     </li>
                     <li class="nav-item-1">
-                        <a class="login" onclick="inpLogin()">
-                            <img class="usr-img" src="assets/user.svg" alt="Usuário" height="25px" width="25px">
-                        </a>
+                  <?php
+                  session_start();
+
+                  if (isset($_SESSION['user'])) {
+                    $username = $_SESSION['user']['username'];
+                    $isAdmin = $_SESSION['user']['isAdmin'] ?? 0;
+                    $link = $isAdmin == 1 ? 'painel.php' : 'painel-usuario.php';
+
+                    echo "<a class='login' href='$link'>
+          Você está logado, $username!
+        </a>";
+                  } else {
+                    echo "<a class='login' href='login-index.php'>
+          Login
+        </a>";
+                  }
+                  ?>
                     </li>
                 </ul>
             </div>

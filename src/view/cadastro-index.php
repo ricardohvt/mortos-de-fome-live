@@ -72,7 +72,7 @@
             <input required type="password" name="confirm_password" id="input-password-confirm" class="input" placeholder="Confirmar senha">
           </label>
           <div class="form-link">
-            <a href="login-index.php">Logar</a>
+            <a href="login-index.php">Logar</a><br>
             <a href="rec-usuario.php">Recuperação de Senha</a>
           </div>
 
