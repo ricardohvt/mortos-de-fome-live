@@ -48,7 +48,7 @@ session_start()
     <form action="../controller/RecuperacaoCodigoController.php" method="POST" class="main-form">
       <div class="content">
         <div class="text">
-          <h1>Coloque o Código:</h1>
+          <h1>Coloque o Código para redefinir a senha:</h1>
         </div>
         <hr>
 

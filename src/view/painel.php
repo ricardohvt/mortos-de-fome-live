@@ -53,11 +53,21 @@ session_start();
       <div class="side side-dashboard">
         <a href="#">Usuários</a>
       </div>
+      <div class="side side-dashboard btn-down-logout">
+        <a href="../model/LogoutModel.php" style="text-decoration: none; color: inherit;">Logout</a>
+      </div>
+
     </section>
   </div>
   <div class="content-adm">
     <div class="welcome">
-      <?php echo "<h3>Seja bem vindo " . ($_SESSION['user']['username']) . " a o <br>Painel de Admin!</h3>"; ?>
+      <?php
+      if (isset($_SESSION['user']['username'])) {
+        echo "<h3>Seja bem vindo " . ($_SESSION['user']['username']) . " a o <br>Painel de Admin!</h3>";
+      } else {
+        echo 'erro';
+      }
+      ?>
     </div>
   </div>
 </article>
