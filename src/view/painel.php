@@ -66,6 +66,8 @@ session_start();
         echo "<h3>Seja bem vindo " . ($_SESSION['user']['username']) . " a o <br>Painel de Admin!</h3>";
       } else {
         echo 'erro';
+        var_dump($_SESSION['user']['username']);
+        exit();
       }
       ?>
     </div>
