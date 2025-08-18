@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/06/2025 às 12:40
+-- Tempo de geração: 18/08/2025 às 21:23
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `code` (
 
 INSERT INTO `code` (`codeID`, `username`, `code`, `email`, `lido`, `userID`) VALUES
 (1, 'a', '602109', 'a@a.com', 0, 4),
-(2, 'b', '896809', 'b@b.com', 0, 5);
+(3, 'admin.main', '925351', 'admin@admin.com', 0, 6);
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,35 @@ CREATE TABLE `pessoa` (
 
 INSERT INTO `pessoa` (`pessoaID`, `full_name`) VALUES
 (4, 'a'),
-(5, 'ba');
+(5, 'ba'),
+(6, 'ricardo.admin');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `post`
+--
+
+CREATE TABLE `post` (
+  `postID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `nome_post` tinytext NOT NULL,
+  `descricao_post` text NOT NULL,
+  `criado_em` date NOT NULL DEFAULT current_timestamp(),
+  `categoria_post` tinyint(4) NOT NULL COMMENT '0 - Padrao / 1 - Vegetariano / 2 - Vegano / 3 - 0gluten / 4 - 0lactose / 5 - fitness',
+  `autorizado` tinyint(4) NOT NULL COMMENT '0 - Não autorizado / 1 - Autorizado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `post_images`
+--
+
+CREATE TABLE `post_images` (
+  `post_imagesID` int(11) NOT NULL,
+  `PostID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -84,7 +112,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `pessoaID`, `isAdmin`) VALUES
 (4, 'a', 'a@a.com', '$2y$10$8qfeBju6NWxUlyjRFNNLIurpqKrKGhPmqLwzV8HVfv73nOR9.Zk.G', 4, 1),
-(5, 'b', 'b@b.com', '$2y$10$RZbLgSaWHIUUvN4FDZ7wyOmHhJ3SQhLjLje7v00fkmrhcqw23Ngby', 5, 0);
+(6, 'admin.main', 'admin@admin.com', '$2y$10$UuEr5N2LZpHsuI5.B6cwzOw4i4KqOCMcdbWQvhj2KIj0P5iGmBz7u', 6, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -104,6 +132,20 @@ ALTER TABLE `pessoa`
   ADD PRIMARY KEY (`pessoaID`);
 
 --
+-- Índices de tabela `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`postID`),
+  ADD KEY `userID` (`userID`) USING BTREE;
+
+--
+-- Índices de tabela `post_images`
+--
+ALTER TABLE `post_images`
+  ADD PRIMARY KEY (`post_imagesID`),
+  ADD KEY `PostID` (`PostID`) USING BTREE;
+
+--
 -- Índices de tabela `user`
 --
 ALTER TABLE `user`
@@ -118,19 +160,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `code`
 --
 ALTER TABLE `code`
-  MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `pessoaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `pessoaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `post`
+--
+ALTER TABLE `post`
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `post_images`
+--
+ALTER TABLE `post_images`
+  MODIFY `post_imagesID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas
@@ -141,6 +195,18 @@ ALTER TABLE `user`
 --
 ALTER TABLE `code`
   ADD CONSTRAINT `code_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para tabelas `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`);
+
+--
+-- Restrições para tabelas `post_images`
+--
+ALTER TABLE `post_images`
+  ADD CONSTRAINT `post_images_ibfk_1` FOREIGN KEY (`PostID`) REFERENCES `post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrições para tabelas `user`
