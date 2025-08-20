@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18/08/2025 às 21:23
+-- Tempo de geração: 20/08/2025 às 16:48
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `categoria_post`
+--
+
+CREATE TABLE `categoria_post` (
+  `categoria_postID` int(11) NOT NULL,
+  `descricao_categoria` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -43,6 +54,19 @@ CREATE TABLE `code` (
 INSERT INTO `code` (`codeID`, `username`, `code`, `email`, `lido`, `userID`) VALUES
 (1, 'a', '602109', 'a@a.com', 0, 4),
 (3, 'admin.main', '925351', 'admin@admin.com', 0, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `comentarios_post`
+--
+
+CREATE TABLE `comentarios_post` (
+  `comentarios_postID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `postID` int(11) NOT NULL,
+  `comentario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -74,9 +98,10 @@ CREATE TABLE `post` (
   `postID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
   `nome_post` tinytext NOT NULL,
+  `subtitulo_post` tinytext NOT NULL,
   `descricao_post` text NOT NULL,
+  `categoria_postID` int(11) NOT NULL,
   `criado_em` date NOT NULL DEFAULT current_timestamp(),
-  `categoria_post` tinyint(4) NOT NULL COMMENT '0 - Padrao / 1 - Vegetariano / 2 - Vegano / 3 - 0gluten / 4 - 0lactose / 5 - fitness',
   `autorizado` tinyint(4) NOT NULL COMMENT '0 - Não autorizado / 1 - Autorizado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -114,9 +139,39 @@ INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `pessoaID`, 
 (4, 'a', 'a@a.com', '$2y$10$8qfeBju6NWxUlyjRFNNLIurpqKrKGhPmqLwzV8HVfv73nOR9.Zk.G', 4, 1),
 (6, 'admin.main', 'admin@admin.com', '$2y$10$UuEr5N2LZpHsuI5.B6cwzOw4i4KqOCMcdbWQvhj2KIj0P5iGmBz7u', 6, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `user_favoritos`
+--
+
+CREATE TABLE `user_favoritos` (
+  `user_favoritosID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `postID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `user_likes`
+--
+
+CREATE TABLE `user_likes` (
+  `user_likesID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `postID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `categoria_post`
+--
+ALTER TABLE `categoria_post`
+  ADD PRIMARY KEY (`categoria_postID`);
 
 --
 -- Índices de tabela `code`
@@ -124,6 +179,14 @@ INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `pessoaID`, 
 ALTER TABLE `code`
   ADD PRIMARY KEY (`codeID`),
   ADD KEY `userID` (`userID`);
+
+--
+-- Índices de tabela `comentarios_post`
+--
+ALTER TABLE `comentarios_post`
+  ADD PRIMARY KEY (`comentarios_postID`),
+  ADD KEY `comentarios_post_user_link` (`userID`),
+  ADD KEY `comentarios_post_link` (`postID`);
 
 --
 -- Índices de tabela `pessoa`
@@ -136,7 +199,8 @@ ALTER TABLE `pessoa`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`postID`),
-  ADD KEY `userID` (`userID`) USING BTREE;
+  ADD KEY `userID` (`userID`) USING BTREE,
+  ADD KEY `categoria_post_link` (`categoria_postID`);
 
 --
 -- Índices de tabela `post_images`
@@ -153,14 +217,42 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `pessoaID` (`pessoaID`) USING BTREE;
 
 --
+-- Índices de tabela `user_favoritos`
+--
+ALTER TABLE `user_favoritos`
+  ADD PRIMARY KEY (`user_favoritosID`),
+  ADD KEY `userID_link` (`userID`),
+  ADD KEY `postID_link` (`postID`);
+
+--
+-- Índices de tabela `user_likes`
+--
+ALTER TABLE `user_likes`
+  ADD PRIMARY KEY (`user_likesID`),
+  ADD KEY `userID_likes_link` (`userID`),
+  ADD KEY `postID_likes_link` (`postID`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `categoria_post`
+--
+ALTER TABLE `categoria_post`
+  MODIFY `categoria_postID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `code`
 --
 ALTER TABLE `code`
   MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `comentarios_post`
+--
+ALTER TABLE `comentarios_post`
+  MODIFY `comentarios_postID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
@@ -187,6 +279,18 @@ ALTER TABLE `user`
   MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de tabela `user_favoritos`
+--
+ALTER TABLE `user_favoritos`
+  MODIFY `user_favoritosID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `user_likes`
+--
+ALTER TABLE `user_likes`
+  MODIFY `user_likesID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restrições para tabelas despejadas
 --
 
@@ -197,10 +301,18 @@ ALTER TABLE `code`
   ADD CONSTRAINT `code_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Restrições para tabelas `comentarios_post`
+--
+ALTER TABLE `comentarios_post`
+  ADD CONSTRAINT `comentarios_post_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentarios_post_ibfk_2` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Restrições para tabelas `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`);
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`),
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`categoria_postID`) REFERENCES `categoria_post` (`categoria_postID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrições para tabelas `post_images`
@@ -213,6 +325,20 @@ ALTER TABLE `post_images`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`pessoaID`) REFERENCES `pessoa` (`pessoaID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para tabelas `user_favoritos`
+--
+ALTER TABLE `user_favoritos`
+  ADD CONSTRAINT `user_favoritos_ibfk_1` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_favoritos_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para tabelas `user_likes`
+--
+ALTER TABLE `user_likes`
+  ADD CONSTRAINT `user_likes_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_likes_ibfk_2` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
