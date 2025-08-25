@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/08/2025 às 16:48
+-- Tempo de geração: 25/08/2025 às 13:52
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -113,7 +113,8 @@ CREATE TABLE `post` (
 
 CREATE TABLE `post_images` (
   `post_imagesID` int(11) NOT NULL,
-  `PostID` int(11) NOT NULL
+  `PostID` int(11) NOT NULL,
+  `image` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -127,6 +128,7 @@ CREATE TABLE `user` (
   `username` varchar(120) NOT NULL,
   `email` varchar(130) NOT NULL,
   `password_main` varchar(60) NOT NULL,
+  `preferencias` int(11) NOT NULL,
   `pessoaID` int(11) NOT NULL,
   `isAdmin` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -135,9 +137,9 @@ CREATE TABLE `user` (
 -- Despejando dados para a tabela `user`
 --
 
-INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `pessoaID`, `isAdmin`) VALUES
-(4, 'a', 'a@a.com', '$2y$10$8qfeBju6NWxUlyjRFNNLIurpqKrKGhPmqLwzV8HVfv73nOR9.Zk.G', 4, 1),
-(6, 'admin.main', 'admin@admin.com', '$2y$10$UuEr5N2LZpHsuI5.B6cwzOw4i4KqOCMcdbWQvhj2KIj0P5iGmBz7u', 6, 1);
+INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `preferencias`, `pessoaID`, `isAdmin`) VALUES
+(4, 'a', 'a@a.com', '$2y$10$8qfeBju6NWxUlyjRFNNLIurpqKrKGhPmqLwzV8HVfv73nOR9.Zk.G', 0, 4, 1),
+(6, 'admin.main', 'admin@admin.com', '$2y$10$UuEr5N2LZpHsuI5.B6cwzOw4i4KqOCMcdbWQvhj2KIj0P5iGmBz7u', 0, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,8 @@ ALTER TABLE `post_images`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `pessoaID` (`pessoaID`) USING BTREE;
+  ADD UNIQUE KEY `pessoaID` (`pessoaID`) USING BTREE,
+  ADD KEY `preferencias_categorias_post_link` (`preferencias`);
 
 --
 -- Índices de tabela `user_favoritos`
@@ -293,6 +296,12 @@ ALTER TABLE `user_likes`
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `categoria_post`
+--
+ALTER TABLE `categoria_post`
+  ADD CONSTRAINT `categoria_post_ibfk_1` FOREIGN KEY (`categoria_postID`) REFERENCES `user` (`preferencias`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrições para tabelas `code`
