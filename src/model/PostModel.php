@@ -1,33 +1,12 @@
 <?php
+    session_start();
+    require '../service/conexao.php';
 
-require '../service/conexao.php';
-
-
-function check($email){
-    $conn_check = new usePDO();
-    $instance_check = $conn_check->getInstance();
-
-    $sql = "SELECT email FROM user WHERE email = ?";
-    $stmt_check = $instance_check->prepare($sql);
-    $stmt_check->execute([$email]);
-    $resultado = $stmt_check->fetchAll(PDO::FETCH_ASSOC);
-    
-    return $resultado;
-
-}
-
-function register($email, $fullname, $username, $password, $confirmpassword)
-{
+function cadastrar($nome,$ingredientes,$categoria,$modo,$image){
     $conn = new usePDO();
     $instance = $conn->getInstance();
 
-    if ($password !== $confirmpassword) {
-        header('Location: ../view/cadastro-index.php');
-        exit;
-    }
-
-    $code = mt_rand(100000, 999999);
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+}
 
     $sql = "INSERT INTO pessoa (full_name) VALUES (?)";
     $stmt = $instance->prepare($sql);
@@ -45,4 +24,3 @@ function register($email, $fullname, $username, $password, $confirmpassword)
     $stmt->execute([$username, $code, $email, $userID]);
 
     return $userID;
-}

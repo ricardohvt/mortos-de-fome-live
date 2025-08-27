@@ -77,8 +77,9 @@
           </div>
 
           <?php
+          session_start();
           if (!empty($_SESSION['errcode_reg'])) {
-            echo "<p class='error-msg'>" . $_SESSION['errcode_reg'] . "</p>";
+            echo "<h5 class='error-msg'>" . $_SESSION['errcode_reg'] . "</h5>";
             unset($_SESSION['errcode_reg']);
           }
           ?>

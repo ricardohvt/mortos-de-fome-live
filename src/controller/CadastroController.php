@@ -3,11 +3,20 @@ session_start();
 require '../model/CadastroModel.php';
 
 if ($_POST) {
-    $email = trim($_POST['email']);
-    $username = trim($_POST['username']);
-    $fullname = trim($_POST['fullname']);
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirm_password'];
+
+    $email_check = check($email);
+
+
+    if($email_check){
+        $_SESSION['errcode_reg'] = "Já há um usuário cadastrado com esse E-mail";
+        header('Location: ../view/cadastro-index.php');
+        return;
+    }
 
     if ($password !== $confirmpassword) {
         $_SESSION['errcode_reg'] = "As senhas não combinam!";
@@ -26,4 +35,5 @@ if ($_POST) {
         header('Location: ../view/cadastro-index.php');
         exit;
     }
+    
 }

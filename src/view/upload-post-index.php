@@ -133,14 +133,14 @@
   <section class="post-recipe">
     <div class="container">
       <h2 class="section-title">Poste sua Receita</h2>
-      <form id="recipeForm">
+      <form id="recipeForm" action="../controller/PostController.php" method="POST">
         <div class="mb-3">
           <label for="recipeTitle" class="form-label">
             <span class="title">
               Título da Receita
             </span>
           </label>
-          <input type="text" class="form-control" id="recipeTitle" placeholder="Digite o título da receita">
+          <input type="text" class="form-control" id="recipeTitle" placeholder="Digite o título da receita" name="nome-receita">
         </div>
         <div class="mb-3">
           <label for="recipeCategory" class="form-label">
@@ -148,7 +148,7 @@
               Categoria
             </span>
           </label>
-          <select class="form-select" id="recipeCategory">
+          <select class="form-select" id="recipeCategory" name="categoria-receita">
             <option value="vegetariano"><span class="sel-vegan">Vegetariano</span></option>
             <option value="vegano">Vegano</option>
             <option value="sem_lactose">Sem Lactose</option>
@@ -162,7 +162,7 @@
             </span>
           </label>
           <textarea class="form-control" id="recipeIngredients" rows="3"
-            placeholder="Digite os ingredientes da receita"></textarea>
+            placeholder="Digite os ingredientes da receita" name="ingredientes-receita"></textarea>
         </div>
         <div class="mb-3">
           <label for="recipeInstructions" class="form-label">
@@ -171,7 +171,7 @@
             </span>
           </label>
           <textarea class="form-control" id="recipeInstructions" rows="5"
-            placeholder="Digite o modo de preparo da receita"></textarea>
+            placeholder="Digite o modo de preparo da receita" name="modo-receita"></textarea>
         </div>
         <div class="mb-3">
           <label for="recipeImage" class="form-label">
@@ -179,7 +179,7 @@
               Imagem da Receita
             </span>
           </label>
-          <input type="file" class="form-control" id="recipeImage">
+          <input type="file" class="form-control" id="recipeImage" name="imagens-receita">
         </div>
         <button type="submit" class="btn btn-primary">Postar Receita</button>
       </form>
