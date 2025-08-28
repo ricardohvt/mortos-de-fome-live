@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+  $_SESSION['login_error'] = "Faça o login para acessar o Painel de usuário!";
+  header("Location: ./login-index.php");
+  die;
+}
 ?>
 
 
@@ -39,9 +44,6 @@ session_start();
             <aside class="navbar-side">
                 <div class="side side-dashboard brand-icon">
                     <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
-                </div>
-                <div class="side side-dashboard">
-                    <a href="#">Home</a>
                 </div>
                 <div class="side side-dashboard">
                     <a href="#">Dashboard</a>

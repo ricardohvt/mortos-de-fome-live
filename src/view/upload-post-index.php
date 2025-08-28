@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+  $_SESSION['login_error'] = "Faça o login para postar!";
+  header("Location: ./login-index.php");
+  die;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +54,6 @@
                     </li>
                     <li class="nav-item-1">
                   <?php
-                  session_start();
 
                   if (isset($_SESSION['user'])) {
                     $username = $_SESSION['user']['username'];
@@ -141,6 +149,12 @@
             </span>
           </label>
           <input type="text" class="form-control" id="recipeTitle" placeholder="Digite o título da receita" name="nome-receita">
+          <label for="recipeSubTitle" class="form-label">
+            <span class="title">
+              Subtítulo da Receita
+            </span>
+          </label>
+          <input type="text" class="form-control" id="recipeTitle" placeholder="Digite o título da receita" name="subtitle-receita">
         </div>
         <div class="mb-3">
           <label for="recipeCategory" class="form-label">

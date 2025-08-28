@@ -1,10 +1,17 @@
 <?php
     session_start();
     require '../service/conexao.php';
+    date_default_timezone_set('America/Sao_Paulo'); 
 
-function cadastrar($nome,$ingredientes,$categoria,$modo,$image){
-    $conn = new usePDO();
-    $instance = $conn->getInstance();
+function cadastrarPost($nome, $ingredientes, $categoria, $modo, $image, $tempoPreparo, $userID){
+    $time = date('Y-m-d H:i:s');
+    $conn_post = new usePDO();
+    $instance_post = $conn_post->getInstance();
+    $sql = "INSERT INTO post (userID, nome_post, ingredientes_post, modoPreparo, tempoPreparo, categoria_postID, criado_em) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $instance_post->prepare($sql);
+    $stmt->execute([$userID, $nome, $ingredientes, $modo, $time]);
+    
+    $idPost = $instance_post->lastInsertId();
 
 }
 

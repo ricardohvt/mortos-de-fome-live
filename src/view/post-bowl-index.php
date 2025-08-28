@@ -46,23 +46,21 @@
             </ul>
           </li>
           <li class="nav-item-1">
-                  <?php
-                  session_start();
+            <?php
+            if (isset($_SESSION['user'])) {
+              $username = $_SESSION['user']['username'];
+              $isAdmin = $_SESSION['user']['isAdmin'] ?? 0;
+              $link = $isAdmin == 1 ? 'painel.php' : 'painel-usuario.php';
 
-                  if (isset($_SESSION['user'])) {
-                    $username = $_SESSION['user']['username'];
-                    $isAdmin = $_SESSION['user']['isAdmin'] ?? 0;
-                    $link = $isAdmin == 1 ? 'painel.php' : 'painel-usuario.php';
-
-                    echo "<a class='login' href='$link'>
+              echo "<a class='login' href='$link'>
           Você está logado, $username!
         </a>";
-                  } else {
-                    echo "<a class='login' href='login-index.php'>
+            } else {
+              echo "<a class='login' href='login-index.php'>
           Login
         </a>";
-                  }
-                  ?>
+            }
+            ?>
           </li>
         </ul>
 
@@ -86,51 +84,51 @@
       </div>
     </div>
   </nav>
- <aside id="conversor">
-  <div class="conversor-content">
-    <div class="form-group">
-      <label for="quantity">Quantidade:</label>
-      <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input">
+  <aside id="conversor">
+    <div class="conversor-content">
+      <div class="form-group">
+        <label for="quantity">Quantidade:</label>
+        <input type="number" name="quantity" id="quantity" placeholder="Quantidade" class="input">
+      </div>
+
+      <div class="form-group">
+        <label for="unit_from">De:</label>
+        <select name="unit_from" id="unit_from" class="input">
+          <option value="g">Gramas (g)</option>
+          <option value="kg">Quilogramas (kg)</option>
+          <option value="lb">Libras (lb)</option>
+          <option value="oz">Onças (oz)</option>
+          <option value="ml">Mililitros (ml)</option>
+          <option value="l">Litros (l)</option>
+          <option value="colher_de_cha">Colheres de chá</option>
+          <option value="colher_de_sopa">Colheres de sopa</option>
+          <option value="xicara">Xícaras</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="unit_to">Para:</label>
+        <select name="unit_to" id="unit_to" class="input">
+          <option value="g">Gramas (g)</option>
+          <option value="kg">Quilogramas (kg)</option>
+          <option value="lb">Libras (lb)</option>
+          <option value="oz">Onças (oz)</option>
+          <option value="ml">Mililitros (ml)</option>
+          <option value="l">Litros (l)</option>
+          <option value="colher_de_cha">Colheres de chá</option>
+          <option value="colher_de_sopa">Colheres de sopa</option>
+          <option value="xicara">Xícaras</option>
+        </select>
+      </div>
+
+      <div class="btn-container">
+        <button onclick="convertUnits()" class="btn-1">Converter</button>
+        <button onclick="fecharconversor()" class="btn-1">Fechar</button>
+      </div>
+
+      <div id="result"></div>
     </div>
- 
-    <div class="form-group">
-      <label for="unit_from">De:</label>
-      <select name="unit_from" id="unit_from" class="input">
-        <option value="g">Gramas (g)</option>
-        <option value="kg">Quilogramas (kg)</option>
-        <option value="lb">Libras (lb)</option>
-        <option value="oz">Onças (oz)</option>
-        <option value="ml">Mililitros (ml)</option>
-        <option value="l">Litros (l)</option>
-        <option value="colher_de_cha">Colheres de chá</option>
-        <option value="colher_de_sopa">Colheres de sopa</option>
-        <option value="xicara">Xícaras</option>
-      </select>
-    </div>
- 
-    <div class="form-group">
-      <label for="unit_to">Para:</label>
-      <select name="unit_to" id="unit_to" class="input">
-        <option value="g">Gramas (g)</option>
-        <option value="kg">Quilogramas (kg)</option>
-        <option value="lb">Libras (lb)</option>
-        <option value="oz">Onças (oz)</option>
-        <option value="ml">Mililitros (ml)</option>
-        <option value="l">Litros (l)</option>
-        <option value="colher_de_cha">Colheres de chá</option>
-        <option value="colher_de_sopa">Colheres de sopa</option>
-        <option value="xicara">Xícaras</option>
-      </select>
-    </div>
- 
-    <div class="btn-container">
-      <button onclick="convertUnits()" class="btn-1">Converter</button>
-      <button onclick="fecharconversor()" class="btn-1">Fechar</button>
-    </div>
- 
-    <div id="result"></div>
-  </div>
-</aside>
+  </aside>
   <div class="post-main">
     <div class="content">
       <h1>Bowl Vegano Nutritivo</h1>

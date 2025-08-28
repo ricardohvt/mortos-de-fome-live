@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
+    header("Location: ./login-index.php");
+    die;
+}
+
+
 ?>
 
 
@@ -40,9 +47,6 @@ session_start();
     <section class="nav-aside">
       <div class="side side-dashboard">
         <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
-      </div>
-      <div class="side side-dashboard">
-        <a href="#">Home</a>
       </div>
       <div class="side side-dashboard">
         <a href="#">Dashboard</a>

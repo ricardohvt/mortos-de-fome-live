@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE php>
 <php lang="en">
 
@@ -56,7 +57,6 @@
                     </li>
                     <li class="nav-item-1">
                   <?php
-                  session_start();
 
                   if (isset($_SESSION['user'])) {
                     $username = $_SESSION['user']['username'];

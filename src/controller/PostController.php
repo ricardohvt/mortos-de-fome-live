@@ -8,16 +8,25 @@ if ($_POST) {
     $categoria = $_POST['categoria-receita'];
     $modo = $_POST['modo-receita'];
     $image = $_FILES['imagens-receita'];
+    $tempoPreparo = $_POST['tempo-preparo'];
+    $userID = $_SESSION['UserID'];
 
-    $result = cadastrar($nome,$ingredientes,$categoria,$modo,$image);
+    $result = cadastrarPost($nome, $ingredientes, $categoria, $modo, $image,$tempoPreparo, $userID);
 
-    if ($result) {
-        $_SESSION['errcode_reg'] = "Cadastro realizado com sucesso!";
+
+    if (!isset($_SESSION['user']['id'])) {
+        $_SESSION['errcode_reg'] = "Usuário não autenticado.";
         header('Location: ../view/login-index.php');
         exit;
+    }
+
+    if ($result) {
+        $_SESSION['errcode_recipe'] = "Cadastro realizado com sucesso!";
+        header('Location: ../view/upload-post-index.php');
+        exit;
     } else {
-        $_SESSION['errcode_reg'] = "Não foi possível realizar o cadastro.";
-        header('Location: ../view/cadastro-index.php');
+        $_SESSION['errcode_recipe'] = "Não foi possível realizar o cadastro.";
+        header('Location: ../view/upload-post-index.php');
         exit;
     }
     
