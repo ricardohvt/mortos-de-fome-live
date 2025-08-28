@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25/08/2025 às 13:52
+-- Tempo de geração: 27/08/2025 às 16:51
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -52,8 +52,7 @@ CREATE TABLE `code` (
 --
 
 INSERT INTO `code` (`codeID`, `username`, `code`, `email`, `lido`, `userID`) VALUES
-(1, 'a', '602109', 'a@a.com', 0, 4),
-(3, 'admin.main', '925351', 'admin@admin.com', 0, 6);
+(5, 'admin.main', '229116', 'admin@admin.com', 0, 8);
 
 -- --------------------------------------------------------
 
@@ -84,9 +83,7 @@ CREATE TABLE `pessoa` (
 --
 
 INSERT INTO `pessoa` (`pessoaID`, `full_name`) VALUES
-(4, 'a'),
-(5, 'ba'),
-(6, 'ricardo.admin');
+(8, 'a');
 
 -- --------------------------------------------------------
 
@@ -100,6 +97,7 @@ CREATE TABLE `post` (
   `nome_post` tinytext NOT NULL,
   `subtitulo_post` tinytext NOT NULL,
   `descricao_post` text NOT NULL,
+  `ingredients` text NOT NULL,
   `categoria_postID` int(11) NOT NULL,
   `criado_em` date NOT NULL DEFAULT current_timestamp(),
   `autorizado` tinyint(4) NOT NULL COMMENT '0 - Não autorizado / 1 - Autorizado'
@@ -138,8 +136,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userID`, `username`, `email`, `password_main`, `preferencias`, `pessoaID`, `isAdmin`) VALUES
-(4, 'a', 'a@a.com', '$2y$10$8qfeBju6NWxUlyjRFNNLIurpqKrKGhPmqLwzV8HVfv73nOR9.Zk.G', 0, 4, 1),
-(6, 'admin.main', 'admin@admin.com', '$2y$10$UuEr5N2LZpHsuI5.B6cwzOw4i4KqOCMcdbWQvhj2KIj0P5iGmBz7u', 0, 6, 1);
+(8, 'admin.main', 'admin@admin.com', '$2y$10$qtE/SvCoNfAQepGyAPewXuT75DUcUXtVpmX9fQN/2llSKZefTvZwm', 0, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -249,7 +246,7 @@ ALTER TABLE `categoria_post`
 -- AUTO_INCREMENT de tabela `code`
 --
 ALTER TABLE `code`
-  MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios_post`
@@ -261,7 +258,7 @@ ALTER TABLE `comentarios_post`
 -- AUTO_INCREMENT de tabela `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `pessoaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pessoaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `post`
@@ -279,7 +276,7 @@ ALTER TABLE `post_images`
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `user_favoritos`
