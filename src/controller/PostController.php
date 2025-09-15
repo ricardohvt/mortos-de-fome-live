@@ -8,7 +8,7 @@ if ($_POST) {
     $categoria = $_POST['categoria-receita'];
     $modo = $_POST['modo-receita'];
     $image = $_FILES['imagens-receita'];
-    $tempoPreparo = $_POST['tempo-preparo'];
+    $tempoPreparo = (INT) $_POST['tempo-preparo'];
     $userID = $_SESSION['UserID'];
 
     $result = cadastrarPost($nome, $ingredientes, $categoria, $modo, $image,$tempoPreparo, $userID);

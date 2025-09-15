@@ -85,6 +85,7 @@ hr {
   flex-direction: row;
   font-family: "Itim", cursive;
   font-weight: 100;
+  min-height: 400px;
   font-style: normal;
   display: flex;
   background-color: #fcfcfc;
