@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg position-relative">
+  <nav class="navbar navbar-expand-lg ">
     <div class="container-fluid position-relative">
       <a class="navbar-brand" href="index.php">
         <img src="assets/logo.png"

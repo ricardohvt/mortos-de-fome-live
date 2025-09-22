@@ -10,6 +10,8 @@
     /* border: 1px solid rgba(0, 0, 0, 0.42) 80%; */
     z-index: 1000;
     border-bottom: #353535 1px solid;
+    flex-wrap: nowrap;
+    justify-content: flex start;
 }
 
 hr {
@@ -168,8 +170,3 @@ li .login {
     top: 50%;
   }
 
-@media (max-width: 670px) {
-    .icons-main-centered {
-    display: none;
-    }
-}
