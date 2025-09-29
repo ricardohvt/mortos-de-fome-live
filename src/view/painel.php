@@ -51,7 +51,7 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
           <a href="#" data-tab="dashboard">Dashboard</a>
         </div>
         <div class="side side-dashboard">
-          <a href="#" data-tab="postar">Postar</a>
+          <a href="#" data-tab="postagens">Postagens</a>
         </div>
         <div class="side side-dashboard">
           <a href="#" data-tab="usuarios">Usuários</a>
@@ -78,7 +78,7 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
         </div>
       </div>
 
-      <div class="tab-content" id="postar" style="display: none;">
+      <div class="tab-content" id="postagens" style="display: none;">
         <div class="welcome">
           <p>Área de Postagem</p>
         </div>

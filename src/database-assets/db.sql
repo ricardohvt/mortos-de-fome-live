@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/08/2025 às 16:51
+-- Tempo de geração: 29/09/2025 às 13:23
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -96,10 +96,10 @@ CREATE TABLE `post` (
   `userID` int(11) NOT NULL,
   `nome_post` tinytext NOT NULL,
   `subtitulo_post` tinytext NOT NULL,
-  `descricao_post` text NOT NULL,
   `ingredients` text NOT NULL,
+  `modoPreparo` text NOT NULL,
   `categoria_postID` int(11) NOT NULL,
-  `criado_em` date NOT NULL DEFAULT current_timestamp(),
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
   `autorizado` tinyint(4) NOT NULL COMMENT '0 - Não autorizado / 1 - Autorizado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
