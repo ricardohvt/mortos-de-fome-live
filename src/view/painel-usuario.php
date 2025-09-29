@@ -46,33 +46,57 @@ if (!isset($_SESSION['user'])) {
                     <a class="navbar-brand" href="index.php"><img src="assets/logo.png"></a>
                 </div>
                 <div class="side side-dashboard">
-                    <a href="#">Dashboard</a>
+                    <a href="#" data-tab="dashboard">Dashboard</a>
                 </div>
                 <div class="side side-dashboard">
-                    <a href="#">Postar</a>
+                    <a href="#" data-tab="postagens">Postagens</a>
                 </div>
                 <div class="side side-dashboard">
-                    <a href="#">Usuários</a>
+                    <a href="#" data-tab="usuarios">Usuários</a>
                 </div>
                 <div class="side side-dashboard btn-down-logout">
                     <a href="../model/LogoutModel.php" style="text-decoration: none; color: inherit;">Logout</a>
                 </div>
             </aside>
             <div class="content-panel">
-                <div class="welcome">
-                    <?php
-                    if (isset($_SESSION['user']['username'])) {
-                        echo "<h3>Seja bem vindo " . ($_SESSION['user']['username']) . " a o <br>Painel de Usuário!</h3>";
-                    } else {
-                        echo 'erro';
-                        // var_dump($_SESSION['user']['username']);
-                        exit();
-                    }
-                    ?>
+                <div class="tab-content" id="dashboard">
+                    <div class="welcome">
+                        <?php
+                        if (isset($_SESSION['user']['username'])) {
+                            echo "<h3>Seja bem-vindo " . htmlspecialchars($_SESSION['user']['username']) . " ao <br>Painel de Usuário!</h3>";
+                        } else {
+                            echo '<h3>Erro ao carregar usuário.</h3>';
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="tab-content" id="postagens" style="display: none;">
+                    <div class="welcome">
+                        <p>Área de Postagem</p>
+                    </div>
+                </div>
+                <div class="tab-content" id="usuarios" style="display: none;">
+                    <div class="welcome">
+                        <p>Gerenciamento de Usuários</p>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 </body>
+<script>
+    const links = document.querySelectorAll('.side-dashboard a[data-tab]');
+    const tabs = document.querySelectorAll('.tab-content');
 
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.getAttribute('data-tab');
+
+        tabs.forEach(tab => {
+          tab.style.display = (tab.id === target) ? 'block' : 'none';
+        });
+      });
+    });
+</script>
 </html>
