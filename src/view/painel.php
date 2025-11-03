@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 <?php
 session_start();
 
@@ -10,7 +8,6 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
 ?>
 
 
->>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,8 +40,6 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
   </head>
   <title>Mortos de Fome - Painel</title>
 </head>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 <article class="page-main">
   <div class="Seila">
     <section class="nav-aside">
@@ -72,14 +67,6 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
   </div>
 </article>
 <script src="javascript/script.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-=======
-=======
->>>>>>> Stashed changes
-
 <body>
   <article class="page-main">
     <div class="Seila">
@@ -210,7 +197,6 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
       }
     };
   </script>
->>>>>>> Stashed changes
 </body>
 
 </html>
