@@ -14,8 +14,6 @@ hr {
   visibility: hidden;
 }
 
-<<<<<<< Updated upstream
-=======
 .page-main {
   display: flex;
   width: 100%;
@@ -170,7 +168,6 @@ hr {
   }
 }
 
->>>>>>> Stashed changes
 .search {
   padding: 1rem;
   max-width: 800px;
