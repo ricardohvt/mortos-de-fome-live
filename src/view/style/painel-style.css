@@ -14,6 +14,163 @@ hr {
   visibility: hidden;
 }
 
+<<<<<<< Updated upstream
+=======
+.page-main {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.Seila {
+  max-width: 300px;
+  min-width: 190px;
+  min-height: 100vh;
+  background-color: #353535;
+  border-right: #000 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+}
+
+.nav-aside {
+  width: 100%;
+}
+
+.side {
+  display: grid;
+  place-items: center;
+  margin: 5px;
+  border-radius: 5px;
+  border: #00000020 1px solid;
+  background-color: rgb(213, 213, 213);
+  padding: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 280px;
+  cursor: pointer;
+}
+
+.side a {
+  width: 100%;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.25s, text-decoration 0.25s;
+}
+
+.side a:hover {
+  text-decoration: underline;
+  text-decoration-color: black;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-content {
+  display: none;
+  width: 100%;
+  padding: 20px;
+}
+
+.tab-content:first-of-type {
+  display: block;
+}
+
+.welcome {
+  background-color: #f8f8f8;
+  max-width: 300px;
+  margin: 30px auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+
+.welcome h3,
+.welcome p {
+  font-size: 1.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  border: #353535 1px solid;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .page-main {
+    flex-direction: column;
+  }
+
+  .Seila {
+    flex-direction: row;
+    overflow-x: auto;
+    height: auto;
+    width: 100%;
+  }
+
+  .side {
+    min-width: 100px;
+    padding: 10px;
+  }
+
+  .side a {
+    font-size: 0.9rem;
+  }
+
+  .welcome h3,
+  .welcome p {
+    font-size: 1.2rem;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .side {
+    min-width: 80px;
+    max-width: 85px;
+    font-size: 0.85rem;
+    padding: 6px;
+  }
+
+  .side img {
+    width: 60px;
+  }
+
+  .side a {
+    font-size: 0.8rem;
+  }
+
+  .welcome {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .welcome h3,
+  .welcome p {
+    font-size: 1rem;
+  }
+}
+
+>>>>>>> Stashed changes
 .search {
   padding: 1rem;
   max-width: 800px;
