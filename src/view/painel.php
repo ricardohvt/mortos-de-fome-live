@@ -44,6 +44,7 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
   <title>Mortos de Fome - Painel</title>
 </head>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <article class="page-main">
   <div class="Seila">
     <section class="nav-aside">
@@ -76,6 +77,8 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
   AOS.init();
 </script>
 =======
+=======
+>>>>>>> Stashed changes
 
 <body>
   <article class="page-main">
