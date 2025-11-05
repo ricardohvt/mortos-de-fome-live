@@ -10,12 +10,6 @@
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-}
-
 hr {
   visibility: hidden;
 }
@@ -30,7 +24,7 @@ hr {
 .Seila {
   max-width: 300px;
   min-width: 190px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #353535;
   border-right: #000 1px solid;
   display: flex;
@@ -105,6 +99,16 @@ hr {
   font-size: 1.5rem;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  border: #353535 1px solid;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .page-main {
@@ -171,6 +175,113 @@ hr {
   width: 90%;
 }
 
+.welcome {
+  background-color: #fbfbfb;
+  width: 90%;
+  height: 150px;
+  margin: 30px auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.welcome > p {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.content-adm {
+  width: 100%;
+  max-width: 56rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+html {
+  width: 100vw;
+}
+
+.page-main {
+  width: 100%;
+  margin: 0;
+}
+
+article {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.Seila {
+  place-items: center;
+  max-width: 300px;
+  min-width: 190px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 5px;
+  height: 100vh;
+  background-color: #353535;
+  border-right: #000 1px solid;
+}
+
+.side {
+  display: grid;
+  place-items: center;
+  max-width: 300px;
+  min-width: 150px;
+  margin: 5px;
+  border-radius: 5px;
+  border: #00000020 1px solid;
+  background-color: rgb(213, 213, 213);
+}
+
+.side button,
+.side .btn-r,
+.side .input {
+  width: 100%;
+  max-width: 280px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Responsividade dos botões da sidebar */
+@media (max-width: 768px) {
+  .side button,
+  .side .btn-r,
+  .side .input {
+    max-width: 220px;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .side button,
+  .side .btn-r,
+  .side .input {
+    max-width: 180px;
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  transition: color 0.25s, text-decoration 0.25s;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: black;
+}
+
 .search .form-control {
   background-color: #eeeeeeb0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -193,4 +304,45 @@ hr {
   color: #353535;
   text-decoration: underline;
   text-decoration-color: #353535;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .search {
+    margin: 0 1rem;
+  }
+
+  #navbarSupportedContent {
+    visibility: visible;
+    display: block;
+  }
+
+  .welcome > p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome {
+    height: 230px;
+    padding: 1rem;
+  }
+  .Seila {
+    min-width: 100px;
+    max-width: 110px;
+    font-size: 10px;
+  }
+  .side img {
+    width: 70px;
+  }
+  .side {
+    width: 80px;
+    min-width: 80px;
+    max-width: 85px;
+    font-size: 15px;
+  }
+
+  .welcome > p {
+    font-size: 1rem;
+  }
 }

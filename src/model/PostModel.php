@@ -1,33 +1,60 @@
 <?php
-    session_start();
-    require '../service/conexao.php';
-    date_default_timezone_set('America/Sao_Paulo'); 
+require '../service/conexao.php';
+date_default_timezone_set('America/Sao_Paulo'); 
 
-function cadastrarPost($nome, $ingredientes, $categoria, $modo, $image, $tempoPreparo, $userID){
+function cadastrarPost($nome, $ingredientes, $categoria, $modo, $image, $tempoPreparo, $userID) {
     $time = date('Y-m-d H:i:s');
-    $conn_post = new usePDO();
-    $instance_post = $conn_post->getInstance();
-    $sql = "INSERT INTO post (userID, nome_post, ingredientes_post, modoPreparo, tempoPreparo, categoria_postID, criado_em, autorizado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $instance_post->prepare($sql);
-    $stmt->execute([$userID, $nome, $ingredientes, $modo, $time]);
+    $conexao = instance2();
     
-    $idPost = $instance_post->lastInsertId();
-
+    try {
+        // Iniciar transação
+        $conexao->begin_transaction();
+        
+        // Inserir post - CORRIGIDO: usando os nomes corretos das colunas
+        $sql = "INSERT INTO post (userID, nome_post, subtitulo_post, ingredients, modoPreparo, categoria_postID, criado_em, autorizado) 
+                VALUES (?, ?, '', ?, ?, ?, ?, 0)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param("issisis", $userID, $nome, $ingredientes, $modo, $categoria, $time);
+        
+        if (!$stmt->execute()) {
+            throw new Exception("Erro ao inserir post: " . $stmt->error);
+        }
+        
+        $idPost = $conexao->insert_id;
+        
+        // Processar imagens se existirem
+        if (!empty($image) && isset($image['tmp_name']) && is_array($image['tmp_name'])) {
+            foreach ($image['tmp_name'] as $key => $tmp_name) {
+                if ($image['error'][$key] === 0 && is_uploaded_file($tmp_name)) {
+                    $check = getimagesize($tmp_name);
+                    if ($check !== false) {
+                        $imageData = file_get_contents($tmp_name);
+                        $sql_img = "INSERT INTO post_images (PostID, image) VALUES (?, ?)";
+                        $stmt_img = $conexao->prepare($sql_img);
+                        $stmt_img->bind_param("ib", $idPost, $imageData);
+                        $stmt_img->send_long_data(1, $imageData);
+                        
+                        if (!$stmt_img->execute()) {
+                            throw new Exception("Erro ao inserir imagem: " . $stmt_img->error);
+                        }
+                        $stmt_img->close();
+                    }
+                }
+            }
+        }
+        
+        // Commit da transação
+        $conexao->commit();
+        $stmt->close();
+        return $idPost;
+        
+    } catch (Exception $e) {
+        // Rollback em caso de erro
+        $conexao->rollback();
+        error_log("Erro ao cadastrar post: " . $e->getMessage());
+        return false;
+    } finally {
+        $conexao->close();
+    }
 }
-
-    // $sql = "INSERT INTO pessoa (full_name) VALUES (?)";
-    // $stmt = $instance->prepare($sql);
-    // $stmt->execute([$fullname]);
-
-    // $idPessoa = $instance->lastInsertId();
-    // $sql = "INSERT INTO user (username, email, password_main, pessoaID) VALUES (?, ?, ?, ?)";
-    // $stmt = $instance->prepare($sql);
-    // $stmt->execute([$username, $email, $hashed_password, $idPessoa]);
-
-    // $userID = $instance->lastInsertId();
-
-    // $sql = "INSERT INTO code (username, code, email, userID) VALUES (?, ?, ?, ?)";
-    // $stmt = $instance->prepare($sql);
-    // $stmt->execute([$username, $code, $email, $userID]);
-
-    // return $userID;
+?>

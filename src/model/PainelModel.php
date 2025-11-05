@@ -1,27 +1,27 @@
-    <?php
-    // Arquivo com funções para manipulação de dados
-    include_once '../service/conexao.php';
+<?php
+include_once '../service/conexao.php';
 
-
-    $conexao = instance2();
-    // Função para buscar todos os Post
-    function buscarPost($conexao) {
-        $Post = array();
-        
-        // Query para buscar Post ordenados por data (mais recentes primeiro)
-        $sql = "SELECT * FROM post";
-        $resultado = $conexao->query($sql);
-        if ($resultado && $resultado->num_rows > 0) {
-            while ($row = $resultado->fetch_assoc()) {
-                $Post[] = $row;
-            }
+function buscarPost($conexao) {
+    $posts = array();
+    $sql = "SELECT p.*, u.username, c.descricao_categoria 
+            FROM post p 
+            LEFT JOIN user u ON p.userID = u.userID 
+            LEFT JOIN categoria_post c ON p.categoria_postID = c.categoria_postID 
+            ORDER BY p.criado_em DESC";
+    $resultado = $conexao->query($sql);
+    
+    if ($resultado && $resultado->num_rows > 0) {
+        while ($row = $resultado->fetch_assoc()) {
+            $posts[] = $row;
         }
-        
-        return $Post;
     }
-    $posts = buscarPost($conexao);
-    echo "<pre>";
-    var_dump($posts);
-    echo "</pre>";
-    ?>
+    
+    return $posts;
+}
 
+// $conexao = instance2();
+// $posts = buscarPost($conexao);
+// echo "<pre>";
+// var_dump($posts);
+// echo "</pre>";
+?>
