@@ -5,7 +5,7 @@ class usePDO
     private $servername = "localhost";
     private $username = "root";
     private $password = "";
-    private $dbname = "teste2";
+    private $dbname = "test2";
     private $instance;
  
     function getInstance()
@@ -33,7 +33,7 @@ function instance2(){
     $servidor = "localhost";
     $usuario = "root";
     $senha = "";
-    $banco = "teste2";
+    $banco = "test2";
     $conexao = new mysqli($servidor, $usuario, $senha, $banco);
     
     if ($conexao->connect_error) {
