@@ -7,11 +7,10 @@ if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
 }
 
 include_once '../service/conexao.php';
-
 $conexao = instance2();
 
-// Buscar categorias para o select
-$categorias = array();
+// Buscar categorias
+$categorias = [];
 $sql_categorias = "SELECT * FROM categoria_post";
 $result_categorias = $conexao->query($sql_categorias);
 if ($result_categorias && $result_categorias->num_rows > 0) {
@@ -20,8 +19,8 @@ if ($result_categorias && $result_categorias->num_rows > 0) {
     }
 }
 
-// Buscar posts existentes
-$posts = array();
+// Buscar posts
+$posts = [];
 $sql_posts = "SELECT p.*, u.username, c.descricao_categoria 
               FROM post p 
               LEFT JOIN user u ON p.userID = u.userID 
@@ -33,8 +32,6 @@ if ($result_posts && $result_posts->num_rows > 0) {
         $posts[] = $row;
     }
 }
-
-// Fechar conexão
 $conexao->close();
 ?>
 
@@ -79,23 +76,20 @@ $conexao->close();
                     <h3>Seja bem-vindo <?php echo htmlspecialchars($_SESSION['user']['username']); ?> ao <br>Painel de Admin!</h3>
                 </div>
                 
-                <!-- Mensagens de sucesso/erro -->
                 <?php if (isset($_SESSION['success'])): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['success']; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
-                    <?php unset($_SESSION['success']); ?>
                 <?php endif; ?>
-                
+
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['error']; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
-                    <?php unset($_SESSION['error']); ?>
                 <?php endif; ?>
-                
+
                 <div class="stats">
                     <div class="stat-card">
                         <h4>Total de Posts</h4>
@@ -103,13 +97,13 @@ $conexao->close();
                     </div>
                     <div class="stat-card">
                         <h4>Posts Pendentes</h4>
-                        <p><?php echo count(array_filter($posts, function($post) { return $post['autorizado'] == 0; })); ?></p>
+                        <p><?php echo count(array_filter($posts, fn($p) => $p['autorizado'] == 0)); ?></p>
                     </div>
                 </div>
             </div>
 
             <!-- Postagens -->
-            <div class="tab-content" id="postagens" style="display: none;">
+            <div class="tab-content" id="postagens" style="display:none;">
                 <div class="content">
                     <div class="welcome">
                         <p>Área de Postagem</p>
@@ -119,7 +113,6 @@ $conexao->close();
                         Criar Nova Postagem
                     </button>
 
-                    <!-- Lista de Posts -->
                     <div class="posts-list">
                         <h4>Posts Existentes</h4>
                         <?php if (empty($posts)): ?>
@@ -147,8 +140,30 @@ $conexao->close();
                                             </span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary">Editar</button>
-                                            <button class="btn btn-sm btn-danger">Excluir</button>
+                                            <form action="../controller/PostActionController.php" method="POST" class="d-inline">
+                                                <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>">
+                                                <?php if ($post['autorizado']): ?>
+                                                    <button name="action" value="revogar" class="btn btn-sm btn-warning">Revogar</button>
+                                                <?php else: ?>
+                                                    <button name="action" value="aprovar" class="btn btn-sm btn-success">Aprovar</button>
+                                                <?php endif; ?>
+                                            </form>
+
+                                            <button class="btn btn-sm btn-primary" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#editarPostModal"
+                                                data-id="<?php echo $post['postID']; ?>"
+                                                data-titulo="<?php echo htmlspecialchars($post['nome_post']); ?>"
+                                                data-ingredientes="<?php echo htmlspecialchars($post['ingredients']); ?>"
+                                                data-modo="<?php echo htmlspecialchars($post['modoPreparo']); ?>"
+                                                data-categoria="<?php echo $post['categoria_postID']; ?>">
+                                                Editar
+                                            </button>
+
+                                            <form action="../controller/PostActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Excluir este post?');">
+                                                <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>">
+                                                <button name="action" value="excluir" class="btn btn-sm btn-danger">Excluir</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -158,13 +173,13 @@ $conexao->close();
                     </div>
                 </div>
 
-                <!-- Modal de Criação -->
+                <!-- Modal Criar Post -->
                 <div class="modal fade" id="CriarPostagemModal" tabindex="-1" aria-labelledby="CriarPostagemModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="CriarPostagemModalLabel">Nova Receita</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                <h5 class="modal-title">Nova Receita</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
                                 <form id="recipeForm" action="../controller/PainelController.php" method="POST" enctype="multipart/form-data">
@@ -173,54 +188,83 @@ $conexao->close();
                                         <input type="text" class="form-control" id="recipeTitle" name="nome-receita" required maxlength="255">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="recipeSubtitle" class="form-label">Subtítulo</label>
-                                        <input type="text" class="form-control" id="recipeSubtitle" name="subtitulo-receita" maxlength="255">
-                                    </div>
-                                    <div class="mb-3">
                                         <label for="recipeCategory" class="form-label">Categoria *</label>
                                         <select class="form-select" id="recipeCategory" name="categoria-receita" required>
                                             <option value="">Selecione uma categoria</option>
                                             <?php foreach ($categorias as $categoria): ?>
-                                            <option value="<?php echo $categoria['categoria_postID']; ?>">
-                                                <?php echo htmlspecialchars($categoria['descricao_categoria']); ?>
-                                            </option>
+                                            <option value="<?php echo $categoria['categoria_postID']; ?>"><?php echo htmlspecialchars($categoria['descricao_categoria']); ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                        <?php if (empty($categorias)): ?>
-                                            <div class="text-danger mt-1">Nenhuma categoria cadastrada. É necessário criar categorias primeiro.</div>
-                                        <?php endif; ?>
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipeIngredients" class="form-label">Ingredientes *</label>
-                                        <textarea class="form-control" id="recipeIngredients" rows="3" name="ingredientes-receita" required placeholder="Liste os ingredientes, separando por linha ou vírgula..."></textarea>
+                                        <textarea class="form-control" id="recipeIngredients" name="ingredientes-receita" required></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipeInstructions" class="form-label">Modo de Preparo *</label>
-                                        <textarea class="form-control" id="recipeInstructions" rows="5" name="modo-receita" required placeholder="Descreva o passo a passo do preparo..."></textarea>
+                                        <textarea class="form-control" id="recipeInstructions" name="modo-receita" required></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="recipeImage" class="form-label">Imagem da Receita</label>
+                                        <label for="recipeImage" class="form-label">Imagens</label>
                                         <input type="file" class="form-control" id="recipeImage" name="imagens-receita[]" multiple accept="image/*">
-                                        <div class="form-text">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB por imagem.</div>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary" <?php echo empty($categorias) ? 'disabled' : ''; ?>>Postar Receita</button>
+                                        <button type="submit" class="btn btn-primary">Postar Receita</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal Editar -->
+                <div class="modal fade" id="editarPostModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <form action="../controller/PostActionController.php" method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Editar Postagem</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="action" value="editar">
+                                    <input type="hidden" name="postID" id="editPostID">
+                                    <div class="mb-3">
+                                        <label>Título</label>
+                                        <input type="text" class="form-control" name="nome_post" id="editTitulo" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Ingredientes</label>
+                                        <textarea class="form-control" name="ingredientes" id="editIngredientes" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Modo de Preparo</label>
+                                        <textarea class="form-control" name="modoPreparo" id="editModo" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Categoria</label>
+                                        <select class="form-select" name="categoria_postID" id="editCategoria">
+                                            <?php foreach ($categorias as $categoria): ?>
+                                            <option value="<?php echo $categoria['categoria_postID']; ?>"><?php echo htmlspecialchars($categoria['descricao_categoria']); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Usuários -->
-            <div class="tab-content" id="usuarios" style="display: none;">
+            <div class="tab-content" id="usuarios" style="display:none;">
                 <div class="welcome">
                     <p>Gerenciamento de Usuários</p>
                 </div>
-                <div class="alert alert-info">
-                    Funcionalidade em desenvolvimento. Em breve você poderá gerenciar usuários aqui.
-                </div>
+                <div class="alert alert-info">Funcionalidade em desenvolvimento.</div>
             </div>
         </div>
     </article>
@@ -233,17 +277,21 @@ $conexao->close();
             link.addEventListener('click', e => {
                 e.preventDefault();
                 const target = link.getAttribute('data-tab');
-
-                tabs.forEach(tab => {
-                    tab.style.display = (tab.id === target) ? 'block' : 'none';
-                });
+                tabs.forEach(tab => tab.style.display = (tab.id === target) ? 'block' : 'none');
             });
         });
 
-        // Fechar alertas automaticamente após 5 segundos
-        document.addEventListener('DOMContentLoaded', function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => {
+        document.getElementById('editarPostModal').addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            document.getElementById('editPostID').value = button.getAttribute('data-id');
+            document.getElementById('editTitulo').value = button.getAttribute('data-titulo');
+            document.getElementById('editIngredientes').value = button.getAttribute('data-ingredientes');
+            document.getElementById('editModo').value = button.getAttribute('data-modo');
+            document.getElementById('editCategoria').value = button.getAttribute('data-categoria');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.alert').forEach(alert => {
                 setTimeout(() => {
                     const bsAlert = new bootstrap.Alert(alert);
                     bsAlert.close();

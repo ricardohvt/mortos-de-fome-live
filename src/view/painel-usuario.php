@@ -169,10 +169,6 @@ $conexao->close();
                                     <input type="text" class="form-control" id="recipeTitle" name="nome-receita" required maxlength="255">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipeSubtitle" class="form-label">Subtítulo</label>
-                                    <input type="text" class="form-control" id="recipeSubtitle" name="subtitulo-receita" maxlength="255">
-                                </div>
-                                <div class="mb-3">
                                     <label for="recipeCategory" class="form-label">Categoria *</label>
                                     <select class="form-select" id="recipeCategory" name="categoria-receita" required>
                                         <option value="">Selecione uma categoria</option>

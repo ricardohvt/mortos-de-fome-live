@@ -6,14 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar se usuário está logado
     if (!isset($_SESSION['user']['userID'])) {
         $_SESSION['error'] = "Usuário não autenticado.";
-        header("Location: ../painel.php");
+        header("Location: ../view/login.php");
         exit();
     }
     
     // Coletar dados
     $userID = $_SESSION['user']['userID'];
     $nome_post = trim($_POST['nome-receita'] ?? '');
-    $subtitulo_post = trim($_POST['subtitulo-receita'] ?? '');
     $ingredients = trim($_POST['ingredientes-receita'] ?? '');
     $modoPreparo = trim($_POST['modo-receita'] ?? '');
     $categoria_postID = intval($_POST['categoria-receita'] ?? 0);
@@ -26,22 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar dados
     if (empty($nome_post) || empty($ingredients) || empty($modoPreparo) || $categoria_postID <= 0) {
         $_SESSION['error'] = "Preencha todos os campos obrigatórios.";
-        header("Location: ../painel.php");
+        header("Location: ../view/painel.php");
         exit();
     }
     
     // Inserir post - método mais simples e direto
-    $sql = "INSERT INTO post (userID, nome_post, subtitulo_post, ingredients, modoPreparo, categoria_postID, autorizado) 
-            VALUES (?, ?, ?, ?, ?, ?, 1)";
+    $sql = "INSERT INTO post (userID, nome_post, ingredients, modoPreparo, categoria_postID, autorizado) 
+            VALUES (?, ?, ?, ?, ?, 0)";
     
     $stmt = $conexao->prepare($sql);
     if ($stmt === false) {
         $_SESSION['error'] = "Erro no prepare: " . $conexao->error;
-        header("Location: ../painel.php");
+        header("Location: ../view/painel.php");
         exit();
     }
     
-    $stmt->bind_param("issssi", $userID, $nome_post, $subtitulo_post, $ingredients, $modoPreparo, $categoria_postID);
+    $stmt->bind_param("isssi", $userID, $nome_post, $ingredients, $modoPreparo, $categoria_postID);
     
     if ($stmt->execute()) {
         $postID = $conexao->insert_id;
