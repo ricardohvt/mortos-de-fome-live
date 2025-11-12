@@ -213,7 +213,11 @@ $con->close();
     <?php if (!$post): ?>
       <div class="alert alert-warning">Post não encontrado ou não autorizado.</div>
     <?php else: ?>
-      <div class="row g-4">
+      <div class="row g-4" style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+">
         <div class="col-12 col-md-5">
           <div class="card shadow-sm">
             <?php if ($imgB64): ?>
@@ -221,9 +225,8 @@ $con->close();
             <?php else: ?>
 <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
             <?php endif; ?>
+
           </div>
-        </div>
-        <div class="col-12 col-md-7">
           <h2 class="mb-1"><?php echo htmlspecialchars(
               $post["nome_post"],
           ); ?></h2>
@@ -241,7 +244,7 @@ $con->close();
                 strtotime($post["criado_em"]),
             ); ?>
           </p>
-
+  
           <div class="mb-3">
             <?php if (isset($_SESSION["user"]["userID"])): ?>
               <form class="d-inline" action="../controller/InteractController.php" method="POST">
@@ -268,6 +271,8 @@ $con->close();
               <small class="text-muted ms-2">Entre para curtir e favoritar.</small>
             <?php endif; ?>
           </div>
+        </div>
+        <div class="col-12 col-md-7">
 
           <div class="mb-4">
             <h5>Ingredientes</h5>
