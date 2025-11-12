@@ -149,7 +149,7 @@ $conexao->close();
                                                     data-bs-target="#editarPostUserModal"
                                                     data-id="<?php echo $post['postID']; ?>"
                                                     data-titulo="<?php echo htmlspecialchars($post['nome_post']); ?>"
-                                                    data-ingredientes="<?php echo htmlspecialchars($post['ingredientes'] ?? ''); ?>"
+data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_QUOTES); ?>"
                                                     data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? ''); ?>"
                                                     data-categoria="<?php echo $post['categoria_postID']; ?>">
                                                 Editar

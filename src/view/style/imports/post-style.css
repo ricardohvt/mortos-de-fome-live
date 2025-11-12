@@ -1,0 +1,12 @@
+.coluna {
+    display: flex !important;
+    width: 3000rem;
+    justify-content: center;
+    gap: 5px;
+}
+.imagem-post {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
+    object-position: center;
+}

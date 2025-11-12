@@ -221,7 +221,7 @@ $con->close();
         <div class="col-12 col-md-5">
           <div class="card shadow-sm">
             <?php if ($imgB64): ?>
-              <img src="<?php echo $imgB64; ?>" class="card-img-top" alt="Imagem da receita">
+              <img class="imagem-post" src="<?php echo $imgB64; ?>" class="card-img-top" alt="Imagem da receita">
             <?php else: ?>
 <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
             <?php endif; ?>
@@ -244,7 +244,7 @@ $con->close();
                 strtotime($post["criado_em"]),
             ); ?>
           </p>
-  
+
           <div class="mb-3">
             <?php if (isset($_SESSION["user"]["userID"])): ?>
               <form class="d-inline" action="../controller/InteractController.php" method="POST">
@@ -272,7 +272,7 @@ $con->close();
             <?php endif; ?>
           </div>
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-7 coluna">
 
           <div class="mb-4">
             <h5>Ingredientes</h5>
