@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/11/2025 às 12:17
+-- Tempo de geração: 12/11/2025 às 15:11
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `teste2`
+-- Banco de dados: `test2`
 --
 
 -- --------------------------------------------------------
@@ -39,7 +39,12 @@ CREATE TABLE `categoria_post` (
 INSERT INTO `categoria_post` (`categoria_postID`, `descricao_categoria`) VALUES
 (1, 'Sobremesas'),
 (2, 'Pratos Principais'),
-(3, 'Aperitivos');
+(3, 'Aperitivos'),
+(4, 'Vegetariano'),
+(5, 'Zero Gluten'),
+(8, 'Zero Lactose'),
+(12, 'Fitness'),
+(13, 'Padrão');
 
 -- --------------------------------------------------------
 
@@ -76,6 +81,13 @@ CREATE TABLE `comentarios_post` (
   `postID` int(11) NOT NULL,
   `comentario` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `comentarios_post`
+--
+
+INSERT INTO `comentarios_post` (`comentarios_postID`, `userID`, `postID`, `comentario`) VALUES
+(1, 9, 8, 'Teste');
 
 -- --------------------------------------------------------
 
@@ -114,6 +126,15 @@ CREATE TABLE `post` (
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
   `autorizado` tinyint(4) NOT NULL COMMENT '0 - Não autorizado / 1 - Autorizado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `post`
+--
+
+INSERT INTO `post` (`postID`, `userID`, `nome_post`, `subtitulo_post`, `ingredients`, `modoPreparo`, `categoria_postID`, `criado_em`, `autorizado`) VALUES
+(7, 9, 'Teste213', '', 'Teste', 'Teste', 1, '2025-11-12 13:19:45', 1),
+(8, 9, 'Teste213432', '', 'teste', 'teste', 3, '2025-11-12 13:19:57', 1),
+(9, 9, 'Receita Fitness', '', 'Receita', 'Receita', 12, '2025-11-12 13:37:46', 1);
 
 -- --------------------------------------------------------
 
@@ -163,6 +184,13 @@ CREATE TABLE `user_favoritos` (
   `postID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `user_favoritos`
+--
+
+INSERT INTO `user_favoritos` (`user_favoritosID`, `userID`, `postID`) VALUES
+(1, 9, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -174,6 +202,13 @@ CREATE TABLE `user_likes` (
   `userID` int(11) NOT NULL,
   `postID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `user_likes`
+--
+
+INSERT INTO `user_likes` (`user_likesID`, `userID`, `postID`) VALUES
+(1, 9, 8);
 
 --
 -- Índices para tabelas despejadas
@@ -253,7 +288,7 @@ ALTER TABLE `user_likes`
 -- AUTO_INCREMENT de tabela `categoria_post`
 --
 ALTER TABLE `categoria_post`
-  MODIFY `categoria_postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `categoria_postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `code`
@@ -265,7 +300,7 @@ ALTER TABLE `code`
 -- AUTO_INCREMENT de tabela `comentarios_post`
 --
 ALTER TABLE `comentarios_post`
-  MODIFY `comentarios_postID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comentarios_postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
@@ -277,13 +312,13 @@ ALTER TABLE `pessoa`
 -- AUTO_INCREMENT de tabela `post`
 --
 ALTER TABLE `post`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `post_images`
 --
 ALTER TABLE `post_images`
-  MODIFY `post_imagesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `post_imagesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `user`
@@ -295,13 +330,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `user_favoritos`
 --
 ALTER TABLE `user_favoritos`
-  MODIFY `user_favoritosID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_favoritosID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `user_likes`
 --
 ALTER TABLE `user_likes`
-  MODIFY `user_likesID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_likesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para tabelas despejadas
