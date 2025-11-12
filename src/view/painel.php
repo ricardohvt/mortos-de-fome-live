@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user']['isAdmin']) || $_SESSION['user']['isAdmin'] != 1) {
+if (!isset($_SESSION["user"]["isAdmin"]) || $_SESSION["user"]["isAdmin"] != 1) {
     header("Location: ./login-index.php");
-    die;
+    die();
 }
 
-include_once '../service/conexao.php';
+include_once "../service/conexao.php";
 $conexao = instance2();
 
 // Buscar categorias
@@ -21,10 +21,10 @@ if ($result_categorias && $result_categorias->num_rows > 0) {
 
 // Buscar posts
 $posts = [];
-$sql_posts = "SELECT p.*, u.username, c.descricao_categoria 
-              FROM post p 
-              LEFT JOIN user u ON p.userID = u.userID 
-              LEFT JOIN categoria_post c ON p.categoria_postID = c.categoria_postID 
+$sql_posts = "SELECT p.*, u.username, c.descricao_categoria
+              FROM post p
+              LEFT JOIN user u ON p.userID = u.userID
+              LEFT JOIN categoria_post c ON p.categoria_postID = c.categoria_postID
               ORDER BY p.criado_em DESC";
 $result_posts = $conexao->query($sql_posts);
 if ($result_posts && $result_posts->num_rows > 0) {
@@ -32,12 +32,46 @@ if ($result_posts && $result_posts->num_rows > 0) {
         $posts[] = $row;
     }
 }
+
+// Contagem total de usuários (para o dashboard)
+$usersCountTotal = 0;
+$res_ct = $conexao->query("SELECT COUNT(*) AS c FROM `user`");
+if ($res_ct && $res_ct->num_rows > 0) {
+    $usersCountTotal = (int) $res_ct->fetch_assoc()["c"];
+}
+
+// Filtros da tela de usuários
+$u_q = trim($_GET["u_q"] ?? "");
+$u_admin = $_GET["u_admin"] ?? "";
+$whereParts = [];
+if ($u_q !== "") {
+    $qEsc = $conexao->real_escape_string($u_q);
+    $whereParts[] = "(username LIKE '%$qEsc%' OR email LIKE '%$qEsc%')";
+}
+if ($u_admin === "0" || $u_admin === "1") {
+    $whereParts[] = "COALESCE(isAdmin,0) = " . ($u_admin === "1" ? "1" : "0");
+}
+$whereSql = count($whereParts) ? " WHERE " . implode(" AND ", $whereParts) : "";
+
+// Buscar usuários (aplicando filtros)
+$users = [];
+$sql_users =
+    "SELECT userID, username, email, COALESCE(isAdmin, 0) AS isAdmin FROM `user`" .
+    $whereSql .
+    " ORDER BY userID DESC";
+$result_users = $conexao->query($sql_users);
+if ($result_users && $result_users->num_rows > 0) {
+    while ($row = $result_users->fetch_assoc()) {
+        $users[] = $row;
+    }
+}
+
 $conexao->close();
 
 // Contar categorias no PHP
 $categoriaCount = [];
 foreach ($posts as $post) {
-    $cat = $post['descricao_categoria'] ?? 'Sem categoria';
+    $cat = $post["descricao_categoria"] ?? "Sem categoria";
     $categoriaCount[$cat] = ($categoriaCount[$cat] ?? 0) + 1;
 }
 ?>
@@ -86,28 +120,39 @@ foreach ($posts as $post) {
     <!-- Conteúdo Principal -->
     <div class="main-content">
 
-        <?php 
-        $currentTab = $_GET['tab'] ?? 'dashboard';
-        $validTabs = ['dashboard', 'postagens', 'usuarios'];
-        $currentTab = in_array($currentTab, $validTabs) ? $currentTab : 'dashboard';
+        <?php
+        $currentTab = $_GET["tab"] ?? "dashboard";
+        $validTabs = ["dashboard", "postagens", "usuarios"];
+        $currentTab = in_array($currentTab, $validTabs)
+            ? $currentTab
+            : "dashboard";
         ?>
 
         <!-- ==================================== DASHBOARD ==================================== -->
-        <div class="tab-content" id="dashboard" style="display: <?php echo $currentTab === 'dashboard' ? 'block' : 'none'; ?>;">
+        <div class="tab-content" id="dashboard" style="display: <?php echo $currentTab ===
+        "dashboard"
+            ? "block"
+            : "none"; ?>;">
             <div class="content-adm">
 
                 <h1 class="section-title">Dashboard</h1>
 
-                <?php if (isset($_SESSION['success'])): ?>
+                <?php if (isset($_SESSION["success"])): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+                        <?php
+                        echo $_SESSION["success"];
+                        unset($_SESSION["success"]);
+                        ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
 
-                <?php if (isset($_SESSION['error'])): ?>
+                <?php if (isset($_SESSION["error"])): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                        <?php
+                        echo $_SESSION["error"];
+                        unset($_SESSION["error"]);
+                        ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
@@ -120,23 +165,35 @@ foreach ($posts as $post) {
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-clock"></i>
-                        <h3><?php echo count(array_filter($posts, fn($p) => $p['autorizado'] == 0)); ?></h3>
+                        <h3><?php echo count(
+                            array_filter(
+                                $posts,
+                                fn($p) => $p["autorizado"] == 0,
+                            ),
+                        ); ?></h3>
                         <p>Pendentes</p>
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-check-circle"></i>
-                        <h3><?php echo count(array_filter($posts, fn($p) => $p['autorizado'] == 1)); ?></h3>
+                        <h3><?php echo count(
+                            array_filter(
+                                $posts,
+                                fn($p) => $p["autorizado"] == 1,
+                            ),
+                        ); ?></h3>
                         <p>Aprovadas</p>
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-users"></i>
-                        <h3>--</h3>
+                        <h3><?php echo isset($usersCountTotal)
+                            ? $usersCountTotal
+                            : 0; ?></h3>
                         <p>Usuários Ativos</p>
                     </div>
                 </div>
 
                 <!-- BOTÃO CORRIGIDO: ADICIONADO O # -->
-    
+
 
                 <h2 class="section-title">Últimas Receitas</h2>
                 <div class="table-container">
@@ -150,20 +207,33 @@ foreach ($posts as $post) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
+                            <?php
                             $recentes = array_slice($posts, 0, 5);
                             foreach ($recentes as $post): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($post['nome_post']); ?></td>
-                                <td><?php echo htmlspecialchars($post['descricao_categoria'] ?? 'Sem categoria'); ?></td>
-                                <td><?php echo date('d/m/Y', strtotime($post['criado_em'])); ?></td>
+                                <td><?php echo htmlspecialchars(
+                                    $post["nome_post"],
+                                ); ?></td>
+                                <td><?php echo htmlspecialchars(
+                                    $post["descricao_categoria"] ??
+                                        "Sem categoria",
+                                ); ?></td>
+                                <td><?php echo date(
+                                    "d/m/Y",
+                                    strtotime($post["criado_em"]),
+                                ); ?></td>
                                 <td>
-                                    <span class="<?php echo $post['autorizado'] ? 'status-aprovado' : 'status-pendente'; ?>">
-                                        <?php echo $post['autorizado'] ? 'Aprovado' : 'Pendente'; ?>
+                                    <span class="<?php echo $post["autorizado"]
+                                        ? "status-aprovado"
+                                        : "status-pendente"; ?>">
+                                        <?php echo $post["autorizado"]
+                                            ? "Aprovado"
+                                            : "Pendente"; ?>
                                     </span>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach;
+                            ?>
                             <?php if (empty($recentes)): ?>
                             <tr>
                                 <td colspan="4" style="text-align:center; padding:20px; color:#999;">
@@ -184,7 +254,10 @@ foreach ($posts as $post) {
         </div>
 
         <!-- ==================================== POSTAGENS =================================== -->
-        <div class="tab-content" id="postagens" style="display: <?php echo $currentTab === 'postagens' ? 'block' : 'none'; ?>;">
+        <div class="tab-content" id="postagens" style="display: <?php echo $currentTab ===
+        "postagens"
+            ? "block"
+            : "none"; ?>;">
             <div class="content">
                 <div class="welcome"><p>Área de Postagem</p></div>
 
@@ -211,37 +284,65 @@ foreach ($posts as $post) {
                             <tbody>
                                 <?php foreach ($posts as $post): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($post['nome_post']); ?></td>
-                                    <td><?php echo htmlspecialchars($post['descricao_categoria'] ?? 'Sem categoria'); ?></td>
-                                    <td><?php echo date('d/m/Y H:i', strtotime($post['criado_em'])); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $post["nome_post"],
+                                    ); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $post["descricao_categoria"] ??
+                                            "Sem categoria",
+                                    ); ?></td>
+                                    <td><?php echo date(
+                                        "d/m/Y H:i",
+                                        strtotime($post["criado_em"]),
+                                    ); ?></td>
                                     <td>
-                                        <span class="badge <?php echo $post['autorizado'] ? 'bg-success' : 'bg-warning'; ?>">
-                                            <?php echo $post['autorizado'] ? 'Aprovado' : 'Pendente'; ?>
+                                        <span class="badge <?php echo $post[
+                                            "autorizado"
+                                        ]
+                                            ? "bg-success"
+                                            : "bg-warning"; ?>">
+                                            <?php echo $post["autorizado"]
+                                                ? "Aprovado"
+                                                : "Pendente"; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <form action="../controller/PostActionController.php" method="POST" class="d-inline">
-                                            <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>">
-                                            <?php if ($post['autorizado']): ?>
+                                            <input type="hidden" name="postID" value="<?php echo $post[
+                                                "postID"
+                                            ]; ?>">
+                                            <?php if ($post["autorizado"]): ?>
                                                 <button name="action" value="revogar" class="btn btn-sm btn-warning">Revogar</button>
                                             <?php else: ?>
                                                 <button name="action" value="aprovar" class="btn btn-sm btn-success">Aprovar</button>
                                             <?php endif; ?>
                                         </form>
 
-                                        <button class="btn btn-sm btn-primary" 
-                                            data-bs-toggle="modal" 
+                                        <button class="btn btn-sm btn-primary"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#editarPostModal"
-                                            data-id="<?php echo $post['postID']; ?>"
-                                            data-titulo="<?php echo htmlspecialchars($post['nome_post']); ?>"
-                                            data-ingredientes="<?php echo htmlspecialchars($post['ingredientes'] ?? ''); ?>"
-                                            data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? ''); ?>"
-                                            data-categoria="<?php echo $post['categoria_postID']; ?>">
+                                            data-id="<?php echo $post[
+                                                "postID"
+                                            ]; ?>"
+                                            data-titulo="<?php echo htmlspecialchars(
+                                                $post["nome_post"],
+                                            ); ?>"
+                                            data-ingredientes="<?php echo htmlspecialchars(
+                                                $post["ingredientes"] ?? "",
+                                            ); ?>"
+                                            data-modo="<?php echo htmlspecialchars(
+                                                $post["modoPreparo"] ?? "",
+                                            ); ?>"
+                                            data-categoria="<?php echo $post[
+                                                "categoria_postID"
+                                            ]; ?>">
                                             Editar
                                         </button>
 
                                         <form action="../controller/PostActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Excluir este post?');">
-                                            <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>">
+                                            <input type="hidden" name="postID" value="<?php echo $post[
+                                                "postID"
+                                            ]; ?>">
                                             <button name="action" value="excluir" class="btn btn-sm btn-danger">Excluir</button>
                                         </form>
                                     </td>
@@ -255,9 +356,140 @@ foreach ($posts as $post) {
         </div>
 
         <!-- ==================================== USUÁRIOS ==================================== -->
-        <div class="tab-content" id="usuarios" style="display: <?php echo $currentTab === 'usuarios' ? 'block' : 'none'; ?>;">
-            <div class="welcome"><p>Gerenciamento de Usuários</p></div>
-            <div class="alert alert-info">Funcionalidade em desenvolvimento.</div>
+        <div class="tab-content" id="usuarios" style="display: <?php echo $currentTab ===
+        "usuarios"
+            ? "block"
+            : "none"; ?>;">
+            <div class="content">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="welcome"><p>Gerenciamento de Usuários</p></div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateUser">
+                        <i class="fa fa-user-plus me-1"></i> Novo Usuário
+                    </button>
+                </div>
+
+                <?php if (isset($_SESSION["success"])): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php
+                        echo $_SESSION["success"];
+                        unset($_SESSION["success"]);
+                        ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <?php endif; ?>
+                <?php if (isset($_SESSION["error"])): ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php
+                        echo $_SESSION["error"];
+                        unset($_SESSION["error"]);
+                        ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <?php endif; ?>
+
+                <form method="GET" class="row g-2 align-items-end mb-3">
+                    <input type="hidden" name="tab" value="usuarios" />
+                    <div class="col-sm-6 col-md-5">
+                        <label class="form-label">Buscar (nome ou e-mail)</label>
+                        <input type="text" name="u_q" class="form-control" placeholder="ex.: maria, maria@site.com" value="<?php echo htmlspecialchars(
+                            $u_q ?? "",
+                        ); ?>" />
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                        <label class="form-label">Perfil</label>
+                        <select name="u_admin" class="form-select">
+                            <option value="" <?php echo $u_admin === ""
+                                ? "selected"
+                                : ""; ?>>Todos</option>
+                            <option value="1" <?php echo $u_admin === "1"
+                                ? "selected"
+                                : ""; ?>>Apenas Admins</option>
+                            <option value="0" <?php echo $u_admin === "0"
+                                ? "selected"
+                                : ""; ?>>Apenas Usuários</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 col-md-4">
+                        <button type="submit" class="btn btn-primary me-2"><i class="fa fa-filter me-1"></i> Filtrar</button>
+                        <a href="?tab=usuarios" class="btn btn-outline-secondary">Limpar</a>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome de usuário</th>
+                                <th>E-mail</th>
+                                <th class="text-center">Admin</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (!empty($users)): ?>
+                            <?php foreach ($users as $u): ?>
+                                <tr>
+                                    <td>#<?php echo intval(
+                                        $u["userID"],
+                                    ); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $u["username"],
+                                    ); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $u["email"],
+                                    ); ?></td>
+                                    <td class="text-center">
+                                        <span class="badge <?php echo intval(
+                                            $u["isAdmin"],
+                                        )
+                                            ? "bg-success"
+                                            : "bg-secondary"; ?>">
+                                            <?php echo intval($u["isAdmin"])
+                                                ? "Sim"
+                                                : "Não"; ?>
+                                        </span>
+                                    </td>
+                                    <td class="text-end">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary me-1"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalEditUser"
+                                            data-userid="<?php echo intval(
+                                                $u["userID"],
+                                            ); ?>"
+                                            data-username="<?php echo htmlspecialchars(
+                                                $u["username"],
+                                            ); ?>"
+                                            data-email="<?php echo htmlspecialchars(
+                                                $u["email"],
+                                            ); ?>"
+                                            data-isadmin="<?php echo intval(
+                                                $u["isAdmin"],
+                                            ); ?>">
+                                            <i class="fa fa-edit"></i> Editar
+                                        </button>
+                                        <form action="../controller/UserActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Excluir este usuário? Esta ação é irreversível.');">
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="userID" value="<?php echo intval(
+                                                $u["userID"],
+                                            ); ?>">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fa fa-trash"></i> Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">Nenhum usuário encontrado.</td>
+                            </tr>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </article>
@@ -281,8 +513,12 @@ foreach ($posts as $post) {
                         <select class="form-select" name="categoria-receita" required>
                             <option value="">Selecione uma categoria</option>
                             <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?php echo $categoria['categoria_postID']; ?>">
-                                <?php echo htmlspecialchars($categoria['descricao_categoria']); ?>
+                            <option value="<?php echo $categoria[
+                                "categoria_postID"
+                            ]; ?>">
+                                <?php echo htmlspecialchars(
+                                    $categoria["descricao_categoria"],
+                                ); ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
@@ -308,56 +544,145 @@ foreach ($posts as $post) {
     </div>
 </div>
 
-<!-- Estilos -->
-<style>
-    .status-aprovado, .status-pendente {
-        padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: white; display: inline-block;
-    }
-    .status-aprovado { background: #4caf50 !important; }
-    .status-pendente { background: #ff9800 !important; }
-</style>
+<!-- MODAL: Criar Usuário -->
+<div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="modalCreateUserLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCreateUserLabel">Novo Usuário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="../controller/UserActionController.php" method="POST">
+        <input type="hidden" name="action" value="create">
+        <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Nome completo (opcional)</label>
+                <input type="text" class="form-control" name="full_name" maxlength="255">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nome de usuário *</label>
+                <input type="text" class="form-control" name="username" required maxlength="120">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">E-mail *</label>
+                <input type="email" class="form-control" name="email" required maxlength="255">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Senha *</label>
+                <input type="password" class="form-control" name="password" required minlength="6">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="createIsAdmin" name="isAdmin" value="1">
+                <label class="form-check-label" for="createIsAdmin">Conceder acesso de Admin</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Criar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Editar Usuário -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="modalEditUserLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditUserLabel">Editar Usuário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="../controller/UserActionController.php" method="POST">
+        <input type="hidden" name="action" value="update">
+        <input type="hidden" name="userID" id="editUserID">
+        <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Nome de usuário *</label>
+                <input type="text" class="form-control" name="username" id="editUsername" required maxlength="120">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">E-mail *</label>
+                <input type="email" class="form-control" name="email" id="editEmail" required maxlength="255">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nova senha (opcional)</label>
+                <input type="password" class="form-control" name="password" id="editPassword" minlength="6" placeholder="Deixe em branco para manter a atual">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="editIsAdmin" name="isAdmin" value="1">
+                <label class="form-check-label" for="editIsAdmin">Administrador</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+</div>
+</div>
+
+<!-- MODAL: Editar Postagem -->
+<div class="modal fade" id="editarPostModal" tabindex="-1" aria-labelledby="editarPostModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editarPostModalLabel">Editar Postagem</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="../controller/PostActionController.php" method="POST">
+        <input type="hidden" name="action" value="editar">
+        <input type="hidden" name="postID" id="editarPostID">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" name="nome_post" id="editarTitulo" required maxlength="255">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" name="categoria_postID" id="editarCategoria" required>
+              <?php foreach ($categorias as $categoria): ?>
+              <option value="<?php echo $categoria[
+                  "categoria_postID"
+              ]; ?>"><?php echo htmlspecialchars(
+    $categoria["descricao_categoria"],
+); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ingredientes</label>
+            <textarea class="form-control" name="ingredientes" id="editarIngredientes" rows="4" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Modo de Preparo</label>
+            <textarea class="form-control" name="modoPreparo" id="editarModo" rows="6" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        </div>
+      </form>
+
+      <div class="modal-body border-top">
+        <h6>Imagens</h6>
+        <div id="editarImagensList" class="d-flex flex-wrap gap-2 mb-2"></div>
+        <form id="formAddImgs" action="../controller/PostImageController.php" method="POST" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
+          <input type="hidden" name="action" value="add">
+          <input type="hidden" name="postID" id="editarImgsPostID">
+          <input type="hidden" name="redirect" value="../view/painel.php?tab=postagens">
+          <input type="file" name="images[]" accept="image/*" multiple class="form-control form-control-sm"/>
+          <button type="submit" class="btn btn-sm btn-outline-primary">Adicionar imagens</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Navegação por abas
-        document.querySelectorAll('.side[data-tab] a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const tab = this.closest('.side').getAttribute('data-tab');
-                document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-                document.getElementById(tab).style.display = 'block';
-                document.querySelectorAll('.side').forEach(s => s.classList.remove('active'));
-                this.closest('.side').classList.add('active');
-            });
-        });
-
-        // Gráfico
-        const ctx = document.getElementById('categoryChart')?.getContext('2d');
-        if (ctx) {
-            const labels = <?php echo json_encode(array_keys($categoriaCount)); ?>;
-            const data = <?php echo json_encode(array_values($categoriaCount)); ?>;
-
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels.length ? labels : ['Sem Dados'],
-                    datasets: [{
-                        data: data.length ? data : [1],
-                        backgroundColor: labels.length ? ['#eb4a4a', '#ff7961', '#ff9e80', '#ffb74d', '#ffd180'] : ['#ccc'],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' } }
-                }
-            });
-        }
-    });
-</script>
-
+<script src="javascript/admin-fn.js"></script>
 </body>
 </html>

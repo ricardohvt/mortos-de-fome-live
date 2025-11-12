@@ -144,8 +144,21 @@ $conexao->close();
                                             </span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-outline-primary">Editar</button>
-                                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                                            <button class="btn btn-sm btn-outline-primary" 
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editarPostUserModal"
+                                                    data-id="<?php echo $post['postID']; ?>"
+                                                    data-titulo="<?php echo htmlspecialchars($post['nome_post']); ?>"
+                                                    data-ingredientes="<?php echo htmlspecialchars($post['ingredientes'] ?? ''); ?>"
+                                                    data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? ''); ?>"
+                                                    data-categoria="<?php echo $post['categoria_postID']; ?>">
+                                                Editar
+                                            </button>
+                                            <form action="../controller/UserPostActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Excluir este post?');">
+                                                <input type="hidden" name="action" value="excluir" />
+                                                <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>" />
+                                                <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -203,6 +216,61 @@ $conexao->close();
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal Editar Post (usuário) -->
+                <div class="modal fade" id="editarPostUserModal" tabindex="-1" aria-labelledby="editarPostUserModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editarPostUserModalLabel">Editar Postagem</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <form action="../controller/UserPostActionController.php" method="POST">
+                        <input type="hidden" name="action" value="editar">
+                        <input type="hidden" name="postID" id="uEditarPostID">
+                        <div class="modal-body">
+                          <div class="mb-3">
+                            <label class="form-label">Título</label>
+                            <input type="text" class="form-control" name="nome_post" id="uEditarTitulo" required maxlength="255">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select class="form-select" name="categoria_postID" id="uEditarCategoria" required>
+                              <?php foreach ($categorias as $categoria): ?>
+                              <option value="<?php echo $categoria['categoria_postID']; ?>"><?php echo htmlspecialchars($categoria['descricao_categoria']); ?></option>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Ingredientes</label>
+                            <textarea class="form-control" name="ingredientes" id="uEditarIngredientes" rows="4" required></textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Modo de Preparo</label>
+                            <textarea class="form-control" name="modoPreparo" id="uEditarModo" rows="6" required></textarea>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                        </div>
+                      </form>
+
+                      <div class="modal-body border-top">
+                        <h6>Imagens</h6>
+                        <div id="uEditarImagensList" class="d-flex flex-wrap gap-2 mb-2"></div>
+                        <form id="uFormAddImgs" action="../controller/PostImageController.php" method="POST" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
+                          <input type="hidden" name="action" value="add">
+                          <input type="hidden" name="postID" id="uEditarImgsPostID">
+                          <input type="hidden" name="redirect" value="../view/painel-usuario.php?tab=postagens">
+                          <input type="file" name="images[]" accept="image/*" multiple class="form-control form-control-sm"/>
+                          <button type="submit" class="btn btn-sm btn-outline-primary">Adicionar imagens</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </section>
     </div>
@@ -229,11 +297,49 @@ $conexao->close();
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = this.getAttribute('data-tab');
-                    
-                    tabs.forEach(tab => {
-                        tab.style.display = (tab.id === target) ? 'block' : 'none';
-                    });
+                    tabs.forEach(tab => { tab.style.display = (tab.id === target) ? 'block' : 'none'; });
                 });
+            });
+
+            // Preencher modal do usuário e carregar imagens
+            const uModal = document.getElementById('editarPostUserModal');
+            uModal?.addEventListener('show.bs.modal', async (event) => {
+                const btn = event.relatedTarget;
+                const pid = btn.getAttribute('data-id');
+                document.getElementById('uEditarPostID').value = pid;
+                document.getElementById('uEditarTitulo').value = btn.getAttribute('data-titulo') || '';
+                document.getElementById('uEditarIngredientes').value = btn.getAttribute('data-ingredientes') || '';
+                document.getElementById('uEditarModo').value = btn.getAttribute('data-modo') || '';
+                const cat = btn.getAttribute('data-categoria') || '';
+                const sel = document.getElementById('uEditarCategoria');
+                if (sel) sel.value = cat;
+
+                document.getElementById('uEditarImgsPostID').value = pid;
+                const list = document.getElementById('uEditarImagensList');
+                list.innerHTML = '<span class="text-muted">Carregando imagens...</span>';
+                try {
+                    const resp = await fetch(`../controller/PostImageController.php?action=list&postID=${pid}`);
+                    const data = await resp.json();
+                    if (!data.ok) throw new Error();
+                    list.innerHTML = '';
+                    data.items.forEach(img => {
+                        const wrap = document.createElement('div');
+                        wrap.className = 'position-relative';
+                        wrap.style.width = '96px';
+                        wrap.style.height = '96px';
+                        wrap.innerHTML = `
+                          <img src="${img.b64}" class="rounded border" style="object-fit:cover;width:96px;height:96px;"/>
+                          <form action="../controller/PostImageController.php" method="POST" class="position-absolute" style="top:2px; right:2px;">
+                            <input type="hidden" name="action" value="delete" />
+                            <input type="hidden" name="post_imagesID" value="${img.id}" />
+                            <input type="hidden" name="redirect" value="../view/painel-usuario.php?tab=postagens" />
+                            <button class="btn btn-sm btn-danger" title="Remover" onclick="return confirm('Remover esta imagem?')">&times;</button>
+                          </form>`;
+                        list.appendChild(wrap);
+                    });
+                } catch(e) {
+                    list.innerHTML = '<span class="text-danger">Falha ao carregar imagens.</span>';
+                }
             });
         });
     </script>

@@ -178,98 +178,72 @@
         <span class="visually-hidden">Próximo</span>
       </button>
     </div>
-  </div><!--carrossel-end-->
-  <section>
-    <div class="cards-main">
-      <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
-      <div class="cards">
-        <div class="cartao" data-aos="fade-up">
-          <a href="post-bowl-index.php">
-            <img src="assets/bowl.jpg" alt="Receita Vegana" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Bowl Vegano Nutritivo</h3>
-              <p class="cartao-text">Um delicioso bowl repleto de vegetais frescos,boa salada em qualquer ocasião</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                <span><i class="fa-regular fa-heart"></i> 234</span>
-              </div>
-            </div>
-          </a>
-        </div>
+</div><!--carrossel-end-->
 
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/alpomodoro.jpg" alt="Massa Italiana" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Pasta al Pomodoro sem gluten</h3>
-              <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco sem gluten.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                <span><i class="fa-regular fa-heart"></i> 189</span>
-              </div>
-            </div>
-          </a>
-        </div>
+  <?php
+  require_once '../service/conexao.php';
+  $con = instance2();
+  $cats = [];
+  $r = $con->query("SELECT categoria_postID, descricao_categoria FROM categoria_post ORDER BY descricao_categoria");
+  if ($r && $r->num_rows > 0) { while ($row = $r->fetch_assoc()) { $cats[] = $row; } }
 
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/salmao.png" alt="Prato Saudável" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Salmão Grelhado</h3>
-              <p class="cartao-text">Salmão grelhado com legumes assados e molho de ervas.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 35 min</span>
-                <span><i class="fa-regular fa-heart"></i> 276</span>
-              </div>
-            </div>
-          </a>
-        </div>
+  // Carregar posts autorizados por categoria (até 8 por categoria)
+  $byCat = [];
+  foreach ($cats as $c) {
+    $cid = intval($c['categoria_postID']);
+    $items = [];
+    $res = $con->query("SELECT postID, nome_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$cid} ORDER BY criado_em DESC LIMIT 8");
+    while ($res && ($p = $res->fetch_assoc())) {
+      // pegar 1a imagem
+      $stmt = $con->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      $items[] = $p;
+    }
+    $byCat[$cid] = $items;
+  }
+  $con->close();
+  ?>
 
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/cheesecake.jpg" alt="Sobremesa" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Cheesecake de Frutas</h3>
-              <p class="cartao-text">Cheesecake cremoso com cobertura de frutas vermelhas frescas.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 45 min</span>
-                <span><i class="fa-regular fa-heart"></i> 312</span>
-              </div>
-            </div>
-          </a>
-        </div>
+  <section class="container my-5">
+    <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
 
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/panceca.jpg" alt="Café da Manhã" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Panqueca de morango sem leite</h3>
-              <p class="cartao-text">Panquecas de morango com frutas frescas e mel orgânico.</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 20 min</span>
-                <span><i class="fa-regular fa-heart"></i> 198</span>
+    <?php foreach ($cats as $c): $cid=intval($c['categoria_postID']); $items=$byCat[$cid] ?? []; ?>
+      <div class="mt-4">
+        <h3 class="mb-3"><?php echo htmlspecialchars($c['descricao_categoria']); ?></h3>
+        <?php if (empty($items)): ?>
+          <p class="text-muted">Sem receitas nesta categoria ainda.</p>
+        <?php else: ?>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            <?php foreach ($items as $p): ?>
+              <div class="col">
+                <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 shadow-sm">
+                    <?php if (!empty($p['img'])): ?>
+                      <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                    <?php else: ?>
+<img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                    <?php endif; ?>
+                    <div class="card-body">
+                      <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                      <p class="card-text text-muted mb-0"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="cartao" data-aos="fade-up">
-          <a href="">
-            <img src="assets/brownie2.jpg" alt="Sobremesa Especial" class="cartao-img">
-            <div class="cartao-content">
-              <h3 class="cartao-title">Brownie de morango sem açucar</h3>
-              <p class="cartao-text">Brownie de morango delicioso feito com leite e morango sem açucar</p>
-              <div class="cartao-footer">
-                <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                <span><i class="fa-regular fa-heart"></i> 245</span>
-              </div>
-            </div>
-          </a>
-        </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
       </div>
-    </div>
+    <?php endforeach; ?>
   </section>
+
   <footer class="footer" data-aos="fade-up">
     <div class="footer-container">
       <div class="footer-top">
