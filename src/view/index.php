@@ -211,37 +211,118 @@
   $con->close();
   ?>
 
+  <?php
+  // Novas queries: posts aleatórios e "Pratos Principais"
+  require_once '../service/conexao.php';
+  $con2 = instance2();
+
+  // Pegar posts aleatórios (8)
+  $randomPosts = [];
+  $r = $con2->query("SELECT postID, nome_post, criado_em, categoria_postID FROM post WHERE autorizado=1 ORDER BY RAND() LIMIT 8");
+  if ($r && $r->num_rows > 0) {
+    while ($p = $r->fetch_assoc()) {
+      // buscar imagem principal
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      $randomPosts[] = $p;
+    }
+  }
+
+  // localizar categoria "Pratos Principais" (por descrição)
+  $pratosPrincipais = [];
+  $ppId = null;
+  foreach ($cats as $c) {
+    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'pratos principais') {
+      $ppId = intval($c['categoria_postID']);
+      break;
+    }
+  }
+
+  if ($ppId !== null) {
+    $res = $con2->query("SELECT postID, nome_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$ppId} ORDER BY criado_em DESC LIMIT 8");
+    while ($res && ($p = $res->fetch_assoc())) {
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      $pratosPrincipais[] = $p;
+    }
+  }
+  $con2->close();
+  ?>
+
   <section class="container my-5">
     <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
 
-    <?php foreach ($cats as $c): $cid=intval($c['categoria_postID']); $items=$byCat[$cid] ?? []; ?>
-      <div class="mt-4">
-        <h3 class="mb-3"><?php echo htmlspecialchars($c['descricao_categoria']); ?></h3>
-        <?php if (empty($items)): ?>
-          <p class="text-muted">Sem receitas nesta categoria ainda.</p>
-        <?php else: ?>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
-            <?php foreach ($items as $p): ?>
-              <div class="col">
-                <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
-                  <div class="card h-100 shadow-sm">
-                    <?php if (!empty($p['img'])): ?>
-                      <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
-                    <?php else: ?>
-<img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
-                    <?php endif; ?>
-                    <div class="card-body">
-                      <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
-                      <p class="card-text text-muted mb-0"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
-                    </div>
+    <!-- Pratos Principais (separado, sem abas) -->
+    <div id="pratos-principais" class="mt-4">
+      <h2 class="mb-3">Pratos Principais</h2>
+
+      <?php if (empty($pratosPrincipais)): ?>
+        <p class="text-muted">Sem receitas em "Pratos Principais" no momento.</p>
+      <?php else: ?>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+          <?php foreach ($pratosPrincipais as $p): ?>
+            <div class="col">
+              <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                <div class="card h-100 shadow-sm">
+                  <?php if (!empty($p['img'])): ?>
+                    <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                  <?php else: ?>
+                    <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                  <?php endif; ?>
+                  <div class="card-body">
+                    <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                    <p class="card-text text-muted mb-0"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
                   </div>
-                </a>
-              </div>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    <?php endforeach; ?>
+                </div>
+              </a>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <!-- Aleatórios (separado, sem abas) -->
+    <div id="aleatorios" class="mt-5">
+      <h2 class="mb-3">Aleatórios</h2>
+
+      <?php if (empty($randomPosts)): ?>
+        <p class="text-muted">Nenhuma receita aleatória encontrada.</p>
+      <?php else: ?>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+          <?php foreach ($randomPosts as $p): ?>
+            <div class="col">
+              <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                <div class="card h-100 shadow-sm">
+                  <?php if (!empty($p['img'])): ?>
+                    <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                  <?php else: ?>
+                    <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                  <?php endif; ?>
+                  <div class="card-body">
+                    <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                    <p class="card-text text-muted mb-0"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+    </div>
   </section>
 
   <footer class="footer" data-aos="fade-up">
