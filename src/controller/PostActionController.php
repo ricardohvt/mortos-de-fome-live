@@ -30,12 +30,21 @@ switch ($action) {
         break;
     case 'editar':
         $titulo = trim($_POST['nome_post'] ?? '');
+        $descricao = trim($_POST['descricao_post'] ?? '');
         $ingredientes = trim($_POST['ingredientes'] ?? '');
         $modo = trim($_POST['modoPreparo'] ?? '');
         $categoria = intval($_POST['categoria_postID'] ?? 0);
-        $sql = "UPDATE post SET nome_post=?, ingredients=?, modoPreparo=?, categoria_postID=? WHERE postID=?";
+        
+        // Validar limite de caracteres
+        if (strlen($descricao) > 500) {
+            $_SESSION['error'] = "Descrição não pode exceder 500 caracteres.";
+            header("Location: ../view/painel.php");
+            exit();
+        }
+        
+        $sql = "UPDATE post SET nome_post=?, descricao_post=?, ingredients=?, modoPreparo=?, categoria_postID=? WHERE postID=?";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sssii", $titulo, $ingredientes, $modo, $categoria, $postID);
+        $stmt->bind_param("ssssii", $titulo, $descricao, $ingredientes, $modo, $categoria, $postID);
         $ok = $stmt->execute();
         $stmt->close();
         $_SESSION[$ok ? 'success' : 'error'] = $ok ? "Post atualizado." : "Falha ao editar.";
@@ -56,3 +65,4 @@ $conexao->close();
 $_SESSION[$ok ? 'success' : 'error'] = $ok ? "Ação executada." : "Erro na operação.";
 header("Location: ../view/painel.php");
 exit();
+?>

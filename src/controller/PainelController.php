@@ -13,25 +13,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Coletar dados
     $userID = $_SESSION['user']['userID'];
     $nome_post = trim($_POST['nome-receita'] ?? '');
+    $descricao_post = trim($_POST['descricao-receita'] ?? '');
     $ingredients = trim($_POST['ingredientes-receita'] ?? '');
     $modoPreparo = trim($_POST['modo-receita'] ?? '');
     $categoria_postID = intval($_POST['categoria-receita'] ?? 0);
     
     $conexao = instance2();
     
-    // DEBUG
-    error_log("Tentando inserir post com categoria ID: " . $categoria_postID);
-    
     // Validar dados
-    if (empty($nome_post) || empty($ingredients) || empty($modoPreparo) || $categoria_postID <= 0) {
+    if (empty($nome_post) || empty($descricao_post) || empty($ingredients) || empty($modoPreparo) || $categoria_postID <= 0) {
         $_SESSION['error'] = "Preencha todos os campos obrigatórios.";
         header("Location: ../view/painel.php");
         exit();
     }
+
+    // Validar limite de caracteres
+    if (strlen($descricao_post) > 500) {
+        $_SESSION['error'] = "Descrição não pode exceder 500 caracteres.";
+        header("Location: ../view/painel.php");
+        exit();
+    }
     
-    // Inserir post - método mais simples e direto
-    $sql = "INSERT INTO post (userID, nome_post, ingredients, modoPreparo, categoria_postID, autorizado) 
-            VALUES (?, ?, ?, ?, ?, 0)";
+    // Inserir post
+    $sql = "INSERT INTO post (userID, nome_post, descricao_post, ingredients, modoPreparo, categoria_postID, autorizado) 
+            VALUES (?, ?, ?, ?, ?, ?, 0)";
     
     $stmt = $conexao->prepare($sql);
     if ($stmt === false) {
@@ -40,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
-    $stmt->bind_param("isssi", $userID, $nome_post, $ingredients, $modoPreparo, $categoria_postID);
+    $stmt->bind_param("issssi", $userID, $nome_post, $descricao_post, $ingredients, $modoPreparo, $categoria_postID);
     
     if ($stmt->execute()) {
         $postID = $conexao->insert_id;

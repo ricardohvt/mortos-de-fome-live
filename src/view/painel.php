@@ -553,6 +553,13 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
                         <input type="text" class="form-control" name="nome-receita" required maxlength="255">
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Descrição *</label>
+                        <textarea class="form-control" name="descricao-receita" required rows="3" maxlength="500" placeholder="Descrição breve da receita (até 500 caracteres)"></textarea>
+                        <small class="text-muted d-block mt-1">
+                            <span id="descricaoCount">0</span>/500 caracteres
+                        </small>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Categoria *</label>
                         <select class="form-select" name="categoria-receita" required>
                             <option value="">Selecione uma categoria</option>
@@ -731,6 +738,13 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
             <input type="text" class="form-control" name="nome_post" id="editarTitulo" required maxlength="255">
           </div>
           <div class="mb-3">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-control" name="descricao_post" id="editarDescricao" rows="3" maxlength="500" placeholder="Descrição breve da receita (até 500 caracteres)"></textarea>
+            <small class="text-muted d-block mt-1">
+              <span id="editarDescricaoCount">0</span>/500 caracteres
+            </small>
+          </div>
+          <div class="mb-3">
             <label class="form-label">Categoria</label>
             <select class="form-select" name="categoria_postID" id="editarCategoria" required>
               <?php foreach ($categorias as $categoria): ?>
@@ -808,6 +822,22 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       document.getElementById('renameCategoriaNome').value = btn.getAttribute('data-name') || '';
     });
 
+    // Contador de caracteres para descrição ao criar
+    const descricaoCreateInput = document.querySelector('#CriarPostagemModal textarea[name="descricao-receita"]');
+    if (descricaoCreateInput) {
+      descricaoCreateInput.addEventListener('input', function() {
+        document.getElementById('descricaoCount').textContent = this.value.length;
+      });
+    }
+
+    // Contador de caracteres para descrição ao editar
+    const descricaoEditInput = document.getElementById('editarDescricao');
+    if (descricaoEditInput) {
+      descricaoEditInput.addEventListener('input', function() {
+        document.getElementById('editarDescricaoCount').textContent = this.value.length;
+      });
+    }
+
     // Modal: Editar Post (preencher + imagens)
     const editarPostModal = document.getElementById('editarPostModal');
     editarPostModal?.addEventListener('show.bs.modal', async function (event) {
@@ -815,6 +845,8 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       const pid = button.getAttribute('data-id') || '';
       document.getElementById('editarPostID').value = pid;
       document.getElementById('editarTitulo').value = button.getAttribute('data-titulo') || '';
+      document.getElementById('editarDescricao').value = button.getAttribute('data-descricao') || '';
+      document.getElementById('editarDescricaoCount').textContent = button.getAttribute('data-descricao')?.length || 0;
       document.getElementById('editarIngredientes').value = button.getAttribute('data-ingredientes') || '';
       document.getElementById('editarModo').value = button.getAttribute('data-modo') || '';
       const cat = button.getAttribute('data-categoria') || '';

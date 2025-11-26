@@ -120,6 +120,7 @@ CREATE TABLE `post` (
   `userID` int(11) NOT NULL,
   `nome_post` tinytext NOT NULL,
   `subtitulo_post` tinytext NOT NULL,
+  `descricao_post` varchar(500) DEFAULT NULL,
   `ingredients` text NOT NULL,
   `modoPreparo` text NOT NULL,
   `categoria_postID` int(11) NOT NULL,
@@ -131,10 +132,10 @@ CREATE TABLE `post` (
 -- Despejando dados para a tabela `post`
 --
 
-INSERT INTO `post` (`postID`, `userID`, `nome_post`, `subtitulo_post`, `ingredients`, `modoPreparo`, `categoria_postID`, `criado_em`, `autorizado`) VALUES
-(7, 9, 'Teste213', '', 'Teste', 'Teste', 1, '2025-11-12 13:19:45', 1),
-(8, 9, 'Teste213432', '', 'teste', 'teste', 3, '2025-11-12 13:19:57', 1),
-(9, 9, 'Receita Fitness', '', 'Receita', 'Receita', 12, '2025-11-12 13:37:46', 1);
+INSERT INTO `post` (`postID`, `userID`, `nome_post`, `subtitulo_post`, `descricao_post`, `ingredients`, `modoPreparo`, `categoria_postID`, `criado_em`, `autorizado`) VALUES
+(7, 9, 'Teste213', '', NULL, 'Teste', 'Teste', 1, '2025-11-12 13:19:45', 1),
+(8, 9, 'Teste213432', '', NULL, 'teste', 'teste', 3, '2025-11-12 13:19:57', 1),
+(9, 9, 'Receita Fitness', '', NULL, 'Receita', 'Receita', 12, '2025-11-12 13:37:46', 1);
 
 -- --------------------------------------------------------
 

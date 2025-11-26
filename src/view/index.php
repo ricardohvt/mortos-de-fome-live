@@ -212,32 +212,21 @@
   ?>
 
   <?php
-  // Novas queries: posts aleatórios e "Pratos Principais"
+  // Novas queries: posts aleatórios e "Pratos Principais" COM PAGINAÇÃO
   require_once '../service/conexao.php';
   $con2 = instance2();
 
-  // Pegar posts aleatórios (8)
-  $randomPosts = [];
-  $r = $con2->query("SELECT postID, nome_post, criado_em, categoria_postID FROM post WHERE autorizado=1 ORDER BY RAND() LIMIT 8");
-  if ($r && $r->num_rows > 0) {
-    while ($p = $r->fetch_assoc()) {
-      // buscar imagem principal
-      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
-      $pid = intval($p['postID']);
-      $stmt->bind_param('i', $pid);
-      $stmt->execute();
-      $stmt->store_result();
-      $img = null;
-      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
-      $stmt->close();
-      $p['img'] = $img;
-      $randomPosts[] = $p;
-    }
-  }
+  $postsPerPage = 3; // Receitas por página (ALTERADO DE 6 PARA 3)
+  
+  // Obter página atual (GET parameter)
+  $pagePratos = isset($_GET['page_pratos']) ? max(1, intval($_GET['page_pratos'])) : 1;
+  $pageAleatorios = isset($_GET['page_aleatorios']) ? max(1, intval($_GET['page_aleatorios'])) : 1;
 
-  // localizar categoria "Pratos Principais" (por descrição)
+  // ===== PRATOS PRINCIPAIS =====
   $pratosPrincipais = [];
+  $totalPratos = 0;
   $ppId = null;
+  
   foreach ($cats as $c) {
     if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'pratos principais') {
       $ppId = intval($c['categoria_postID']);
@@ -246,7 +235,16 @@
   }
 
   if ($ppId !== null) {
-    $res = $con2->query("SELECT postID, nome_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$ppId} ORDER BY criado_em DESC LIMIT 8");
+    // Contar total de pratos
+    $countRes = $con2->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1 AND categoria_postID={$ppId}");
+    $countRow = $countRes->fetch_assoc();
+    $totalPratos = intval($countRow['total']);
+    
+    // Calcular offset
+    $offsetPratos = ($pagePratos - 1) * $postsPerPage;
+    
+    // Buscar pratos da página atual
+    $res = $con2->query("SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$ppId} ORDER BY criado_em DESC LIMIT {$postsPerPage} OFFSET {$offsetPratos}");
     while ($res && ($p = $res->fetch_assoc())) {
       $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
       $pid = intval($p['postID']);
@@ -257,70 +255,198 @@
       if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
       $stmt->close();
       $p['img'] = $img;
+      
+      // contar likes
+      $stmtLikes = $con2->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
+      $stmtLikes->bind_param('i', $pid);
+      $stmtLikes->execute();
+      $stmtLikes->bind_result($likesCount);
+      $stmtLikes->fetch();
+      $stmtLikes->close();
+      $p['likes'] = $likesCount ?? 0;
+      
       $pratosPrincipais[] = $p;
     }
   }
+  
+  $totalPagesPratos = ceil($totalPratos / $postsPerPage);
+
+  // ===== POSTS ALEATÓRIOS =====
+  $randomPosts = [];
+  $totalAleatorios = 0;
+  
+  // Contar total de posts aleatórios
+  $countRes = $con2->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1");
+  $countRow = $countRes->fetch_assoc();
+  $totalAleatorios = intval($countRow['total']);
+  
+  // Calcular offset
+  $offsetAleatorios = ($pageAleatorios - 1) * $postsPerPage;
+  
+  // Buscar posts da página atual
+  $r = $con2->query("SELECT postID, nome_post, descricao_post, criado_em, categoria_postID FROM post WHERE autorizado=1 ORDER BY RAND() LIMIT {$postsPerPage} OFFSET {$offsetAleatorios}");
+  if ($r && $r->num_rows > 0) {
+    while ($p = $r->fetch_assoc()) {
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      
+      $stmtLikes = $con2->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
+      $stmtLikes->bind_param('i', $pid);
+      $stmtLikes->execute();
+      $stmtLikes->bind_result($likesCount);
+      $stmtLikes->fetch();
+      $stmtLikes->close();
+      $p['likes'] = $likesCount ?? 0;
+      
+      $randomPosts[] = $p;
+    }
+  }
+  
+  $totalPagesAleatorios = ceil($totalAleatorios / $postsPerPage);
   $con2->close();
-  ?>
+?>
 
   <section class="container my-5">
     <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
 
-    <!-- Pratos Principais (separado, sem abas) -->
+    <!-- Pratos Principais -->
     <div id="pratos-principais" class="mt-4">
       <h2 class="mb-3">Pratos Principais</h2>
 
       <?php if (empty($pratosPrincipais)): ?>
         <p class="text-muted">Sem receitas em "Pratos Principais" no momento.</p>
       <?php else: ?>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
           <?php foreach ($pratosPrincipais as $p): ?>
             <div class="col">
               <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-100 shadow-sm position-relative">
                   <?php if (!empty($p['img'])): ?>
                     <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
                   <?php else: ?>
                     <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
                   <?php endif; ?>
-                  <div class="card-body">
-                    <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
-                    <p class="card-text text-muted mb-0"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                  <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                      <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                      <p class="card-text text-muted small" style="line-height: 1.4;">
+                        <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
+                        <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
+                      </p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                      <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                      <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
+                        <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </a>
             </div>
           <?php endforeach; ?>
         </div>
+        
+        <!-- Paginação Pratos Principais -->
+        <?php if ($totalPagesPratos > 1): ?>
+          <nav aria-label="Paginação Pratos Principais" class="mt-4">
+            <ul class="pagination justify-content-center">
+              <!-- <li class="page-item <?php echo ($pagePratos <= 1) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pagePratos > 1) ? '?page_pratos=1#pratos-principais' : '#'; ?>">Primeira</a>
+              </li> -->
+              <li class="page-item <?php echo ($pagePratos <= 1) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pagePratos > 1) ? '?page_pratos=' . ($pagePratos - 1) . '#pratos-principais' : '#'; ?>">Anterior</a>
+              </li>
+              
+              <?php for ($i = 1; $i <= $totalPagesPratos; $i++): ?>
+                <li class="page-item <?php echo ($i === $pagePratos) ? 'active' : ''; ?>">
+                  <a class="page-link" href="?page_pratos=<?php echo $i; ?>#pratos-principais"><?php echo $i; ?></a>
+                </li>
+              <?php endfor; ?>
+              
+              <li class="page-item <?php echo ($pagePratos >= $totalPagesPratos) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pagePratos < $totalPagesPratos) ? '?page_pratos=' . ($pagePratos + 1) . '#pratos-principais' : '#'; ?>">Próxima</a>
+              </li>
+              <!-- <li class="page-item <?php echo ($pagePratos >= $totalPagesPratos) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pagePratos < $totalPagesPratos) ? '?page_pratos=' . $totalPagesPratos . '#pratos-principais' : '#'; ?>">Última</a>
+              </li> -->
+            </ul>
+          </nav>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
 
-    <!-- Aleatórios (separado, sem abas) -->
+    <!-- Aleatórios -->
     <div id="aleatorios" class="mt-5">
       <h2 class="mb-3">Aleatórios</h2>
 
       <?php if (empty($randomPosts)): ?>
         <p class="text-muted">Nenhuma receita aleatória encontrada.</p>
       <?php else: ?>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
           <?php foreach ($randomPosts as $p): ?>
             <div class="col">
               <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-100 shadow-sm position-relative">
                   <?php if (!empty($p['img'])): ?>
                     <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
                   <?php else: ?>
                     <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
                   <?php endif; ?>
-                  <div class="card-body">
-                    <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
-                    <p class="card-text text-muted mb-0"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                  <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                      <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                      <p class="card-text text-muted small" style="line-height: 1.4;">
+                        <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
+                        <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
+                      </p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                      <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                      <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
+                        <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </a>
             </div>
           <?php endforeach; ?>
         </div>
+        
+        <!-- Paginação Aleatórios -->
+        <?php if ($totalPagesAleatorios > 1): ?>
+          <nav aria-label="Paginação Aleatórios" class="mt-4">
+            <ul class="pagination justify-content-center">
+              <!-- <li class="page-item <?php echo ($pageAleatorios <= 1) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pageAleatorios > 1) ? '?page_aleatorios=1#aleatorios' : '#'; ?>">Primeira</a>
+              </li> -->
+              <li class="page-item <?php echo ($pageAleatorios <= 1) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pageAleatorios > 1) ? '?page_aleatorios=' . ($pageAleatorios - 1) . '#aleatorios' : '#'; ?>">Anterior</a>
+              </li>
+              
+              <?php for ($i = 1; $i <= $totalPagesAleatorios; $i++): ?>
+                <li class="page-item <?php echo ($i === $pageAleatorios) ? 'active' : ''; ?>">
+                  <a class="page-link" href="?page_aleatorios=<?php echo $i; ?>#aleatorios"><?php echo $i; ?></a>
+                </li>
+              <?php endfor; ?>
+              
+              <li class="page-item <?php echo ($pageAleatorios >= $totalPagesAleatorios) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pageAleatorios < $totalPagesAleatorios) ? '?page_aleatorios=' . ($pageAleatorios + 1) . '#aleatorios' : '#'; ?>">Próxima</a>
+              </li>
+              <!-- <li class="page-item <?php echo ($pageAleatorios >= $totalPagesAleatorios) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="<?php echo ($pageAleatorios < $totalPagesAleatorios) ? '?page_aleatorios=' . $totalPagesAleatorios . '#aleatorios' : '#'; ?>">Última</a>
+              </li> -->
+            </ul>
+          </nav>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
   </section>
