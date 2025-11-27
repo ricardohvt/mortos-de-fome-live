@@ -177,94 +177,138 @@
       </button>
     </div>
   </div><!--carrossel-end-->
-        <section>
-            <div class="cards-main">
-                <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
-                <div class="cards">
-                    <div class="cartao" data-aos="fade-up">
-                        <a href="post-bowl-index.php">
-                            <img src="assets/pizza.jpg" alt="Pizza sem glúten" class="cartao-img">
-                            <div class="cartao-content">
-                                <h3 class="cartao-title">Pizza portuguesa sem glúten</h3>
-                                <p class="cartao-text">Pizza feita com farinha de arroz, otima pedida para comer bem sem se descuidar.</p>
-                                <div class="cartao-footer">
-                                    <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                                    <span><i class="fa-regular fa-heart"></i> 234</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cartao" data-aos="fade-up">
-                        <a href="">
-                            <img src="assets/hamburguerdefrango.jpg" alt="Hamburguer zero glúten" class="cartao-img">
-                            <div class="cartao-content">
-                                <h3 class="cartao-title">Hamburguer de frango e bacon sem glúten</h3>
-                                <p class="cartao-text">Massa italiana autêntica com molho de tomate caseiro e manjericão fresco.</p>
-                                <div class="cartao-footer">
-                                    <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                                    <span><i class="fa-regular fa-heart"></i> 189</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
 
-                    <div class="cartao" data-aos="fade-up">
-                        <a href="">
-                            <img src="assets/tortadefrango.jpeg" alt="Torta de frango sem glúten" class="cartao-img">
-                            <div class="cartao-content">
-                                <h3 class="cartao-title">Torta de frango sem glúten</h3>
-                                <p class="cartao-text">Torta de frango com farinha de arroz, perfeita para se deliciar mesmo sendo intolerante.</p>
-                                <div class="cartao-footer">
-                                    <span><i class="fa-regular fa-clock"></i> 45 min</span>
-                                    <span><i class="fa-regular fa-heart"></i> 312</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+  <?php
+  require_once '../service/conexao.php';
+  $con = instance2();
+  $cats = [];
+  $r = $con->query("SELECT categoria_postID, descricao_categoria FROM categoria_post ORDER BY descricao_categoria");
+  if ($r && $r->num_rows > 0) { while ($row = $r->fetch_assoc()) { $cats[] = $row; } }
+  $con->close();
+  
+  // Novas queries: posts de "Zero Glúten" COM PAGINAÇÃO
+  require_once '../service/conexao.php';
+  $con2 = instance2();
 
-                    <div class="cartao" data-aos="fade-up">
-                        <a href="">
-                            <img src="assets/tortafria.webp" alt="Torta fria sem glúten" class="cartao-img">
-                            <div class="cartao-content">
-                                <h3 class="cartao-title">Torta fria sem glúten</h3>
-                                <p class="cartao-text">Torta fria feita de pão sem glúten, ótima pedida para lanches e jantares.</p>
-                                <div class="cartao-footer">
-                                    <span><i class="fa-regular fa-clock"></i> 35 min</span>
-                                    <span><i class="fa-regular fa-heart"></i> 276</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+  $postsPerPage = 9; // Receitas por página
+  
+  // Obter página atual (GET parameter)
+  $pageZeroGluten = isset($_GET['page_zero_gluten']) ? max(1, intval($_GET['page_zero_gluten'])) : 1;
 
-                    <div class="cartao" data-aos="fade-up">
-                        <a href="">
-                            <img src="assets/panqueca.png" alt="Café da Manhã" class="cartao-img">
-                            <div class="cartao-content">
-                                <h3 class="cartao-title">Panqueca sem glúten</h3>
-                                <p class="cartao-text">Panquecas de aveia com frutas frescas e mel orgânico, para ser saudável e comer bem.</p>
-                                <div class="cartao-footer">
-                                    <span><i class="fa-regular fa-clock"></i> 20 min</span>
-                                    <span><i class="fa-regular fa-heart"></i> 198</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+  // ===== ZERO GLÚTEN =====
+  $zeroGlutenPosts = [];
+  $totalZeroGluten = 0;
+  $zgId = null;
+  
+  foreach ($cats as $c) {
+    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'zero gluten') {
+      $zgId = intval($c['categoria_postID']);
+      break;
+    }
+  }
 
-                    <div class="cartao" data-aos="fade-up">
-                        <a href="">
-                            <img src="assets/coxinhadefrango.webp" alt="Sobremesa Especial" class="cartao-img">
-                            <div class="cartao-content">
-                                <h3 class="cartao-title">Coxinha de frango com catupiry sem glúten</h3>
-                                <p class="cartao-text">Coxinha de frango com catupiry feita com massa de mandioca.</p>
-                                <div class="cartao-footer">
-                                    <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                                    <span><i class="fa-regular fa-heart"></i> 245</span>
-                                </div>
+  if ($zgId !== null) {
+    // Contar total de posts
+    $countRes = $con2->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1 AND categoria_postID={$zgId}");
+    $countRow = $countRes->fetch_assoc();
+    $totalZeroGluten = intval($countRow['total']);
+    
+    // Calcular offset
+    $offsetZeroGluten = ($pageZeroGluten - 1) * $postsPerPage;
+    
+    // Buscar posts da página atual
+    $res = $con2->query("SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$zgId} ORDER BY criado_em DESC LIMIT {$postsPerPage} OFFSET {$offsetZeroGluten}");
+    while ($res && ($p = $res->fetch_assoc())) {
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      
+      // contar likes
+      $stmtLikes = $con2->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
+      $stmtLikes->bind_param('i', $pid);
+      $stmtLikes->execute();
+      $stmtLikes->bind_result($likesCount);
+      $stmtLikes->fetch();
+      $stmtLikes->close();
+      $p['likes'] = $likesCount ?? 0;
+      
+      $zeroGlutenPosts[] = $p;
+    }
+  }
+  
+  $totalPagesZeroGluten = ceil($totalZeroGluten / $postsPerPage);
+  $con2->close();
+  ?>
+
+        <section class="container my-5">
+          <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
+
+          <!-- Zero Glúten -->
+          <div id="zero-gluten" class="mt-4">
+            <h2 class="mb-3">Zero Glúten</h2>
+
+            <?php if (empty($zeroGlutenPosts)): ?>
+              <p class="text-muted">Sem receitas em "Zero Glúten" no momento.</p>
+            <?php else: ?>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
+                <?php foreach ($zeroGlutenPosts as $p): ?>
+                  <div class="col">
+                    <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                      <div class="card h-100 shadow-sm position-relative">
+                        <?php if (!empty($p['img'])): ?>
+                          <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                        <?php else: ?>
+                          <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                        <?php endif; ?>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                          <div>
+                            <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                            <p class="card-text text-muted small" style="line-height: 1.4;">
+                              <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
+                              <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
+                            </p>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-end mt-2">
+                            <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                            <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
+                              <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
                             </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+              
+              <!-- Paginação Zero Glúten -->
+              <?php if ($totalPagesZeroGluten > 1): ?>
+                <nav aria-label="Paginação Zero Glúten" class="mt-4">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item <?php echo ($pageZeroGluten <= 1) ? 'disabled' : ''; ?>">
+                      <a class="page-link" href="<?php echo ($pageZeroGluten > 1) ? '?page_zero_gluten=' . ($pageZeroGluten - 1) . '#zero-gluten' : '#'; ?>">Anterior</a>
+                    </li>
+                    
+                    <?php for ($i = 1; $i <= $totalPagesZeroGluten; $i++): ?>
+                      <li class="page-item <?php echo ($i === $pageZeroGluten) ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page_zero_gluten=<?php echo $i; ?>#zero-gluten"><?php echo $i; ?></a>
+                      </li>
+                    <?php endfor; ?>
+                    
+                    <li class="page-item <?php echo ($pageZeroGluten >= $totalPagesZeroGluten) ? 'disabled' : ''; ?>">
+                      <a class="page-link" href="<?php echo ($pageZeroGluten < $totalPagesZeroGluten) ? '?page_zero_gluten=' . ($pageZeroGluten + 1) . '#zero-gluten' : '#'; ?>">Próxima</a>
+                    </li>
+                  </ul>
+                </nav>
+              <?php endif; ?>
+            <?php endif; ?>
+          </div>
         </section>
         <footer class="footer" data-aos="fade-up">
             <div class="footer-container">

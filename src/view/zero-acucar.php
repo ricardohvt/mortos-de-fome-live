@@ -177,92 +177,128 @@
       </button>
     </div>
   </div><!--carrossel-end-->
+  
+  <?php
+  require_once '../service/conexao.php';
+  $con = instance2();
+  $cats = [];
+  $r = $con->query("SELECT categoria_postID, descricao_categoria FROM categoria_post ORDER BY descricao_categoria");
+  if ($r && $r->num_rows > 0) { while ($row = $r->fetch_assoc()) { $cats[] = $row; } }
+  $con->close();
+  
+  require_once '../service/conexao.php';
+  $con2 = instance2();
+
+  $postsPerPage = 9;
+  $pageZeroAcucar = isset($_GET['page_zero_acucar']) ? max(1, intval($_GET['page_zero_acucar'])) : 1;
+
+  $zeroAcucarPosts = [];
+  $totalZeroAcucar = 0;
+  $zaId = null;
+  
+  foreach ($cats as $c) {
+    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'padrão') {
+      $zaId = intval($c['categoria_postID']);
+      break;
+    }
+  }
+
+  if ($zaId !== null) {
+    $countRes = $con2->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1 AND categoria_postID={$zaId}");
+    $countRow = $countRes->fetch_assoc();
+    $totalZeroAcucar = intval($countRow['total']);
+    
+    $offsetZeroAcucar = ($pageZeroAcucar - 1) * $postsPerPage;
+    
+    $res = $con2->query("SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$zaId} ORDER BY criado_em DESC LIMIT {$postsPerPage} OFFSET {$offsetZeroAcucar}");
+    while ($res && ($p = $res->fetch_assoc())) {
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      
+      $stmtLikes = $con2->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
+      $stmtLikes->bind_param('i', $pid);
+      $stmtLikes->execute();
+      $stmtLikes->bind_result($likesCount);
+      $stmtLikes->fetch();
+      $stmtLikes->close();
+      $p['likes'] = $likesCount ?? 0;
+      
+      $zeroAcucarPosts[] = $p;
+    }
+  }
+  
+  $totalPagesZeroAcucar = ceil($totalZeroAcucar / $postsPerPage);
+  $con2->close();
+  ?>
+
     <section>
         <div class="cards-main">
             <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
-            <div class="cards">
-                <div class="cartao" data-aos="fade-up">
-                    <a href="post-bowl-index.php">
-                        <img src="assets/bolodechocolate.jpg" alt="Receita 0 açucar" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Bolo de chocolate sem açucar</h3>
-                            <p class="cartao-text">Maravilhoso bolo de chocolate sem açucar para diabéticos e intolerantes.</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 234</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/sorvete.jpg" alt="sorvete 0 açucar" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Sorvete de morango sem açucar</h3>
-                            <p class="cartao-text">Sorvete de morango sem açucar para sobremesas de diabéticos e intolerantes.</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 189</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+            
+            <div id="zero-acucar" class="mt-4">
+              <h2 class="mb-3">Zero Açúcar</h2>
 
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/Tortinhadelimão.jpg" alt="Sobremesa" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Tortinha de limão sem açucar</h3>
-                            <p class="cartao-text">Maravilhosa torta de limão sem açucar para diabéticos.</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 45 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 312</span>
+              <?php if (empty($zeroAcucarPosts)): ?>
+                <p class="text-muted">Sem receitas em "Zero Açúcar" no momento.</p>
+              <?php else: ?>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
+                  <?php foreach ($zeroAcucarPosts as $p): ?>
+                    <div class="col">
+                      <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                        <div class="card h-100 shadow-sm position-relative">
+                          <?php if (!empty($p['img'])): ?>
+                            <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                          <?php else: ?>
+                            <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                          <?php endif; ?>
+                          <div class="card-body d-flex flex-column justify-content-between">
+                            <div>
+                              <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                              <p class="card-text text-muted small" style="line-height: 1.4;">
+                                <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
+                                <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
+                              </p>
                             </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/cookie.webp" alt="Cookie 0 açucar" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Cookie de chocolate sem açucar</h3>
-                            <p class="cartao-text">Cookie de chocolate feito com achocolatado sem açucar, perfeito para receitas saúdaveis e gostosas</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 35 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 276</span>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                              <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                              <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
+                                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    </a>
+                      </a>
+                    </div>
+                  <?php endforeach; ?>
                 </div>
-
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/cupcakedechocolate.jpg" alt="Cupcake sem açucar" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Cupcake de chocolate sem açucar</h3>
-                            <p class="cartao-text">Cupcake de chocolate feito com chocolate sem açucar, otimo para seus lanches e sobremesas</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 20 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 198</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/pudim.avif" alt="Pudim 0 açucar" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Pudim de leite sem açucar </h3>
-                            <p class="cartao-text">Delicioso pudim sem açucar para diabético e intolerantes</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 245</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                
+                <?php if ($totalPagesZeroAcucar > 1): ?>
+                  <nav aria-label="Paginação Zero Açúcar" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item <?php echo ($pageZeroAcucar <= 1) ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="<?php echo ($pageZeroAcucar > 1) ? '?page_zero_acucar=' . ($pageZeroAcucar - 1) . '#zero-acucar' : '#'; ?>">Anterior</a>
+                      </li>
+                      
+                      <?php for ($i = 1; $i <= $totalPagesZeroAcucar; $i++): ?>
+                        <li class="page-item <?php echo ($i === $pageZeroAcucar) ? 'active' : ''; ?>">
+                          <a class="page-link" href="?page_zero_acucar=<?php echo $i; ?>#zero-acucar"><?php echo $i; ?></a>
+                        </li>
+                      <?php endfor; ?>
+                      
+                      <li class="page-item <?php echo ($pageZeroAcucar >= $totalPagesZeroAcucar) ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="<?php echo ($pageZeroAcucar < $totalPagesZeroAcucar) ? '?page_zero_acucar=' . ($pageZeroAcucar + 1) . '#zero-acucar' : '#'; ?>">Próxima</a>
+                      </li>
+                    </ul>
+                  </nav>
+                <?php endif; ?>
+              <?php endif; ?>
             </div>
         </div>
     </section>

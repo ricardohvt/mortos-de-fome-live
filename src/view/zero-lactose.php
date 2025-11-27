@@ -177,92 +177,128 @@
       </button>
     </div>
   </div><!--carrossel-end-->
+  
+  <?php
+  require_once '../service/conexao.php';
+  $con = instance2();
+  $cats = [];
+  $r = $con->query("SELECT categoria_postID, descricao_categoria FROM categoria_post ORDER BY descricao_categoria");
+  if ($r && $r->num_rows > 0) { while ($row = $r->fetch_assoc()) { $cats[] = $row; } }
+  $con->close();
+  
+  require_once '../service/conexao.php';
+  $con2 = instance2();
+
+  $postsPerPage = 9;
+  $pageZeroLactose = isset($_GET['page_zero_lactose']) ? max(1, intval($_GET['page_zero_lactose'])) : 1;
+
+  $zeroLactosePosts = [];
+  $totalZeroLactose = 0;
+  $zlId = null;
+  
+  foreach ($cats as $c) {
+    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'zero lactose') {
+      $zlId = intval($c['categoria_postID']);
+      break;
+    }
+  }
+
+  if ($zlId !== null) {
+    $countRes = $con2->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1 AND categoria_postID={$zlId}");
+    $countRow = $countRes->fetch_assoc();
+    $totalZeroLactose = intval($countRow['total']);
+    
+    $offsetZeroLactose = ($pageZeroLactose - 1) * $postsPerPage;
+    
+    $res = $con2->query("SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$zlId} ORDER BY criado_em DESC LIMIT {$postsPerPage} OFFSET {$offsetZeroLactose}");
+    while ($res && ($p = $res->fetch_assoc())) {
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      
+      $stmtLikes = $con2->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
+      $stmtLikes->bind_param('i', $pid);
+      $stmtLikes->execute();
+      $stmtLikes->bind_result($likesCount);
+      $stmtLikes->fetch();
+      $stmtLikes->close();
+      $p['likes'] = $likesCount ?? 0;
+      
+      $zeroLactosePosts[] = $p;
+    }
+  }
+  
+  $totalPagesZeroLactose = ceil($totalZeroLactose / $postsPerPage);
+  $con2->close();
+  ?>
+  
     <section>
         <div class="cards-main">
             <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
-            <div class="cards">
-                <div class="cartao" data-aos="fade-up">
-                    <a href="post-bowl-index.php">
-                        <img src="assets/musse.jpg" alt="musse 0 leite" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Musse de maracujá sem leite</h3>
-                            <p class="cartao-text">Um refrescante musse de maracujá com leite de coco para intolerantes a lactose</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 234</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/sorvetinho.webp" alt="sorvete 0 lactose" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Sorvete de abacaxi sem leite</h3>
-                            <p class="cartao-text">Deliciosos sorvete sem lactose para adoçar suas refeições</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 189</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+            
+            <div id="zero-lactose" class="mt-4">
+              <h2 class="mb-3">Zero Lactose</h2>
 
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/brigadeirinho.jpg" alt="Brigadeiro 0 lactose" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Brigadeiro sem leite</h3>
-                            <p class="cartao-text">Delicioso brigadeiro feito com leite de coco.</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 45 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 312</span>
+              <?php if (empty($zeroLactosePosts)): ?>
+                <p class="text-muted">Sem receitas em "Zero Lactose" no momento.</p>
+              <?php else: ?>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
+                  <?php foreach ($zeroLactosePosts as $p): ?>
+                    <div class="col">
+                      <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                        <div class="card h-100 shadow-sm position-relative">
+                          <?php if (!empty($p['img'])): ?>
+                            <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                          <?php else: ?>
+                            <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                          <?php endif; ?>
+                          <div class="card-body d-flex flex-column justify-content-between">
+                            <div>
+                              <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                              <p class="card-text text-muted small" style="line-height: 1.4;">
+                                <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
+                                <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
+                              </p>
                             </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/uai.jpg" alt="pão de queijo zero alctose" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Pão de queijo com queijo zero lactose</h3>
-                            <p class="cartao-text">Maravilhosos pão de queijo feito com queijo tratado para eliminar a lactase.</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 35 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 276</span>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                              <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                              <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
+                                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    </a>
+                      </a>
+                    </div>
+                  <?php endforeach; ?>
                 </div>
-
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/requeijao.webp" alt="Requeijão 0 lactose" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Requijão zero lactose</h3>
-                            <p class="cartao-text">Incrível requeijão sem lactose para incrementar suas receitas</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 20 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 198</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="cartao" data-aos="fade-up">
-                    <a href="">
-                        <img src="assets/bolinhadequeijo.jpg" alt="Bolinha de queijo 0 lactose" class="cartao-img">
-                        <div class="cartao-content">
-                            <h3 class="cartao-title">Bolinha de queijo zero lactose</h3>
-                            <p class="cartao-text">Bolinha de queijo feita com queijo tratado para eliminar a lactase</p>
-                            <div class="cartao-footer">
-                                <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                                <span><i class="fa-regular fa-heart"></i> 245</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                
+                <?php if ($totalPagesZeroLactose > 1): ?>
+                  <nav aria-label="Paginação Zero Lactose" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item <?php echo ($pageZeroLactose <= 1) ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="<?php echo ($pageZeroLactose > 1) ? '?page_zero_lactose=' . ($pageZeroLactose - 1) . '#zero-lactose' : '#'; ?>">Anterior</a>
+                      </li>
+                      
+                      <?php for ($i = 1; $i <= $totalPagesZeroLactose; $i++): ?>
+                        <li class="page-item <?php echo ($i === $pageZeroLactose) ? 'active' : ''; ?>">
+                          <a class="page-link" href="?page_zero_lactose=<?php echo $i; ?>#zero-lactose"><?php echo $i; ?></a>
+                        </li>
+                      <?php endfor; ?>
+                      
+                      <li class="page-item <?php echo ($pageZeroLactose >= $totalPagesZeroLactose) ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="<?php echo ($pageZeroLactose < $totalPagesZeroLactose) ? '?page_zero_lactose=' . ($pageZeroLactose + 1) . '#zero-lactose' : '#'; ?>">Próxima</a>
+                      </li>
+                    </ul>
+                  </nav>
+                <?php endif; ?>
+              <?php endif; ?>
             </div>
         </div>
     </section>
