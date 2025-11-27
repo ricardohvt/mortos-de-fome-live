@@ -73,7 +73,7 @@ $conexao->close();
                     <a href="#" data-tab="dashboard">Dashboard</a>
                 </div>
                 <div class="side side-dashboard">
-                    <a href="#" data-tab="postagens">Minhas Postagens</a>
+                    <a href="#" data-tab="postagens">Minhas postagens</a>
                 </div>
                 <div class="side side-dashboard">
                     <a href="#" data-tab="nova-postagem">Nova Postagem</a>
@@ -145,14 +145,15 @@ $conexao->close();
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary" 
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editarPostUserModal"
-                                                    data-id="<?php echo $post['postID']; ?>"
-                                                    data-titulo="<?php echo htmlspecialchars($post['nome_post']); ?>"
-data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_QUOTES); ?>"
-                                                    data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? ''); ?>"
-                                                    data-categoria="<?php echo $post['categoria_postID']; ?>">
-                                                Editar
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editarPostUserModal"
+                                                data-id="<?php echo $post['postID']; ?>"
+                                                data-titulo="<?php echo htmlspecialchars($post['nome_post'], ENT_QUOTES); ?>"
+                                                data-descricao="<?php echo htmlspecialchars($post['descricao_post'] ?? '', ENT_QUOTES); ?>"
+                                                data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_QUOTES); ?>"
+                                                data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? '', ENT_QUOTES); ?>"
+                                                data-categoria="<?php echo $post['categoria_postID']; ?>">
+                                            Editar
                                             </button>
                                             <form action="../controller/UserPostActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Excluir este post?');">
                                                 <input type="hidden" name="action" value="excluir" />
@@ -193,6 +194,13 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
                                     </select>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="recipeDescription" class="form-label">Descrição</label>
+                                    <textarea class="form-control" id="recipeDescription" rows="3" name="descricao-receita" maxlength="500" placeholder="Descrição breve da receita (até 500 caracteres)"></textarea>
+                                    <small class="text-muted d-block mt-1">
+                                        <span id="descricaoCount">0</span>/500 caracteres
+                                    </small>
+                                </div>
+                                <div class="mb-3">
                                     <label for="recipeIngredients" class="form-label">Ingredientes *</label>
                                     <textarea class="form-control" id="recipeIngredients" rows="4" name="ingredientes-receita" required placeholder="Liste os ingredientes, separando por linha ou vírgula..."></textarea>
                                 </div>
@@ -201,13 +209,9 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
                                     <textarea class="form-control" id="recipeInstructions" rows="6" name="modo-receita" required placeholder="Descreva o passo a passo do preparo..."></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tempoPreparo" class="form-label">Tempo de Preparo (minutos)</label>
-                                    <input type="number" class="form-control" id="tempoPreparo" name="tempo-preparo" min="1" max="480" placeholder="Ex: 30">
-                                </div>
-                                <div class="mb-3">
                                     <label for="recipeImage" class="form-label">Imagem da Receita</label>
                                     <input type="file" class="form-control" id="recipeImage" name="imagens-receita[]" multiple accept="image/*">
-                                    <div class="form-text">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB por imagem.</div>
+                                    <div class="form-text mt-2">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB por imagem.</div>
                                 </div>
                                 <div class="d-grid gap-2">
                                     <button type="submit" class="btn btn-primary">Enviar para Aprovação</button>
@@ -232,6 +236,13 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
                           <div class="mb-3">
                             <label class="form-label">Título</label>
                             <input type="text" class="form-control" name="nome_post" id="uEditarTitulo" required maxlength="255">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-control" name="descricao_post" id="uEditarDescricao" rows="3" maxlength="500"></textarea>
+                            <small class="text-muted d-block mt-1">
+                              <span id="uEditarDescricaoCount">0</span>/500 caracteres
+                            </small>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Categoria</label>
@@ -301,6 +312,14 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
                 });
             });
 
+            // Contador de caracteres para descrição
+            const descricaoInput = document.getElementById('recipeDescription');
+            if (descricaoInput) {
+              descricaoInput.addEventListener('input', function() {
+                document.getElementById('descricaoCount').textContent = this.value.length;
+              });
+            }
+
             // Preencher modal do usuário e carregar imagens
             const uModal = document.getElementById('editarPostUserModal');
             uModal?.addEventListener('show.bs.modal', async (event) => {
@@ -308,6 +327,8 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
                 const pid = btn.getAttribute('data-id');
                 document.getElementById('uEditarPostID').value = pid;
                 document.getElementById('uEditarTitulo').value = btn.getAttribute('data-titulo') || '';
+                document.getElementById('uEditarDescricao').value = btn.getAttribute('data-descricao') || '';
+                document.getElementById('uEditarDescricaoCount').textContent = (btn.getAttribute('data-descricao') || '').length;
                 document.getElementById('uEditarIngredientes').value = btn.getAttribute('data-ingredientes') || '';
                 document.getElementById('uEditarModo').value = btn.getAttribute('data-modo') || '';
                 const cat = btn.getAttribute('data-categoria') || '';

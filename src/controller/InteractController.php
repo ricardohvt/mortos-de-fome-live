@@ -17,7 +17,7 @@ if ($postID <= 0) {
 
 $con = instance2();
 
-// Garantir que o post existe e está autorizado
+// garantir que o post existe e está autorizado
 $okPost = false;
 $stmt = $con->prepare('SELECT 1 FROM post WHERE postID=? AND autorizado=1');
 $stmt->bind_param('i', $postID);

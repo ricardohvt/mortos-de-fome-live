@@ -2,8 +2,6 @@
 session_start();
 require_once '../service/conexao.php';
 
-header_remove('X-Powered-By');
-
 function ensureAuthForPost(mysqli $con, int $postID): bool {
   if (!isset($_SESSION['user']['userID'])) return false;
   $isAdmin = intval($_SESSION['user']['isAdmin'] ?? 0) === 1;

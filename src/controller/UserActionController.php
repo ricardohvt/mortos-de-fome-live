@@ -2,7 +2,7 @@
 session_start();
 require_once '../service/conexao.php';
 
-// Somente Admin
+// só admin pode acessar
 if (!isset($_SESSION['user']['isAdmin']) || intval($_SESSION['user']['isAdmin']) !== 1) {
     header('Location: ../view/login-index.php');
     exit;
@@ -35,7 +35,7 @@ try {
                 respond(false, '', 'Preencha username, email e senha.');
             }
 
-            // Verificar se email já existe
+            // verificar se email já existe
             $stmt = $con->prepare('SELECT 1 FROM `user` WHERE email = ? LIMIT 1');
             $stmt->bind_param('s', $email);
             $stmt->execute();
@@ -46,7 +46,7 @@ try {
             }
             $stmt->close();
 
-            // Criar pessoa (se houver nome)
+            // criar pessoa (se houver nome)
             $pessoaID = null;
             if ($full_name !== '') {
                 $stmt = $con->prepare('INSERT INTO pessoa (full_name) VALUES (?)');
@@ -112,13 +112,11 @@ try {
             if ($userID <= 0) {
                 respond(false, '', 'ID inválido.');
             }
-            // Evitar autoexclusão do admin logado
+            
             if (isset($_SESSION['user']['userID']) && intval($_SESSION['user']['userID']) === $userID) {
                 respond(false, '', 'Você não pode excluir a si mesmo.');
             }
 
-            // Deletar dependências comuns antes (evita FK)
-            // Apagar imagens de posts do usuário
             $stmt = $con->prepare('SELECT postID FROM post WHERE userID = ?');
             $stmt->bind_param('i', $userID);
             $stmt->execute();
@@ -141,13 +139,11 @@ try {
                 $stmt->close();
             }
 
-            // Apagar códigos de recuperação, se existirem
             $stmt = $con->prepare('DELETE FROM code WHERE userID = ?');
             $stmt->bind_param('i', $userID);
             $stmt->execute();
             $stmt->close();
 
-            // Finalmente, apagar o usuário
             $stmt = $con->prepare('DELETE FROM `user` WHERE userID = ?');
             $stmt->bind_param('i', $userID);
             $ok = $stmt->execute();
