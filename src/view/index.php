@@ -143,9 +143,9 @@
     </div>
   </aside>
   <div class="search">
-    <form class="d-flex" role="search">
+    <form class="d-flex" role="search" method="GET" action="search.php">
       <input class="form-control me-2" type="search" placeholder="Busque uma receita ou ingredientes"
-        aria-label="Search">
+        aria-label="Search" name="q" required>
       <button class="btn btn-outline-secondary decosearch" type="submit" id="input-search"><i
           class="fa-solid fa-magnifying-glass"></i></button>
     </form>
