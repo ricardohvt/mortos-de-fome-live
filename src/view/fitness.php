@@ -177,94 +177,117 @@
       </button>
     </div>
   </div><!--carrossel-end-->
+
+  <?php
+  require_once '../service/conexao.php';
+  $con = instance2();
+  $cats = [];
+  $r = $con->query("SELECT categoria_postID, descricao_categoria FROM categoria_post ORDER BY descricao_categoria");
+  if ($r && $r->num_rows > 0) { while ($row = $r->fetch_assoc()) { $cats[] = $row; } }
+  $con->close();
+  
+  require_once '../service/conexao.php';
+  $con2 = instance2();
+
+  $postsPerPage = 9;
+  $pageFitness = isset($_GET['page_fitness']) ? max(1, intval($_GET['page_fitness'])) : 1;
+
+  $fitnessPosts = [];
+  $totalFitness = 0;
+  $fitId = null;
+  
+  foreach ($cats as $c) {
+    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'fitness') {
+      $fitId = intval($c['categoria_postID']);
+      break;
+    }
+  }
+
+  if ($fitId !== null) {
+    $countRes = $con2->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1 AND categoria_postID={$fitId}");
+    $countRow = $countRes->fetch_assoc();
+    $totalFitness = intval($countRow['total']);
+    
+    $offsetFitness = ($pageFitness - 1) * $postsPerPage;
+    
+    $res = $con2->query("SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$fitId} ORDER BY criado_em DESC LIMIT {$postsPerPage} OFFSET {$offsetFitness}");
+    while ($res && ($p = $res->fetch_assoc())) {
+      $stmt = $con2->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
+      $pid = intval($p['postID']);
+      $stmt->bind_param('i', $pid);
+      $stmt->execute();
+      $stmt->store_result();
+      $img = null;
+      if ($stmt->num_rows > 0) { $stmt->bind_result($imgData); $stmt->fetch(); $img = 'data:image/jpeg;base64,' . base64_encode($imgData); }
+      $stmt->close();
+      $p['img'] = $img;
+      
+      $stmtLikes = $con2->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
+      $stmtLikes->bind_param('i', $pid);
+      $stmtLikes->execute();
+      $stmtLikes->bind_result($likesCount);
+      $stmtLikes->fetch();
+      $stmtLikes->close();
+      $p['likes'] = $likesCount ?? 0;
+      
+      $fitnessPosts[] = $p;
+    }
+  }
+  
+  $totalPagesFitness = ceil($totalFitness / $postsPerPage);
+  $con2->close();
+  ?>
+
     <section>
       <hr>
       <div class="cards-main">
         <h1 class="rec-title" data-aos="fade-up">Receitas Fit</h1>
-        <div class="cards">
-          <div class="cartao" data-aos="fade-up">
-            <a href="">
-              <img src="assets/quinoa.jpg" alt="Bowl de Quinoa" class="cartao-img">
-              <div class="cartao-content">
-                <h3 class="cartao-title">Bowl de Quinoa com Vegetais Assados</h3>
-                <p class="cartao-text">Quinoa nutritiva com vegetais assados e molho tahine.</p>
-                <div class="cartao-footer">
-                  <span><i class="fa-regular fa-clock"></i> 30 min</span>
-                  <span><i class="fa-regular fa-heart"></i> 250</span>
-                </div>
+        
+        <?php if (empty($fitnessPosts)): ?>
+          <p class="text-muted">Sem receitas em "Fitness" no momento.</p>
+        <?php else: ?>
+          <div class="cards">
+            <?php foreach ($fitnessPosts as $p): ?>
+              <div class="cartao" data-aos="fade-up">
+                <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                  <?php if (!empty($p['img'])): ?>
+                    <img src="<?php echo $p['img']; ?>" alt="<?php echo htmlspecialchars($p['nome_post']); ?>" class="cartao-img">
+                  <?php else: ?>
+                    <img src="assets/logo.png" alt="Sem imagem" class="cartao-img">
+                  <?php endif; ?>
+                  <div class="cartao-content">
+                    <h3 class="cartao-title"><?php echo htmlspecialchars($p['nome_post']); ?></h3>
+                    <p class="cartao-text"><?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?><?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?></p>
+                    <div class="cartao-footer">
+                      <span><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></span>
+                      <span><i class="fa-solid fa-heart" style="color: #ff4757;"></i> <?php echo intval($p['likes']); ?></span>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
+            <?php endforeach; ?>
           </div>
 
-          <div class="cartao" data-aos="fade-up">
-            <a href="">
-              <img src="assets/frango.jpg" alt="Frango Fit" class="cartao-img">
-              <div class="cartao-content">
-                <h3 class="cartao-title">Frango Grelhado com Purê de Batata-doce</h3>
-                <p class="cartao-text">Frango grelhado com purê de batata-doce e legumes.</p>
-                <div class="cartao-footer">
-                  <span><i class="fa-regular fa-clock"></i> 40 min</span>
-                  <span><i class="fa-regular fa-heart"></i> 320</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="cartao" data-aos="fade-up">
-            <a href="">
-              <img src="assets/overnight.webp" alt="Overnight Oats" class="cartao-img">
-              <div class="cartao-content">
-                <h3 class="cartao-title">Overnight Oats com <br> Frutas</h3>
-                <p class="cartao-text">Aveia hidratada com iogurte e frutas frescas,gostoso,doce e bom pro colesterol.</p>
-                <div class="cartao-footer">
-                  <span><i class="fa-regular fa-clock"></i> 10 min</span>
-                  <span><i class="fa-regular fa-heart"></i> 400</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="cartao" data-aos="fade-up">
-            <a href="">
-              <img src="assets/salada.jpg" alt="Salada Fit" class="cartao-img">
-              <div class="cartao-content">
-                <h3 class="cartao-title">Salada Colorida com Proteína</h3>
-                <p class="cartao-text">Mix de folhas verdes, grão-de-bico e frango desfiado.</p>
-                <div class="cartao-footer">
-                  <span><i class="fa-regular fa-clock"></i> 15 min</span>
-                  <span><i class="fa-regular fa-heart"></i> 150</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="cartao" data-aos="fade-up">
-            <a href="">
-              <img src="assets/smoothie.jpg" alt="Smoothie Verde" class="cartao-img">
-              <div class="cartao-content">
-                <h3 class="cartao-title">Smoothie Verde Energético</h3>
-                <p class="cartao-text">Bebida refrescante com espinafre, maçã e gengibre.</p>
-                <div class="cartao-footer">
-                  <span><i class="fa-regular fa-clock"></i> 5 min</span>
-                  <span><i class="fa-regular fa-heart"></i> 300</span>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="cartao" data-aos="fade-up">
-            <a href="">
-              <img src="assets/muffin.jpg" alt="Muffin de Banana" class="cartao-img">
-              <div class="cartao-content">
-                <h3 class="cartao-title">Muffin de Banana Integral</h3>
-                <p class="cartao-text">Muffins saudáveis feitos com banana, aveia e mel.</p>
-                <div class="cartao-footer">
-                  <span><i class="fa-regular fa-clock"></i> 25 min</span>
-                  <span><i class="fa-regular fa-heart"></i> 275</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+          <?php if ($totalPagesFitness > 1): ?>
+            <nav aria-label="Paginação Fitness" class="mt-4">
+              <ul class="pagination justify-content-center">
+                <li class="page-item <?php echo ($pageFitness <= 1) ? 'disabled' : ''; ?>">
+                  <a class="page-link" href="<?php echo ($pageFitness > 1) ? '?page_fitness=' . ($pageFitness - 1) . '#fitness' : '#'; ?>">Anterior</a>
+                </li>
+                
+                <?php for ($i = 1; $i <= $totalPagesFitness; $i++): ?>
+                  <li class="page-item <?php echo ($i === $pageFitness) ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page_fitness=<?php echo $i; ?>#fitness"><?php echo $i; ?></a>
+                  </li>
+                <?php endfor; ?>
+                
+                <li class="page-item <?php echo ($pageFitness >= $totalPagesFitness) ? 'disabled' : ''; ?>">
+                  <a class="page-link" href="<?php echo ($pageFitness < $totalPagesFitness) ? '?page_fitness=' . ($pageFitness + 1) . '#fitness' : '#'; ?>">Próxima</a>
+                </li>
+              </ul>
+            </nav>
+          <?php endif; ?>
+        <?php endif; ?>
       </div>
     </section>
     <footer class="footer" data-aos="fade-up">

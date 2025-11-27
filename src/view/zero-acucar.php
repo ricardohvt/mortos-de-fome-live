@@ -37,7 +37,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="http://localhost/mortos-de-fome-joao/mortos-de-fome-live-develop-pedro%20(1)/mortos-de-fome-live-develop-pedro/src/view/index.php"><i class="fa-solid fa-house"></i></a>
+            <a class="nav-link active" aria-current="page" href="index.php"><i class="fa-solid fa-house"></i></a>
           </li>
           <li class="nav-item">
             </a>
@@ -197,7 +197,7 @@
   $zaId = null;
   
   foreach ($cats as $c) {
-    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'padrão') {
+    if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === mb_strtolower('Zero Açúcar', 'UTF-8')) {
       $zaId = intval($c['categoria_postID']);
       break;
     }
@@ -238,70 +238,70 @@
   $con2->close();
   ?>
 
-    <section>
-        <div class="cards-main">
-            <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
-            
-            <div id="zero-acucar" class="mt-4">
-              <h2 class="mb-3">Zero Açúcar</h2>
+  <section>
+    <div class="cards-main">
+      <h1 class="rec-title" data-aos="fade-up">Receitas</h1>
+      
+      <div id="zero-acucar" class="mt-4">
+        <h2 class="mb-3">Zero Açúcar</h2>
 
-              <?php if (empty($zeroAcucarPosts)): ?>
-                <p class="text-muted">Sem receitas em "Zero Açúcar" no momento.</p>
-              <?php else: ?>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
-                  <?php foreach ($zeroAcucarPosts as $p): ?>
-                    <div class="col">
-                      <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
-                        <div class="card h-100 shadow-sm position-relative">
-                          <?php if (!empty($p['img'])): ?>
-                            <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
-                          <?php else: ?>
-                            <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
-                          <?php endif; ?>
-                          <div class="card-body d-flex flex-column justify-content-between">
-                            <div>
-                              <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
-                              <p class="card-text text-muted small" style="line-height: 1.4;">
-                                <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
-                                <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
-                              </p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-end mt-2">
-                              <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
-                              <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
-                                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
-                              </div>
-                            </div>
-                          </div>
+        <?php if (empty($zeroAcucarPosts)): ?>
+          <p class="text-muted">Sem receitas em "Zero Açúcar" no momento.</p>
+        <?php else: ?>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center">
+            <?php foreach ($zeroAcucarPosts as $p): ?>
+              <div class="col">
+                <a href="post.php?id=<?php echo intval($p['postID']); ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 shadow-sm position-relative">
+                    <?php if (!empty($p['img'])): ?>
+                      <img src="<?php echo $p['img']; ?>" class="card-img-top" alt="Imagem da receita">
+                    <?php else: ?>
+                      <img src="assets/logo.png" class="card-img-top" alt="Sem imagem">
+                    <?php endif; ?>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                      <div>
+                        <h5 class="card-title"><?php echo htmlspecialchars($p['nome_post']); ?></h5>
+                        <p class="card-text text-muted small" style="line-height: 1.4;">
+                          <?php echo htmlspecialchars(substr($p['descricao_post'] ?? '', 0, 80)); ?>
+                          <?php if (strlen($p['descricao_post'] ?? '') > 80): ?>...<?php endif; ?>
+                        </p>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-end mt-2">
+                        <p class="card-text text-muted mb-0 small"><i class="fa-regular fa-calendar"></i> <?php echo date('d/m/Y', strtotime($p['criado_em'])); ?></p>
+                        <div style="background: rgba(255,255,255,0.9); border-radius: 8px; padding: 0.25rem 0.5rem;">
+                          <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span><?php echo intval($p['likes']); ?></span>
                         </div>
-                      </a>
+                      </div>
                     </div>
-                  <?php endforeach; ?>
-                </div>
+                  </div>
+                </a>
+              </div>
+            <?php endforeach; ?>
+          </div>
+          
+          <?php if ($totalPagesZeroAcucar > 1): ?>
+            <nav aria-label="Paginação Zero Açúcar" class="mt-4">
+              <ul class="pagination justify-content-center">
+                <li class="page-item <?php echo ($pageZeroAcucar <= 1) ? 'disabled' : ''; ?>">
+                  <a class="page-link" href="<?php echo ($pageZeroAcucar > 1) ? '?page_zero_acucar=' . ($pageZeroAcucar - 1) . '#zero-acucar' : '#'; ?>">Anterior</a>
+                </li>
                 
-                <?php if ($totalPagesZeroAcucar > 1): ?>
-                  <nav aria-label="Paginação Zero Açúcar" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item <?php echo ($pageZeroAcucar <= 1) ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="<?php echo ($pageZeroAcucar > 1) ? '?page_zero_acucar=' . ($pageZeroAcucar - 1) . '#zero-acucar' : '#'; ?>">Anterior</a>
-                      </li>
-                      
-                      <?php for ($i = 1; $i <= $totalPagesZeroAcucar; $i++): ?>
-                        <li class="page-item <?php echo ($i === $pageZeroAcucar) ? 'active' : ''; ?>">
-                          <a class="page-link" href="?page_zero_acucar=<?php echo $i; ?>#zero-acucar"><?php echo $i; ?></a>
-                        </li>
-                      <?php endfor; ?>
-                      
-                      <li class="page-item <?php echo ($pageZeroAcucar >= $totalPagesZeroAcucar) ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="<?php echo ($pageZeroAcucar < $totalPagesZeroAcucar) ? '?page_zero_acucar=' . ($pageZeroAcucar + 1) . '#zero-acucar' : '#'; ?>">Próxima</a>
-                      </li>
-                    </ul>
-                  </nav>
-                <?php endif; ?>
-              <?php endif; ?>
-            </div>
-        </div>
-    </section>
+                <?php for ($i = 1; $i <= $totalPagesZeroAcucar; $i++): ?>
+                  <li class="page-item <?php echo ($i === $pageZeroAcucar) ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page_zero_acucar=<?php echo $i; ?>#zero-acucar"><?php echo $i; ?></a>
+                  </li>
+                <?php endfor; ?>
+                
+                <li class="page-item <?php echo ($pageZeroAcucar >= $totalPagesZeroAcucar) ? 'disabled' : ''; ?>">
+                  <a class="page-link" href="<?php echo ($pageZeroAcucar < $totalPagesZeroAcucar) ? '?page_zero_acucar=' . ($pageZeroAcucar + 1) . '#zero-acucar' : '#'; ?>">Próxima</a>
+                </li>
+              </ul>
+            </nav>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
+    </div>
+  </section>
     <footer class="footer" data-aos="fade-up">
         <div class="footer-container">
             <div class="footer-top">
