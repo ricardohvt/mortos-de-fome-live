@@ -138,12 +138,15 @@ https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14.
     <div id="result"></div>
   </div>
 </aside>
-    <div class="search">
-        <form class="d-flex" role="search">
+   <div class="search">
+        <form class="d-flex" role="search" method="GET" 
+            action="<?php echo ($_SERVER['HTTP_HOST'] == 'localhost') ? '/5%20sites/mortos-de-fome-live/src/view/search.php' : '/search.php'; ?>">
+            
             <input class="form-control me-2" type="search" placeholder="Busque uma receita ou ingredientes"
-                aria-label="Search">
-            <button class="btn btn-outline-secondary decosearch" type="submit" id="input-search"><i
-                    class="fa-solid fa-magnifying-glass"></i></button>
+                aria-label="Search" name="q" required>
+            <button class="btn btn-outline-secondary decosearch" type="submit" id="input-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
         </form>
     </div>
  <div><!--carrossel-->

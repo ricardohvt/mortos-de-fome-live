@@ -1,17 +1,20 @@
 <?php
 session_start();
+
+// Verifica se está logado
 if (!isset($_SESSION['user'])) {
-  $_SESSION['login_error'] = "Faça o login para acessar o Painel de usuário!";
-  header("Location: ./login-index.php");
-  die;
+    $_SESSION['login_error'] = "Faça o login para acessar o Painel de usuário!";
+    header("Location: ./login-index.php");
+    die;
 }
 
-// Incluir funcionalidades do painel do usuário
 include_once '../service/conexao.php';
 $conexao = instance2();
 
-// Buscar posts do usuário atual
-$userPosts = array();
+// ================= LÓGICA DO USUÁRIO =================
+
+// Buscar posts APENAS do usuário atual
+$userPosts = [];
 if (isset($_SESSION['user']['userID'])) {
     $userID = $_SESSION['user']['userID'];
     $sql_posts = "SELECT p.*, c.descricao_categoria 
@@ -32,8 +35,8 @@ if (isset($_SESSION['user']['userID'])) {
     $stmt->close();
 }
 
-// Buscar categorias
-$categorias = array();
+// Buscar categorias (para o formulário de criar/editar)
+$categorias = [];
 $sql_categorias = "SELECT * FROM categoria_post";
 $result_categorias = $conexao->query($sql_categorias);
 if ($result_categorias && $result_categorias->num_rows > 0) {
@@ -50,142 +53,196 @@ $conexao->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mortos de Fome - Painel de Usuário</title>
+    <title>Mortos de Fome - Painel do Usuário</title>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style/painel-usuario-style.css">
+    
+    <!-- IMPORTANTE: Usando o CSS do Admin para manter o mesmo visual -->
+    <link rel="stylesheet" href="style/painel-style.css">
     <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
-
 <body>
-    <div class="main-content-rule">
-        <section class="main-content-user">
-            <aside class="navbar-side">
-                <div class="side side-dashboard brand-icon">
-                    <a class="navbar-brand" href="index.php"><img src="assets/logo.png" alt="Logo"></a>
+
+<article class="page-main">
+    <!-- Sidebar (Cópia fiel do Admin, mas com links do Usuário) -->
+    <div class="Seila">
+        <section class="nav-aside">
+            <div class="side">
+                <a class="navbar-brand" href="index.php"><img src="assets/logo.png" alt="Logo"></a>
+            </div>
+            
+            <!-- Link Dashboard -->
+            <div class="side active" data-tab="dashboard">
+                <a href="#" onclick="return false;"><i class="fas fa-home"></i> Dashboard</a>
+            </div>
+            
+            <!-- Link Minhas Receitas -->
+            <div class="side" data-tab="postagens">
+                <a href="#" onclick="return false;"><i class="fas fa-utensils"></i> Minhas Receitas</a>
+            </div>
+            
+            <!-- Link Nova Receita -->
+            <div class="side" data-tab="nova-postagem">
+                <a href="#" onclick="return false;"><i class="fas fa-plus-circle"></i> Criar Receita</a>
+            </div>
+
+            <!-- Logout -->
+            <div class="side btn-down-logout">
+                <a href="../model/LogoutModel.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+
+        <!-- ==================================== DASHBOARD ==================================== -->
+        <div class="tab-content" id="dashboard" style="display: block;">
+            <div class="content-adm">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="section-title mb-0">Dashboard</h1>
+                    <span class="text-muted">Olá, <?php echo htmlspecialchars($_SESSION['user']['username']); ?>!</span>
                 </div>
-                <div class="side side-dashboard">
-                    <a href="#" data-tab="dashboard">Dashboard</a>
-                </div>
-                <div class="side side-dashboard">
-                    <a href="#" data-tab="postagens">Minhas postagens</a>
-                </div>
-                <div class="side side-dashboard">
-                    <a href="#" data-tab="nova-postagem">Nova Postagem</a>
-                </div>
-                <div class="side side-dashboard btn-down-logout">
-                    <a href="../model/LogoutModel.php" style="text-decoration: none; color: inherit;">Logout</a>
-                </div>
-            </aside>
-            <div class="content-panel">
-                <!-- Dashboard -->
-                <div class="tab-content" id="dashboard">
-                    <div class="welcome">
-                        <?php
-                        if (isset($_SESSION['user']['username'])) {
-                            echo "<h3>Seja bem-vindo " . htmlspecialchars($_SESSION['user']['username']) . " ao <br>Painel de Usuário!</h3>";
-                        } else {
-                            echo '<h3>Erro ao carregar usuário.</h3>';
-                        }
-                        ?>
+
+                <!-- Cards de Estatísticas (Estilo Admin) -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-book-open"></i>
+                        <h3><?php echo count($userPosts); ?></h3>
+                        <p>Total de Receitas</p>
                     </div>
-                    <div class="stats mt-4">
-                        <div class="stat-card">
-                            <h4>Minhas Postagens</h4>
-                            <p><?php echo count($userPosts); ?></p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Postagens Aprovadas</h4>
-                            <p><?php echo count(array_filter($userPosts, function($post) { return $post['autorizado'] == 1; })); ?></p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Postagens Pendentes</h4>
-                            <p><?php echo count(array_filter($userPosts, function($post) { return $post['autorizado'] == 0; })); ?></p>
-                        </div>
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3><?php echo count(array_filter($userPosts, fn($p) => $p['autorizado'] == 1)); ?></h3>
+                        <p>Publicadas</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-hourglass-half"></i>
+                        <h3><?php echo count(array_filter($userPosts, fn($p) => $p['autorizado'] == 0)); ?></h3>
+                        <p>Em Análise</p>
                     </div>
                 </div>
 
-                <!-- Minhas Postagens -->
-                <div class="tab-content" id="postagens" style="display: none;">
-                    <div class="welcome">
-                        <h4>Minhas Postagens</h4>
-                    </div>
-                    
-                    <?php if (empty($userPosts)): ?>
-                        <div class="alert alert-info mt-3">
-                            Você ainda não criou nenhuma postagem. <a href="#" data-tab="nova-postagem" class="alert-link">Crie sua primeira receita!</a>
-                        </div>
-                    <?php else: ?>
-                        <div class="table-responsive mt-3">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Título</th>
-                                        <th>Categoria</th>
-                                        <th>Data</th>
-                                        <th>Status</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($userPosts as $post): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($post['nome_post']); ?></td>
-                                        <td><?php echo htmlspecialchars($post['descricao_categoria'] ?? 'Sem categoria'); ?></td>
-                                        <td><?php echo date('d/m/Y H:i', strtotime($post['criado_em'])); ?></td>
-                                        <td>
-                                            <span class="badge <?php echo $post['autorizado'] ? 'bg-success' : 'bg-warning'; ?>">
-                                                <?php echo $post['autorizado'] ? 'Aprovado' : 'Pendente'; ?>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary" 
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editarPostUserModal"
-                                                data-id="<?php echo $post['postID']; ?>"
-                                                data-titulo="<?php echo htmlspecialchars($post['nome_post'], ENT_QUOTES); ?>"
-                                                data-descricao="<?php echo htmlspecialchars($post['descricao_post'] ?? '', ENT_QUOTES); ?>"
-                                                data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_QUOTES); ?>"
-                                                data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? '', ENT_QUOTES); ?>"
-                                                data-categoria="<?php echo $post['categoria_postID']; ?>">
-                                            Editar
-                                            </button>
-                                            <form action="../controller/UserPostActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Excluir este post?');">
-                                                <input type="hidden" name="action" value="excluir" />
-                                                <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>" />
-                                                <button class="btn btn-sm btn-outline-danger">Excluir</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php endif; ?>
+                <!-- Tabela de Resumo -->
+                <h2 class="section-title mt-5">Minhas Últimas Receitas</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $recentes = array_slice($userPosts, 0, 5);
+                            if(empty($recentes)): ?>
+                                <tr><td colspan="4" class="text-center p-3">Você ainda não tem receitas.</td></tr>
+                            <?php else: 
+                                foreach ($recentes as $post): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($post['nome_post']); ?></td>
+                                    <td><?php echo htmlspecialchars($post['descricao_categoria'] ?? 'Sem categoria'); ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($post['criado_em'])); ?></td>
+                                    <td>
+                                        <span class="<?php echo $post['autorizado'] ? 'status-aprovado' : 'status-pendente'; ?>">
+                                            <?php echo $post['autorizado'] ? 'Aprovado' : 'Pendente'; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================== MINHAS POSTAGENS ==================================== -->
+        <div class="tab-content" id="postagens" style="display: none;">
+            <div class="content-adm">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="section-title mb-0">Gerenciar Receitas</h1>
+                    <!-- Botão atalho para ir para aba de criar -->
+                    <button class="btn btn-primary" onclick="document.querySelector('[data-tab=\'nova-postagem\'] a').click()">
+                        <i class="fa fa-plus me-1"></i> Nova Receita
+                    </button>
                 </div>
 
-                <!-- Nova Postagem -->
-                <div class="tab-content" id="nova-postagem" style="display: none;">
-                    <div class="welcome">
-                        <h4>Criar Nova Receita</h4>
-                    </div>
-                    
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <form action="../controller/PostController.php" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="recipeTitle" class="form-label">Título da Receita *</label>
-                                    <input type="text" class="form-control" id="recipeTitle" name="nome-receita" required maxlength="255">
+                <div class="table-container">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($userPosts)): ?>
+                                <tr><td colspan="5" class="text-center p-4">Nenhuma receita encontrada.</td></tr>
+                            <?php else: foreach ($userPosts as $post): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($post['nome_post']); ?></td>
+                                <td><?php echo htmlspecialchars($post['descricao_categoria'] ?? 'Sem categoria'); ?></td>
+                                <td><?php echo date('d/m/Y H:i', strtotime($post['criado_em'])); ?></td>
+                                <td>
+                                    <span class="badge <?php echo $post['autorizado'] ? 'bg-success' : 'bg-warning'; ?>">
+                                        <?php echo $post['autorizado'] ? 'Aprovado' : 'Pendente'; ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <!-- Botão Editar -->
+                                    <button class="btn btn-sm btn-outline-primary me-1" 
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editarPostUserModal"
+                                        data-id="<?php echo $post['postID']; ?>"
+                                        data-titulo="<?php echo htmlspecialchars($post['nome_post'], ENT_QUOTES); ?>"
+                                        data-descricao="<?php echo htmlspecialchars($post['descricao_post'] ?? '', ENT_QUOTES); ?>"
+                                        data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_QUOTES); ?>"
+                                        data-modo="<?php echo htmlspecialchars($post['modoPreparo'] ?? '', ENT_QUOTES); ?>"
+                                        data-categoria="<?php echo $post['categoria_postID']; ?>">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+
+                                    <!-- Botão Excluir -->
+                                    <form action="../controller/UserPostActionController.php" method="POST" class="d-inline" onsubmit="return confirm('Tem certeza que deseja excluir esta receita?');">
+                                        <input type="hidden" name="action" value="excluir" />
+                                        <input type="hidden" name="postID" value="<?php echo $post['postID']; ?>" />
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================== NOVA POSTAGEM ==================================== -->
+        <div class="tab-content" id="nova-postagem" style="display: none;">
+            <div class="content-adm">
+                <h1 class="section-title">Criar Nova Receita</h1>
+                
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <form action="../controller/PostController.php" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label class="form-label fw-bold">Título da Receita *</label>
+                                    <input type="text" class="form-control" name="nome-receita" required maxlength="255">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="recipeCategory" class="form-label">Categoria *</label>
-                                    <select class="form-select" id="recipeCategory" name="categoria-receita" required>
-                                        <option value="">Selecione uma categoria</option>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-bold">Categoria *</label>
+                                    <select class="form-select" name="categoria-receita" required>
+                                        <option value="">Selecione...</option>
                                         <?php foreach ($categorias as $categoria): ?>
                                         <option value="<?php echo $categoria['categoria_postID']; ?>">
                                             <?php echo htmlspecialchars($categoria['descricao_categoria']); ?>
@@ -193,176 +250,222 @@ $conexao->close();
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="recipeDescription" class="form-label">Descrição</label>
-                                    <textarea class="form-control" id="recipeDescription" rows="3" name="descricao-receita" maxlength="500" placeholder="Descrição breve da receita (até 500 caracteres)"></textarea>
-                                    <small class="text-muted d-block mt-1">
-                                        <span id="descricaoCount">0</span>/500 caracteres
-                                    </small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="recipeIngredients" class="form-label">Ingredientes *</label>
-                                    <textarea class="form-control" id="recipeIngredients" rows="4" name="ingredientes-receita" required placeholder="Liste os ingredientes, separando por linha ou vírgula..."></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="recipeInstructions" class="form-label">Modo de Preparo *</label>
-                                    <textarea class="form-control" id="recipeInstructions" rows="6" name="modo-receita" required placeholder="Descreva o passo a passo do preparo..."></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="recipeImage" class="form-label">Imagem da Receita</label>
-                                    <input type="file" class="form-control" id="recipeImage" name="imagens-receita[]" multiple accept="image/*">
-                                    <div class="form-text mt-2">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB por imagem.</div>
-                                </div>
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Enviar para Aprovação</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                            </div>
 
-                <!-- Modal Editar Post (usuário) -->
-                <div class="modal fade" id="editarPostUserModal" tabindex="-1" aria-labelledby="editarPostUserModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="editarPostUserModalLabel">Editar Postagem</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                      <form action="../controller/UserPostActionController.php" method="POST">
-                        <input type="hidden" name="action" value="editar">
-                        <input type="hidden" name="postID" id="uEditarPostID">
-                        <div class="modal-body">
-                          <div class="mb-3">
-                            <label class="form-label">Título</label>
-                            <input type="text" class="form-control" name="nome_post" id="uEditarTitulo" required maxlength="255">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Descrição</label>
-                            <textarea class="form-control" name="descricao_post" id="uEditarDescricao" rows="3" maxlength="500"></textarea>
-                            <small class="text-muted d-block mt-1">
-                              <span id="uEditarDescricaoCount">0</span>/500 caracteres
-                            </small>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Categoria</label>
-                            <select class="form-select" name="categoria_postID" id="uEditarCategoria" required>
-                              <?php foreach ($categorias as $categoria): ?>
-                              <option value="<?php echo $categoria['categoria_postID']; ?>"><?php echo htmlspecialchars($categoria['descricao_categoria']); ?></option>
-                              <?php endforeach; ?>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Ingredientes</label>
-                            <textarea class="form-control" name="ingredientes" id="uEditarIngredientes" rows="4" required></textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Modo de Preparo</label>
-                            <textarea class="form-control" name="modoPreparo" id="uEditarModo" rows="6" required></textarea>
-                          </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Descrição Curta</label>
+                                <textarea class="form-control" name="descricao-receita" rows="2" maxlength="500" placeholder="Uma breve apresentação do prato..."></textarea>
+                                <small class="text-muted d-block mt-1 text-end"><span id="descricaoCount">0</span>/500</small>
+                            </div>
 
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          <button type="submit" class="btn btn-primary">Salvar alterações</button>
-                        </div>
-                      </form>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Ingredientes *</label>
+                                <textarea class="form-control" name="ingredientes-receita" rows="5" required placeholder="Ex:&#10;- 2 xícaras de farinha&#10;- 3 ovos"></textarea>
+                            </div>
 
-                      <div class="modal-body border-top">
-                        <h6>Imagens</h6>
-                        <div id="uEditarImagensList" class="d-flex flex-wrap gap-2 mb-2"></div>
-                        <form id="uFormAddImgs" action="../controller/PostImageController.php" method="POST" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
-                          <input type="hidden" name="action" value="add">
-                          <input type="hidden" name="postID" id="uEditarImgsPostID">
-                          <input type="hidden" name="redirect" value="../view/painel-usuario.php?tab=postagens">
-                          <input type="file" name="images[]" accept="image/*" multiple class="form-control form-control-sm"/>
-                          <button type="submit" class="btn btn-sm btn-outline-primary">Adicionar imagens</button>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Modo de Preparo *</label>
+                                <textarea class="form-control" name="modo-receita" rows="6" required placeholder="Descreva o passo a passo detalhadamente..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Imagens</label>
+                                <input type="file" class="form-control" name="imagens-receita[]" multiple accept="image/*">
+                                <div class="form-text">Formatos: JPG, PNG. Máx: 5MB.</div>
+                            </div>
+
+                            <div class="d-grid d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-primary px-5">
+                                    <i class="fa fa-paper-plane me-2"></i> Enviar para Aprovação
+                                </button>
+                            </div>
                         </form>
-                      </div>
                     </div>
-                  </div>
                 </div>
             </div>
-        </section>
+        </div>
+
     </div>
+</article>
 
-    <script>
-        const links = document.querySelectorAll('.side-dashboard a[data-tab]');
-        const tabs = document.querySelectorAll('.tab-content');
+<!-- MODAL: Editar Post (Versão do Usuário) -->
+<div class="modal fade" id="editarPostUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Minha Receita</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="../controller/UserPostActionController.php" method="POST">
+        <input type="hidden" name="action" value="editar">
+        <input type="hidden" name="postID" id="uEditarPostID">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" name="nome_post" id="uEditarTitulo" required maxlength="255">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-control" name="descricao_post" id="uEditarDescricao" rows="2" maxlength="500"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" name="categoria_postID" id="uEditarCategoria" required>
+              <?php foreach ($categorias as $categoria): ?>
+              <option value="<?php echo $categoria['categoria_postID']; ?>"><?php echo htmlspecialchars($categoria['descricao_categoria']); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ingredientes</label>
+            <textarea class="form-control" name="ingredientes" id="uEditarIngredientes" rows="4" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Modo de Preparo</label>
+            <textarea class="form-control" name="modoPreparo" id="uEditarModo" rows="6" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        </div>
+      </form>
 
-        links.forEach(link => {
-          link.addEventListener('click', e => {
+      <!-- Área de Gerenciar Imagens no Modal -->
+      <div class="modal-body border-top bg-light">
+        <h6 class="mb-3">Gerenciar Imagens</h6>
+        <div id="uEditarImagensList" class="d-flex flex-wrap gap-2 mb-3"></div>
+        
+        <form id="uFormAddImgs" action="../controller/PostImageController.php" method="POST" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
+          <input type="hidden" name="action" value="add">
+          <input type="hidden" name="postID" id="uEditarImgsPostID">
+          <!-- Redirecionar de volta para a aba postagens do usuário -->
+          <input type="hidden" name="redirect" value="../view/painel-usuario.php?tab=postagens">
+          <input type="file" name="images[]" accept="image/*" multiple class="form-control form-control-sm"/>
+          <button type="submit" class="btn btn-sm btn-outline-primary">Adicionar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts (Bootstrap + Lógica das Abas e Modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Lógica de Navegação das Abas (Estilo Admin)
+    const sideLinks = document.querySelectorAll('.side[data-tab]');
+    const tabs = document.querySelectorAll('.tab-content');
+    const sideDivs = document.querySelectorAll('.side');
+
+    function switchTab(targetId) {
+        // Esconde todas
+        tabs.forEach(tab => tab.style.display = 'none');
+        sideDivs.forEach(div => div.classList.remove('active'));
+        
+        // Mostra a alvo
+        const targetTab = document.getElementById(targetId);
+        if (targetTab) targetTab.style.display = 'block';
+        
+        // Ativa o menu sidebar correspondente
+        const activeLink = document.querySelector(`.side[data-tab="${targetId}"]`);
+        if (activeLink) activeLink.classList.add('active');
+        
+        // Atualiza URL (opcional, mas bom para usabilidade)
+        const url = new URL(window.location);
+        url.searchParams.set('tab', targetId);
+        window.history.pushState({}, '', url);
+    }
+
+    // Click no menu lateral
+    sideLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = link.getAttribute('data-tab');
-
-            tabs.forEach(tab => {
-              tab.style.display = (tab.id === target) ? 'block' : 'none';
-            });
-          });
+            const target = this.getAttribute('data-tab');
+            switchTab(target);
         });
+    });
 
-        // Adicionar funcionalidade para links dentro do conteúdo
-        document.addEventListener('DOMContentLoaded', function() {
-            const contentLinks = document.querySelectorAll('a[data-tab]');
-            contentLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('data-tab');
-                    tabs.forEach(tab => { tab.style.display = (tab.id === target) ? 'block' : 'none'; });
-                });
-            });
+    // Verifica se tem parametro na URL ao carregar (ex: ?tab=postagens)
+    const params = new URLSearchParams(window.location.search);
+    const currentTab = params.get('tab');
+    if (currentTab && document.getElementById(currentTab)) {
+        switchTab(currentTab);
+    }
 
-            // Contador de caracteres para descrição
-            const descricaoInput = document.getElementById('recipeDescription');
-            if (descricaoInput) {
-              descricaoInput.addEventListener('input', function() {
-                document.getElementById('descricaoCount').textContent = this.value.length;
-              });
-            }
+    // Contador de caracteres (Form Nova Receita)
+    const descInput = document.querySelector('textarea[name="descricao-receita"]');
+    const descCount = document.getElementById('descricaoCount');
+    if (descInput && descCount) {
+        descInput.addEventListener('input', function() {
+            descCount.textContent = this.value.length;
+        });
+    }
 
-            // Preencher modal do usuário e carregar imagens
-            const uModal = document.getElementById('editarPostUserModal');
-            uModal?.addEventListener('show.bs.modal', async (event) => {
-                const btn = event.relatedTarget;
-                const pid = btn.getAttribute('data-id');
-                document.getElementById('uEditarPostID').value = pid;
-                document.getElementById('uEditarTitulo').value = btn.getAttribute('data-titulo') || '';
-                document.getElementById('uEditarDescricao').value = btn.getAttribute('data-descricao') || '';
-                document.getElementById('uEditarDescricaoCount').textContent = (btn.getAttribute('data-descricao') || '').length;
-                document.getElementById('uEditarIngredientes').value = btn.getAttribute('data-ingredientes') || '';
-                document.getElementById('uEditarModo').value = btn.getAttribute('data-modo') || '';
-                const cat = btn.getAttribute('data-categoria') || '';
-                const sel = document.getElementById('uEditarCategoria');
-                if (sel) sel.value = cat;
+    // 2. Lógica do Modal de Edição (Cópia adaptada do Admin para User)
+    const uModal = document.getElementById('editarPostUserModal');
+    uModal?.addEventListener('show.bs.modal', async (event) => {
+        const btn = event.relatedTarget;
+        const pid = btn.getAttribute('data-id');
+        
+        // Preenche os campos
+        document.getElementById('uEditarPostID').value = pid;
+        document.getElementById('uEditarTitulo').value = btn.getAttribute('data-titulo') || '';
+        document.getElementById('uEditarDescricao').value = btn.getAttribute('data-descricao') || '';
+        document.getElementById('uEditarIngredientes').value = btn.getAttribute('data-ingredientes') || '';
+        document.getElementById('uEditarModo').value = btn.getAttribute('data-modo') || '';
+        
+        const cat = btn.getAttribute('data-categoria') || '';
+        const sel = document.getElementById('uEditarCategoria');
+        if (sel) sel.value = cat;
 
-                document.getElementById('uEditarImgsPostID').value = pid;
-                const list = document.getElementById('uEditarImagensList');
-                list.innerHTML = '<span class="text-muted">Carregando imagens...</span>';
-                try {
-                    const resp = await fetch(`../controller/PostImageController.php?action=list&postID=${pid}`);
-                    const data = await resp.json();
-                    if (!data.ok) throw new Error();
-                    list.innerHTML = '';
-                    data.items.forEach(img => {
-                        const wrap = document.createElement('div');
-                        wrap.className = 'position-relative';
-                        wrap.style.width = '96px';
-                        wrap.style.height = '96px';
-                        wrap.innerHTML = `
-                          <img src="${img.b64}" class="rounded border" style="object-fit:cover;width:96px;height:96px;"/>
-                          <form action="../controller/PostImageController.php" method="POST" class="position-absolute" style="top:2px; right:2px;">
+        // Preenche ID para adicionar imagens
+        document.getElementById('uEditarImgsPostID').value = pid;
+
+        // Busca imagens via AJAX (mantendo a lógica que seu amigo fez)
+        const list = document.getElementById('uEditarImagensList');
+        list.innerHTML = '<span class="text-muted small">Carregando imagens...</span>';
+        
+        try {
+            const resp = await fetch(`../controller/PostImageController.php?action=list&postID=${pid}`);
+            const data = await resp.json();
+            
+            list.innerHTML = ''; // Limpa loading
+            
+            if (data.ok && Array.isArray(data.items)) {
+                if(data.items.length === 0) {
+                    list.innerHTML = '<span class="text-muted small">Sem imagens cadastradas.</span>';
+                }
+                
+                data.items.forEach(img => {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'position-relative border rounded';
+                    wrap.style.width = '80px';
+                    wrap.style.height = '80px';
+                    wrap.style.overflow = 'hidden';
+                    
+                    wrap.innerHTML = `
+                        <img src="${img.b64}" class="w-100 h-100" style="object-fit:cover;"/>
+                        <form action="../controller/PostImageController.php" method="POST" class="position-absolute top-0 end-0 m-1">
                             <input type="hidden" name="action" value="delete" />
                             <input type="hidden" name="post_imagesID" value="${img.id}" />
                             <input type="hidden" name="redirect" value="../view/painel-usuario.php?tab=postagens" />
-                            <button class="btn btn-sm btn-danger" title="Remover" onclick="return confirm('Remover esta imagem?')">&times;</button>
-                          </form>`;
-                        list.appendChild(wrap);
-                    });
-                } catch(e) {
-                    list.innerHTML = '<span class="text-danger">Falha ao carregar imagens.</span>';
-                }
-            });
-        });
-    </script>
+                            <button class="btn btn-sm btn-danger p-0 d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;font-size:12px;" 
+                                    title="Remover" onclick="return confirm('Remover?')">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </form>`;
+                    list.appendChild(wrap);
+                });
+            } else {
+                 throw new Error();
+            }
+        } catch(e) {
+            list.innerHTML = '<span class="text-danger small">Erro ao carregar imagens.</span>';
+        }
+    });
+});
+</script>
 </body>
 </html>
