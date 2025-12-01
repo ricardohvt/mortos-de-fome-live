@@ -5,20 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mortos de Fome</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  <link rel="stylesheet" href="https:
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https:
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  <script src="https:
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https:
+  <link rel="preconnect" href="https:
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    href="https:
     rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https:
   <link rel="stylesheet" href="style/index-style.css">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
@@ -173,11 +173,11 @@
   </div><!--carrossel-end-->
 
   <?php
-  // === BLOCO PHP ÚNICO E OTIMIZADO ===
+  
   require_once '../service/conexao.php';
   $con = instance2();
 
-  // 1. Carregar Categorias
+  
   $cats = [];
   $r = $con->query("SELECT categoria_postID, descricao_categoria FROM categoria_post ORDER BY descricao_categoria");
   if ($r && $r->num_rows > 0) {
@@ -186,17 +186,17 @@
     }
   }
 
-  // 2. Configuração da Paginação Unificada
-  $postsPerPage = 3; // Quantidade de receitas por página
+  
+  $postsPerPage = 3; 
   $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
   $offset = ($page - 1) * $postsPerPage;
 
-  // 3. Lógica para "Pratos Principais"
+  
   $pratosPrincipais = [];
   $totalPratos = 0;
   $ppId = null;
 
-  // Achar ID da categoria Pratos Principais
+  
   foreach ($cats as $c) {
     if (mb_strtolower(trim($c['descricao_categoria']), 'UTF-8') === 'pratos principais') {
       $ppId = intval($c['categoria_postID']);
@@ -205,15 +205,15 @@
   }
 
   if ($ppId !== null) {
-    // Contar total
+    
     $countRes = $con->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1 AND categoria_postID={$ppId}");
     $countRow = $countRes->fetch_assoc();
     $totalPratos = intval($countRow['total']);
 
-    // Buscar posts da página atual
+    
     $res = $con->query("SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado=1 AND categoria_postID={$ppId} ORDER BY criado_em DESC LIMIT {$postsPerPage} OFFSET {$offset}");
     while ($res && ($p = $res->fetch_assoc())) {
-      // Buscar imagem
+      
       $stmt = $con->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
       $pid = intval($p['postID']);
       $stmt->bind_param('i', $pid);
@@ -228,7 +228,7 @@
       $stmt->close();
       $p['img'] = $img;
 
-      // Buscar likes
+      
       $stmtLikes = $con->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
       $stmtLikes->bind_param('i', $pid);
       $stmtLikes->execute();
@@ -241,17 +241,17 @@
     }
   }
 
-  // 4. Lógica para "Aleatórios"
+  
   $randomPosts = [];
   $totalAleatorios = 0;
 
-  // Contar total
+  
   $countRes = $con->query("SELECT COUNT(*) as total FROM post WHERE autorizado=1");
   $countRow = $countRes->fetch_assoc();
   $totalAleatorios = intval($countRow['total']);
 
-  // Buscar posts aleatórios (com paginação)
-  // Nota: RAND() com paginação pode repetir itens as vezes, é normal em paginação simples.
+  
+  
   $r = $con->query("SELECT postID, nome_post, descricao_post, criado_em, categoria_postID FROM post WHERE autorizado=1 ORDER BY RAND() LIMIT {$postsPerPage} OFFSET {$offset}");
   if ($r && $r->num_rows > 0) {
     while ($p = $r->fetch_assoc()) {
@@ -281,7 +281,7 @@
     }
   }
 
-  // 5. Calcular Total de Páginas (baseado na categoria que tiver mais itens)
+  
   $totalPagesPratos = ceil($totalPratos / $postsPerPage);
   $totalPagesAleatorios = ceil($totalAleatorios / $postsPerPage);
   $totalPages = max($totalPagesPratos, $totalPagesAleatorios);
@@ -436,7 +436,7 @@
   </footer>
 
   <script src="javascript/script.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https:
   <script>
     AOS.init();
   </script>

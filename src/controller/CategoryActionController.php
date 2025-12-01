@@ -25,7 +25,7 @@ if ($method === 'POST') {
         $_SESSION['error'] = 'Informe o nome da categoria.';
         redirectBack();
       }
-      // Evitar duplicadas simples
+      
       $stmt = $con->prepare('SELECT 1 FROM categoria_post WHERE descricao_categoria = ? LIMIT 1');
       $stmt->bind_param('s', $descricao);
       $stmt->execute();

@@ -5,17 +5,17 @@ require_once '../model/FuncaoModel.php';
 
 $conexao = instance2();
 
-// Inicializar variáveis
+
 $emailSelecionado = null;
 $idSelecionado = null;
 $emails = buscarEmails($conexao);
 
-// Verificar se um email foi selecionado
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $emailSelecionado = buscarEmailPorId($conexao, $id);
 
-    // Marcar como lido se encontrado
+    
     if ($emailSelecionado) {
         $idSelecionado = isset($emailSelecionado['id']) ? $emailSelecionado['id'] : null;
         marcarComoLido($conexao, $id);
@@ -31,9 +31,9 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interface de Email</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https:
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https:
     <style>
         html,
         body {
@@ -236,7 +236,7 @@ Equipe de Atendimento")); ?></p>
         }
     </script>
     <!-- Bootstrap 5 JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https:
     <script>
         console.log("Saudades de vc Jean ♥")
     </script>

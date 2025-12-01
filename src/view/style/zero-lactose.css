@@ -76,7 +76,7 @@ hr {
     -1px 1px 0 #000;
 }
 
-/* Form de cadastro e login */
+
 .opt-f {
   height: 35px;
 }
@@ -106,7 +106,7 @@ hr {
   right: 10px;
   top: 10px;
 }
-/* Cards */
+
 .categorias-main {
   display: flex;
   justify-content: center;
@@ -196,7 +196,7 @@ hr {
 }
 
 
-/* Media Queries */
+
 @media (max-width: 768px) {
   .navbar-brand img {
     width: 100px;

@@ -7,10 +7,10 @@ function cadastrarPost($nome, $ingredientes, $categoria, $modo, $image, $tempoPr
     $conexao = instance2();
     
     try {
-        // Iniciar transação
+        
         $conexao->begin_transaction();
         
-        // Inserir post - CORRIGIDO: usando os nomes corretos das colunas
+        
         $sql = "INSERT INTO post (userID, nome_post, subtitulo_post, ingredients, modoPreparo, categoria_postID, criado_em, autorizado) 
                 VALUES (?, ?, '', ?, ?, ?, ?, 0)";
         $stmt = $conexao->prepare($sql);
@@ -22,7 +22,7 @@ function cadastrarPost($nome, $ingredientes, $categoria, $modo, $image, $tempoPr
         
         $idPost = $conexao->insert_id;
         
-        // Processar imagens se existirem
+        
         if (!empty($image) && isset($image['tmp_name']) && is_array($image['tmp_name'])) {
             foreach ($image['tmp_name'] as $key => $tmp_name) {
                 if ($image['error'][$key] === 0 && is_uploaded_file($tmp_name)) {
@@ -43,13 +43,13 @@ function cadastrarPost($nome, $ingredientes, $categoria, $modo, $image, $tempoPr
             }
         }
         
-        // Commit da transação
+        
         $conexao->commit();
         $stmt->close();
         return $idPost;
         
     } catch (Exception $e) {
-        // Rollback em caso de erro
+        
         $conexao->rollback();
         error_log("Erro ao cadastrar post: " . $e->getMessage());
         return false;

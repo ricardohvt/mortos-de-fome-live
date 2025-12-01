@@ -43,7 +43,7 @@ switch ($action) {
 
   case 'excluir':
     if ($postID <= 0 || !ownPost($con, $postID, $uid)) { $_SESSION['error'] = 'Sem permissão.'; break; }
-    // cascade apaga imagens; apenas apaga o post do próprio usuário
+    
     $stmt = $con->prepare('DELETE FROM post WHERE postID=? AND userID=?');
     $stmt->bind_param('ii', $postID, $uid);
     $ok = $stmt->execute();

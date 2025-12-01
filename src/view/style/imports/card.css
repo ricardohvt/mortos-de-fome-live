@@ -31,7 +31,7 @@
 
 .cartao {
   background-color: #eeeeeeb0;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
+  
   backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(0, 0, 0, 0.42) 80%;
   border-radius: 12px;

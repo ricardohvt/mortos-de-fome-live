@@ -78,7 +78,7 @@ hr {
         -1px 1px 0 #000;
 }
 
-/* Form de cadastro e login */
+
 .opt-f {
     height: 35px;
 }
@@ -108,7 +108,7 @@ hr {
     right: 10px;
     top: 10px;
 }
-/* Cards */
+
 .categorias-main {
     display: flex;
     justify-content: center;
@@ -123,7 +123,7 @@ hr {
   right: 31rem;
 }
 
-/* grid custom (mantido caso use .cards no futuro) */
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -133,14 +133,14 @@ hr {
   margin: 0 auto;
 }
 
-/* link reset */
+
 .cartao a,
 .card a {
   text-decoration: none;
   color: black;
 }
 
-/* card visual (aplica tanto em .cartao quanto em .card do Bootstrap) */
+
 .cartao,
 .card {
   background-color: #eeeeeeb0;
@@ -152,7 +152,7 @@ hr {
   transition: 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* imagem do card */
+
 .cartao-img,
 .card-img-top {
   width: 100%;
@@ -160,13 +160,13 @@ hr {
   object-fit: cover;
 }
 
-/* conteúdo do card */
+
 .cartao-content,
 .card-body {
   padding: 1rem;
 }
 
-/* título e texto */
+
 .cartao-title,
 .card-title {
   font-size: 1.25rem;
@@ -179,7 +179,7 @@ hr {
   margin-bottom: 1rem;
 }
 
-/* footer do card (se usado) */
+
 .cartao-footer {
   padding: 1rem;
   border-top: 1px solid #eee;
@@ -199,7 +199,7 @@ hr {
   text-decoration-color: #353535;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
     .navbar-brand img {
         width: 100px;

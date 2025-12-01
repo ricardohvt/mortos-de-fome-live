@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Buscar receitas - Mortos de Fome</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https:
   <link rel="stylesheet" href="style/index-style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
   <a href="index.php" class="btn btn-sm btn-secondary mb-3">← Voltar</a>
 
   <?php
-  // ...existing code...
+  
   require_once '../service/conexao.php';
   $q = isset($_GET['q']) ? trim($_GET['q']) : '';
 
@@ -23,14 +23,14 @@
 
   $con = instance2();
 
-  // Busca em nome_post e descricao_post apenas posts autorizados
+  
   $sql = "SELECT postID, nome_post, descricao_post, criado_em FROM post WHERE autorizado = 1 AND (nome_post LIKE ? OR descricao_post LIKE ?) ORDER BY criado_em DESC LIMIT 50";
   $stmt = $con->prepare($sql);
   $like = '%' . $q . '%';
   $stmt->bind_param('ss', $like, $like);
   $stmt->execute();
 
-  // get_result() funciona quando mysqli com mysqlnd está habilitado
+  
   $res = $stmt->get_result();
   $rows = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
 
@@ -47,7 +47,7 @@
 
   foreach ($rows as $p) {
     $pid = intval($p['postID']);
-    // pegar 1ª imagem
+    
     $img = null;
     $stmtImg = $con->prepare('SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1');
     $stmtImg->bind_param('i', $pid);
@@ -60,7 +60,7 @@
     }
     $stmtImg->close();
 
-    // contar likes
+    
     $likes = 0;
     $stmtLikes = $con->prepare('SELECT COUNT(*) as total_likes FROM user_likes WHERE postID=?');
     $stmtLikes->bind_param('i', $pid);
@@ -70,7 +70,7 @@
     $stmtLikes->close();
     $likes = intval($likesCount ?? 0);
 
-    // render card
+    
     echo '<div class="col">';
     echo '<a href="post.php?id=' . $pid . '" class="text-decoration-none text-reset">';
     echo '<div class="card h-100 shadow-sm">';
@@ -91,13 +91,13 @@
     echo '</div></div></div></a></div>';
   }
 
-  echo '</div>'; // row
+  echo '</div>'; 
 
   $stmt->close();
   $con->close();
   ?>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></script>
+<script src="https:
 </body>
 </html>

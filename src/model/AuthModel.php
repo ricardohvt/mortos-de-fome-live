@@ -16,7 +16,7 @@ class Usuario {
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (password_verify($password, $user['password_main'])) {
                     session_start(); 
-                    $_SESSION['user'] = $user; // guarda o usuario logado
+                    $_SESSION['user'] = $user; 
                     return true;
                 } else {
                     return false;

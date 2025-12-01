@@ -50,7 +50,7 @@ if ($method === 'POST' && $action === 'delete') {
   $imgID = intval($_POST['post_imagesID'] ?? 0);
   if ($imgID <= 0) { http_response_code(400); echo 'Bad Request'; exit; }
 
-  // obter PostID da imagem e validar permissão
+  
   $stmt = $con->prepare('SELECT PostID FROM post_images WHERE post_imagesID=?');
   $stmt->bind_param('i', $imgID);
   $stmt->execute();

@@ -17,7 +17,7 @@ if ($postID <= 0) {
 
 $con = instance2();
 
-// garantir que o post existe e está autorizado
+
 $okPost = false;
 $stmt = $con->prepare('SELECT 1 FROM post WHERE postID=? AND autorizado=1');
 $stmt->bind_param('i', $postID);
@@ -41,7 +41,7 @@ function redirectBack($postID) {
 try {
   switch ($action) {
     case 'like':
-      // toggle like
+      
       $stmt = $con->prepare('SELECT 1 FROM user_likes WHERE userID=? AND postID=?');
       $stmt->bind_param('ii', $userID, $postID);
       $stmt->execute();
@@ -66,7 +66,7 @@ try {
       break;
 
     case 'favorite':
-      // toggle favorite
+      
       $stmt = $con->prepare('SELECT 1 FROM user_favoritos WHERE userID=? AND postID=?');
       $stmt->bind_param('ii', $userID, $postID);
       $stmt->execute();

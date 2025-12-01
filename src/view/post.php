@@ -14,7 +14,7 @@ $likedByMe = false;
 $favoritedByMe = false;
 
 if ($postID > 0) {
-    // Buscar post autorizado + autor + categoria
+    
     $stmt = $con->prepare(
         "SELECT p.*, u.username, c.descricao_categoria FROM post p LEFT JOIN user u ON u.userID=p.userID LEFT JOIN categoria_post c ON c.categoria_postID=p.categoria_postID WHERE p.postID=? AND p.autorizado=1",
     );
@@ -27,7 +27,7 @@ if ($postID > 0) {
     $stmt->close();
 
     if ($post) {
-        // Imagem principal (primeira)
+        
         $stmt = $con->prepare(
             "SELECT image FROM post_images WHERE PostID=? ORDER BY post_imagesID ASC LIMIT 1",
         );
@@ -43,7 +43,7 @@ if ($postID > 0) {
         }
         $stmt->close();
 
-        // Contagens
+        
         $q = $con->query(
             "SELECT COUNT(*) c FROM user_likes WHERE postID=" . $postID,
         );
@@ -57,7 +57,7 @@ if ($postID > 0) {
             $favs = intval($q->fetch_assoc()["c"]);
         }
 
-        // Comentários
+        
         $stmt = $con->prepare(
             "SELECT cp.*, u.username FROM comentarios_post cp JOIN user u ON u.userID=cp.userID WHERE cp.postID=? ORDER BY cp.comentarios_postID ASC",
         );
@@ -100,25 +100,25 @@ $con->close();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mortos de Fome</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  <link rel="stylesheet" href="https:
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https:
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  <script src="https:
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https:
+  <link rel="preconnect" href="https:
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    href="https:
     rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https:
+  <link rel="preconnect" href="https:
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&family=Itim&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    href="https:
     rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https:
   <link rel="stylesheet" href="style/index-style.css">
   <link rel="icon" href="assets/marsal.png" type="image/png">
 </head>
@@ -400,7 +400,7 @@ $con->close();
   </footer>
 
   <script src="javascript/script.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https:
   <script>
     AOS.init();
   </script>

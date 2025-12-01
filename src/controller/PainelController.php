@@ -3,14 +3,14 @@ session_start();
 include_once '../service/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // verificar se usuário está logado
+    
     if (!isset($_SESSION['user']['userID'])) {
         $_SESSION['error'] = "Usuário não autenticado.";
         header("Location: ../view/login.php");
         exit();
     }
     
-    // coletar dados
+    
     $userID = $_SESSION['user']['userID'];
     $nome_post = trim($_POST['nome-receita'] ?? '');
     $descricao_post = trim($_POST['descricao-receita'] ?? '');
@@ -20,21 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $conexao = instance2();
     
-    // validar dados
+    
     if (empty($nome_post) || empty($descricao_post) || empty($ingredients) || empty($modoPreparo) || $categoria_postID <= 0) {
         $_SESSION['error'] = "Preencha todos os campos obrigatórios.";
         header("Location: ../view/painel.php");
         exit();
     }
 
-    // validar limite de caracteres
+    
     if (strlen($descricao_post) > 500) {
         $_SESSION['error'] = "Descrição não pode exceder 500 caracteres.";
         header("Location: ../view/painel.php");
         exit();
     }
     
-    // inserir post
+    
     $sql = "INSERT INTO post (userID, nome_post, descricao_post, ingredients, modoPreparo, categoria_postID, autorizado) 
             VALUES (?, ?, ?, ?, ?, ?, 0)";
     
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $postID = $conexao->insert_id;
         $_SESSION['success'] = "Post criado com sucesso!";
         
-        // processar imagens se existirem
+        
         if (!empty($_FILES['imagens-receita']['name'][0])) {
             foreach ($_FILES['imagens-receita']['tmp_name'] as $key => $tmp_name) {
                 if ($_FILES['imagens-receita']['error'][$key] === UPLOAD_ERR_OK) {

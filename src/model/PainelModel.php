@@ -19,9 +19,9 @@ function buscarPost($conexao) {
     return $posts;
 }
 
-// $conexao = instance2();
-// $posts = buscarPost($conexao);
-// echo "<pre>";
-// var_dump($posts);
-// echo "</pre>";
+
+
+
+
+
 ?>

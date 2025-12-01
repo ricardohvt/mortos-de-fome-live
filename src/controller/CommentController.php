@@ -17,7 +17,7 @@ if ($postID <= 0 || $comentario === '') {
 
 $con = instance2();
 
-// só permite comentar em posts autorizados
+
 $stmt = $con->prepare('SELECT 1 FROM post WHERE postID=? AND autorizado=1');
 $stmt->bind_param('i', $postID);
 $stmt->execute();

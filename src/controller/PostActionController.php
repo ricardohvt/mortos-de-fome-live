@@ -35,7 +35,7 @@ switch ($action) {
         $modo = trim($_POST['modoPreparo'] ?? '');
         $categoria = intval($_POST['categoria_postID'] ?? 0);
         
-        // validar limite de caracteres
+        
         if (strlen($descricao) > 500) {
             $_SESSION['error'] = "Descrição não pode exceder 500 caracteres.";
             header("Location: ../view/painel.php");

@@ -245,7 +245,7 @@ li .login {
   margin: 10px;
 }
 
-/* ===== Ajustes específicos para o modal de edição (editarPostUserModal) ===== */
+
 @media (min-width: 768px) {
   #editarPostUserModal .modal-dialog {
     max-width: 900px;
@@ -254,7 +254,7 @@ li .login {
 
 #editarPostUserModal .modal-content {
   display: block;
-  /* força layout de modal padrão (coluna) */
+  
   padding: 0;
   border-radius: 12px;
   background: #ffffff;

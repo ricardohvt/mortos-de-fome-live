@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verifica se está logado
+
 if (!isset($_SESSION['user'])) {
     $_SESSION['login_error'] = "Faça o login para acessar o Painel de usuário!";
     header("Location: ./login-index.php");
@@ -11,9 +11,9 @@ if (!isset($_SESSION['user'])) {
 include_once '../service/conexao.php';
 $conexao = instance2();
 
-// ================= LÓGICA DO USUÁRIO =================
 
-// Buscar posts APENAS do usuário atual
+
+
 $userPosts = [];
 if (isset($_SESSION['user']['userID'])) {
     $userID = $_SESSION['user']['userID'];
@@ -35,7 +35,7 @@ if (isset($_SESSION['user']['userID'])) {
     $stmt->close();
 }
 
-// Buscar categorias (para o formulário de criar/editar)
+
 $categorias = [];
 $sql_categorias = "SELECT * FROM categoria_post";
 $result_categorias = $conexao->query($sql_categorias);
@@ -56,9 +56,9 @@ $conexao->close();
     <title>Mortos de Fome - Painel do Usuário</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https:
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https:
     
     <!-- IMPORTANTE: Usando o CSS do Admin para manter o mesmo visual -->
     <link rel="stylesheet" href="style/painel-style.css">
@@ -350,34 +350,34 @@ $conexao->close();
 </div>
 
 <!-- Scripts (Bootstrap + Lógica das Abas e Modal) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https:
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Lógica de Navegação das Abas (Estilo Admin)
+    
     const sideLinks = document.querySelectorAll('.side[data-tab]');
     const tabs = document.querySelectorAll('.tab-content');
     const sideDivs = document.querySelectorAll('.side');
 
     function switchTab(targetId) {
-        // Esconde todas
+        
         tabs.forEach(tab => tab.style.display = 'none');
         sideDivs.forEach(div => div.classList.remove('active'));
         
-        // Mostra a alvo
+        
         const targetTab = document.getElementById(targetId);
         if (targetTab) targetTab.style.display = 'block';
         
-        // Ativa o menu sidebar correspondente
+        
         const activeLink = document.querySelector(`.side[data-tab="${targetId}"]`);
         if (activeLink) activeLink.classList.add('active');
         
-        // Atualiza URL (opcional, mas bom para usabilidade)
+        
         const url = new URL(window.location);
         url.searchParams.set('tab', targetId);
         window.history.pushState({}, '', url);
     }
 
-    // Click no menu lateral
+    
     sideLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -386,14 +386,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Verifica se tem parametro na URL ao carregar (ex: ?tab=postagens)
+    
     const params = new URLSearchParams(window.location.search);
     const currentTab = params.get('tab');
     if (currentTab && document.getElementById(currentTab)) {
         switchTab(currentTab);
     }
 
-    // Contador de caracteres (Form Nova Receita)
+    
     const descInput = document.querySelector('textarea[name="descricao-receita"]');
     const descCount = document.getElementById('descricaoCount');
     if (descInput && descCount) {
@@ -402,13 +402,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. Lógica do Modal de Edição (Cópia adaptada do Admin para User)
+    
     const uModal = document.getElementById('editarPostUserModal');
     uModal?.addEventListener('show.bs.modal', async (event) => {
         const btn = event.relatedTarget;
         const pid = btn.getAttribute('data-id');
         
-        // Preenche os campos
+        
         document.getElementById('uEditarPostID').value = pid;
         document.getElementById('uEditarTitulo').value = btn.getAttribute('data-titulo') || '';
         document.getElementById('uEditarDescricao').value = btn.getAttribute('data-descricao') || '';
@@ -419,10 +419,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const sel = document.getElementById('uEditarCategoria');
         if (sel) sel.value = cat;
 
-        // Preenche ID para adicionar imagens
+        
         document.getElementById('uEditarImgsPostID').value = pid;
 
-        // Busca imagens via AJAX (mantendo a lógica que seu amigo fez)
+        
         const list = document.getElementById('uEditarImagensList');
         list.innerHTML = '<span class="text-muted small">Carregando imagens...</span>';
         
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const resp = await fetch(`../controller/PostImageController.php?action=list&postID=${pid}`);
             const data = await resp.json();
             
-            list.innerHTML = ''; // Limpa loading
+            list.innerHTML = ''; 
             
             if (data.ok && Array.isArray(data.items)) {
                 if(data.items.length === 0) {

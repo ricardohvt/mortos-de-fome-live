@@ -9,7 +9,7 @@ if (!isset($_SESSION["user"]["isAdmin"]) || $_SESSION["user"]["isAdmin"] != 1) {
 include_once "../service/conexao.php";
 $conexao = instance2();
 
-// Buscar categorias
+
 $categorias = [];
 $sql_categorias = "SELECT * FROM categoria_post";
 $result_categorias = $conexao->query($sql_categorias);
@@ -19,7 +19,7 @@ if ($result_categorias && $result_categorias->num_rows > 0) {
     }
 }
 
-// Buscar posts
+
 $posts = [];
 $sql_posts = "SELECT p.*, u.username, c.descricao_categoria
               FROM post p
@@ -33,14 +33,14 @@ if ($result_posts && $result_posts->num_rows > 0) {
     }
 }
 
-// Contagem total de usuários (para o dashboard)
+
 $usersCountTotal = 0;
 $res_ct = $conexao->query("SELECT COUNT(*) AS c FROM `user`");
 if ($res_ct && $res_ct->num_rows > 0) {
     $usersCountTotal = (int) $res_ct->fetch_assoc()["c"];
 }
 
-// Filtros da tela de usuários
+
 $u_q = trim($_GET["u_q"] ?? "");
 $u_admin = $_GET["u_admin"] ?? "";
 $whereParts = [];
@@ -53,7 +53,7 @@ if ($u_admin === "0" || $u_admin === "1") {
 }
 $whereSql = count($whereParts) ? " WHERE " . implode(" AND ", $whereParts) : "";
 
-// Buscar usuários (aplicando filtros)
+
 $users = [];
 $sql_users =
     "SELECT userID, username, email, COALESCE(isAdmin, 0) AS isAdmin FROM `user`" .
@@ -68,7 +68,7 @@ if ($result_users && $result_users->num_rows > 0) {
 
 $conexao->close();
 
-// Contar categorias no PHP
+
 $categoriaCount = [];
 foreach ($posts as $post) {
     $cat = $post["descricao_categoria"] ?? "Sem categoria";
@@ -84,11 +84,11 @@ foreach ($posts as $post) {
     <title>Mortos de Fome - Painel</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https:
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https:
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https:
     <!-- Seu CSS -->
     <link rel="stylesheet" href="style/painel-style.css">
     <link rel="icon" href="assets/marsal.png" type="image/png">
@@ -787,10 +787,10 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
 </div>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https:
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Navegação por abas (sem recarregar)
+    
     document.querySelectorAll('.side[data-tab] a').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -803,7 +803,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       });
     });
 
-    // Modal: Editar Usuário
+    
     const editUserModal = document.getElementById('modalEditUser');
     editUserModal?.addEventListener('show.bs.modal', (event) => {
       const btn = event.relatedTarget;
@@ -814,7 +814,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       document.getElementById('editIsAdmin').checked = parseInt(btn.getAttribute('data-isadmin') || '0', 10) === 1;
     });
 
-    // Modal: Renomear Categoria
+    
     const modalRenameCategory = document.getElementById('modalRenameCategory');
     modalRenameCategory?.addEventListener('show.bs.modal', (event) => {
       const btn = event.relatedTarget;
@@ -822,7 +822,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       document.getElementById('renameCategoriaNome').value = btn.getAttribute('data-name') || '';
     });
 
-    // Contador de caracteres para descrição ao criar
+    
     const descricaoCreateInput = document.querySelector('#CriarPostagemModal textarea[name="descricao-receita"]');
     if (descricaoCreateInput) {
       descricaoCreateInput.addEventListener('input', function() {
@@ -830,7 +830,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       });
     }
 
-    // Contador de caracteres para descrição ao editar
+    
     const descricaoEditInput = document.getElementById('editarDescricao');
     if (descricaoEditInput) {
       descricaoEditInput.addEventListener('input', function() {
@@ -838,7 +838,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       });
     }
 
-    // Modal: Editar Post (preencher + imagens)
+    
     const editarPostModal = document.getElementById('editarPostModal');
     editarPostModal?.addEventListener('show.bs.modal', async function (event) {
       const button = event.relatedTarget;
@@ -853,7 +853,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       const sel = document.getElementById('editarCategoria');
       if (sel) sel.value = cat;
 
-      // Carregar imagens
+      
       document.getElementById('editarImgsPostID').value = pid;
       const list = document.getElementById('editarImagensList');
       list.innerHTML = '<span class="text-muted">Carregando imagens...</span>';
@@ -880,7 +880,7 @@ data-ingredientes="<?php echo htmlspecialchars($post['ingredients'] ?? '', ENT_Q
       }
     });
 
-    // Chart categorias
+    
     const ctx = document.getElementById('categoryChart')?.getContext('2d');
     if (ctx) {
       const labels = <?php echo json_encode(array_keys($categoriaCount)); ?>;

@@ -2,7 +2,7 @@
 session_start();
 require_once '../service/conexao.php';
 
-// só admin pode acessar
+
 if (!isset($_SESSION['user']['isAdmin']) || intval($_SESSION['user']['isAdmin']) !== 1) {
     header('Location: ../view/login-index.php');
     exit;
@@ -35,7 +35,7 @@ try {
                 respond(false, '', 'Preencha username, email e senha.');
             }
 
-            // verificar se email já existe
+            
             $stmt = $con->prepare('SELECT 1 FROM `user` WHERE email = ? LIMIT 1');
             $stmt->bind_param('s', $email);
             $stmt->execute();
@@ -46,7 +46,7 @@ try {
             }
             $stmt->close();
 
-            // criar pessoa (se houver nome)
+            
             $pessoaID = null;
             if ($full_name !== '') {
                 $stmt = $con->prepare('INSERT INTO pessoa (full_name) VALUES (?)');
@@ -77,13 +77,13 @@ try {
             $username = trim($_POST['username'] ?? '');
             $email    = trim($_POST['email'] ?? '');
             $isAdmin  = isset($_POST['isAdmin']) ? 1 : 0;
-            $password = trim($_POST['password'] ?? ''); // opcional
+            $password = trim($_POST['password'] ?? ''); 
 
             if ($userID <= 0 || $username === '' || $email === '') {
                 respond(false, '', 'Dados inválidos.');
             }
 
-            // Verificar e-mail duplicado (outro usuário)
+            
             $stmt = $con->prepare('SELECT 1 FROM `user` WHERE email = ? AND userID <> ? LIMIT 1');
             $stmt->bind_param('si', $email, $userID);
             $stmt->execute();

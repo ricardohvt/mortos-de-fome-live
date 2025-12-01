@@ -1,4 +1,4 @@
-  // conversor
+  
 
 function mostrarconversor() {
     document.getElementById('conversor').style.display = 'block';
